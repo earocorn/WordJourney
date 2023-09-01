@@ -4,17 +4,22 @@
  */
 package wordjourney;
 
+import javax.swing.JFrame;
+import wordjourney.graphics.GameFrame;
+import wordjourney.graphics.GamePanel;
+
 /**
  *
  * @author alexalmanza
  */
 public class Main {
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new GameFrame();
     }
     
 }
