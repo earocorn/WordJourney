@@ -24,21 +24,40 @@ import javax.swing.Timer;
  */
 public class GamePanel extends JPanel implements ActionListener {
 
-    private void movePlayer() {
-        x = x + 50;
-        repaint();
-    }
+    
     
     final int WIDTH = 508;
     final int HEIGHT = 254;
     Image player;
     ImageIcon backgroundImage;
     Timer timer;
+    Timer moveTimer;
     JButton moveButton;
     JLabel background;
     int xVelocity = 1;
     static int x = 0;
     int y = 0;
+    int xMoveLimit = x+50;
+    
+    private void movePlayer() {
+        xMoveLimit = x+50;
+        moveTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(x != xMoveLimit) {
+                    if(x > WIDTH-player.getWidth(null)) {
+                        x--;
+                    }
+                    else {
+                        x++;
+                    }
+                } else {
+                    moveTimer.stop();
+                }
+            }
+        });
+        moveTimer.restart();
+    }
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
