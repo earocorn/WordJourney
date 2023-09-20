@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int y = 0;
     int xMoveLimit = x+50;
     
-    private void movePlayer() {
+    public void movePlayer() {
         xMoveLimit = x+50;
         moveTimer = new Timer(10, new ActionListener() {
             @Override

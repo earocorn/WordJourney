@@ -4,6 +4,8 @@
  */
 package wordjourney;
 
+import external.WordleGame;
+import external.WordleMain;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,12 +28,14 @@ import wordjourney.graphics.GamePanel;
  */
 public class Main {
     
+    public static GameFrame wordJourneyFrame;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new GameFrame();
+        wordJourneyFrame = new GameFrame();
+        
         JSONParser parser = new JSONParser();
         
         Map<Long, String> leaderboardMap = new HashMap<>();
@@ -52,6 +56,10 @@ public class Main {
         } catch (Exception e) {
            e.printStackTrace();
         }
+        
+        new WordleGame();
+        WordleMain.initializeWordle();
+        
     }
     
 }

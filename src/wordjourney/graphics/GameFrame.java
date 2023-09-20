@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  */
 public class GameFrame extends JFrame {
     
-    GamePanel panel;
+    public static GamePanel panel;
     
     public GameFrame() {
         panel = new GamePanel();
@@ -22,7 +22,6 @@ public class GameFrame extends JFrame {
         this.add(panel);
         this.pack();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
-    
+
 }
