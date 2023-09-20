@@ -26,8 +26,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     
     
-    final int WIDTH = 508;
-    final int HEIGHT = 254;
+    final int WIDTH = 50;
+    final int HEIGHT = 50;
     Image player;
     ImageIcon backgroundImage;
     Timer timer;

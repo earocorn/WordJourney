@@ -1,6 +1,8 @@
 package external;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +38,8 @@ public class WordleGame implements ActionListener {
 			Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 			for (int i = 0; i < 5; i++) {
 				wordColumns[i] = new JLabel();
+                                wordColumns[i].setSize(new Dimension(50, 50));
+                                wordColumns[i].setPreferredSize(new Dimension(50, 50));
 				wordColumns[i].setHorizontalAlignment(JLabel.CENTER);
 				wordColumns[i].setOpaque(true);
 				wordColumns[i].setBorder(blackBorder);
@@ -88,22 +92,27 @@ public class WordleGame implements ActionListener {
 
 	public WordleGame() {
 		gameFrame = new JFrame("Wordle Game");
-		gameFrame.setSize(600, 300);
-		gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		gameFrame.setLayout(new GridLayout(7, 2));
+		gameFrame.setSize(300, 300);
+		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gameFrame.setLayout(new GridLayout(1, 2));
 		gameFrame.setVisible(true);
                 gameFrame.setResizable(false);
 		gameFrame.setLocationRelativeTo(null);
                 gameFrame.setAlwaysOnTop(true);
 
+                gameFrame.add(GameFrame.panel, "Graphics");
+                JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+                
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
-			gameFrame.add(wordPanelArray[i]);
+			wordleContainer.add(wordPanelArray[i]);
 		}
+                gameFrame.add(wordleContainer, "WordPanelGrid");
 		userPanel = new UserPanel();
 		userPanel.getOkButton().addActionListener(this);
-		gameFrame.add(userPanel);
-                gameFrame.add(GameFrame.panel);
+                
+		gameFrame.add(userPanel, "UserPanel");
+                
                 gameFrame.pack();
 		gameFrame.revalidate();
 
