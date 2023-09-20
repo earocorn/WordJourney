@@ -88,9 +88,9 @@ public class WordleGame implements ActionListener {
 
 	public WordleGame() {
 		gameFrame = new JFrame("Wordle Game");
-		gameFrame.setSize(600, 300);
+		gameFrame.setSize(750, 500);
 		gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		gameFrame.setLayout(new GridLayout(7, 2));
+		gameFrame.setLayout(new GridLayout(10, 2));
 		gameFrame.setVisible(true);
                 gameFrame.setResizable(false);
 		gameFrame.setLocationRelativeTo(null);

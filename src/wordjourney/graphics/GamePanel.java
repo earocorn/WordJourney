@@ -26,8 +26,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     
     
-    final int WIDTH = 508;
-    final int HEIGHT = 254;
+    final int WIDTH = 700;
+    final int HEIGHT = 200;
     Image player;
     ImageIcon backgroundImage;
     Timer timer;
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
         });
         
         background = new JLabel();
-        background.setLayout(new GridBagLayout());
+        background.setLayout(null);
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
         backgroundImage = new ImageIcon("src/assets/forestBackground.png");
