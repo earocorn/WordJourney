@@ -1,8 +1,9 @@
-package external;
+package wordjourney.graphics;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,11 +24,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import wordjourney.GameManager;
+import wordjourney.util.GameManager;
 import wordjourney.Main;
-import wordjourney.graphics.GameFrame;
+import wordjourney.graphics.GamePanel;
+import wordjourney.util.GameUtility;
 
-public class WordleGame implements ActionListener {
+public class WordleComponent implements ActionListener {
 
 	class WordPanel extends JPanel {
 
@@ -56,7 +58,7 @@ public class WordleGame implements ActionListener {
 		public void setPanelText(String charValue, int position, Color color) {
 			this.wordColumns[position].setText(charValue);
 			this.wordColumns[position].setBackground(color);
-                        GameManager.move(GameFrame.panel);
+                        GameManager.move(panel);
 		}
                 
 	}
@@ -67,7 +69,7 @@ public class WordleGame implements ActionListener {
 		private JButton okButton;
 
 		public UserPanel() {
-			this.setLayout(new GridLayout(1, 2));
+			this.setLayout(new GridLayout(1, 1));
 			userInput = new JTextField();
 			this.add(userInput);
 			okButton = new JButton("OK");
@@ -84,24 +86,40 @@ public class WordleGame implements ActionListener {
 
 	}
 
+        private GamePanel panel;
+        
 	private JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;
 	private String wordleString;
 	private int count = 0;
+        
+        private JPanel wordleContainer;
 
-	public WordleGame() {
-		gameFrame = new JFrame("Wordle Game");
-		gameFrame.setSize(300, 300);
+	public WordleComponent() {
+                // ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
+                panel = new GamePanel();
+                
+		gameFrame = new JFrame("Word Journey");
+		gameFrame.setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setLayout(new GridLayout(1, 2));
+                
+                // any layout really works here, Flow is default i think
+                // theres probably a better one
+                
+		gameFrame.setLayout(new FlowLayout());
+                
+                
 		gameFrame.setVisible(true);
                 gameFrame.setResizable(false);
-		gameFrame.setLocationRelativeTo(null);
                 gameFrame.setAlwaysOnTop(true);
 
-                gameFrame.add(GameFrame.panel, "Graphics");
-                JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+                gameFrame.add(panel, "Graphics");
+                
+                // wordle container is a JPanel that contains the 6 rows of letter boxes
+                // and 1 row of user input
+                
+                wordleContainer = new JPanel(new GridLayout(7, 1));
                 
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
@@ -111,9 +129,24 @@ public class WordleGame implements ActionListener {
 		userPanel = new UserPanel();
 		userPanel.getOkButton().addActionListener(this);
                 
-		gameFrame.add(userPanel, "UserPanel");
+                // adds user input to 7th row of the wordleContainer GridLayout
                 
+		wordleContainer.add(userPanel, "UserPanel");
+                
+                // IMPORTANT: adds wordleContainer to the JLabel "background" which
+                // has the background image. didn't know it was possible but i guess
+                // we can add stuff on top of JLabels
+                
+                // If you remove ", new GridBagConstraints()" the window looks exactly the same
+                // but it might be necessary for some reason
+                
+                GamePanel.background.add(wordleContainer, new GridBagConstraints());
+                
+		gameFrame.setLocationRelativeTo(null);
                 gameFrame.pack();
+                
+                // always revalidate after adding component to window
+                
 		gameFrame.revalidate();
 
 		wordleString = getWordleString();
@@ -121,7 +154,7 @@ public class WordleGame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new WordleGame();
+		new WordleComponent();
 	}
 
 	@Override

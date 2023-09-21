@@ -4,10 +4,10 @@
  */
 package wordjourney.graphics;
 
+import wordjourney.util.GameUtility;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -25,15 +25,12 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener {
 
     
-    
-    final int WIDTH = 50;
-    final int HEIGHT = 50;
     Image player;
     ImageIcon backgroundImage;
     Timer timer;
     Timer moveTimer;
     JButton moveButton;
-    JLabel background;
+    public static JLabel background;
     int xVelocity = 1;
     static int x = 0;
     int y = 0;
@@ -45,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(x != xMoveLimit) {
-                    if(x > WIDTH-player.getWidth(null)) {
+                    if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null)) {
                         x--;
                     }
                     else {
@@ -60,10 +57,10 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     
     public GamePanel() {
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
         
         moveButton = new JButton("Solve Wordle");
-        moveButton.setLocation(WIDTH + 50, HEIGHT + 50);
+        moveButton.setLocation(GameUtility.WINDOW_WIDTH + 50, GameUtility.WINDOW_HEIGHT + 50);
         moveButton.setEnabled(true);
         moveButton.setVisible(true);
         moveButton.addActionListener(new ActionListener() {
@@ -77,11 +74,10 @@ public class GamePanel extends JPanel implements ActionListener {
         background.setLayout(new GridBagLayout());
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
-        backgroundImage = new ImageIcon("src/assets/forestBackground.png");
+        backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
         background.setIcon(backgroundImage);
         timer = new Timer(10, this);
         this.add(background);
-        background.add(moveButton, new GridBagConstraints());
         timer.start();
     }
 
@@ -89,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         Graphics2D g2D = (Graphics2D) g;
-        g2D.drawImage(player, x, HEIGHT-player.getHeight(null), null);
+        g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT, null);
         
     }
 
