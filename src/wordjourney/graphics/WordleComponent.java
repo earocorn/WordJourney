@@ -20,12 +20,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import wordjourney.util.GameManager;
-import wordjourney.Main;
 import wordjourney.graphics.GamePanel;
 import wordjourney.util.GameUtility;
 
@@ -40,8 +38,8 @@ public class WordleComponent implements ActionListener {
 			Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 			for (int i = 0; i < 5; i++) {
 				wordColumns[i] = new JLabel();
-                                wordColumns[i].setSize(new Dimension(50, 50));
-                                wordColumns[i].setPreferredSize(new Dimension(50, 50));
+                                                                                        wordColumns[i].setSize(new Dimension(50, 50));
+                                                                                        wordColumns[i].setPreferredSize(new Dimension(50, 50));
 				wordColumns[i].setHorizontalAlignment(JLabel.CENTER);
 				wordColumns[i].setOpaque(true);
 				wordColumns[i].setBorder(blackBorder);
@@ -58,7 +56,7 @@ public class WordleComponent implements ActionListener {
 		public void setPanelText(String charValue, int position, Color color) {
 			this.wordColumns[position].setText(charValue);
 			this.wordColumns[position].setBackground(color);
-                        GameManager.move(panel);
+                                                                  GameManager.move(panel);
 		}
                 
 	}
@@ -66,86 +64,80 @@ public class WordleComponent implements ActionListener {
 	class UserPanel extends JPanel {
 
 		private JTextField userInput;
-		private JButton okButton;
+		private JButton enterButton;
 
 		public UserPanel() {
 			this.setLayout(new GridLayout(1, 1));
 			userInput = new JTextField();
 			this.add(userInput);
-			okButton = new JButton("OK");
-			this.add(okButton);
+			enterButton = new JButton("ENTER");
+			this.add(enterButton);
 		}
-
 		public JTextField getUserInput() {
 			return userInput;
 		}
-
-		public JButton getOkButton() {
-			return okButton;
+		public JButton getEnterButton() {
+			return enterButton;
 		}
-
 	}
 
-        private GamePanel panel;
-        
+                      private GamePanel panel;
 	private JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;
 	private String wordleString;
 	private int count = 0;
         
-        private JPanel wordleContainer;
+                      private JPanel wordleContainer;
 
 	public WordleComponent() {
-                // ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
-                panel = new GamePanel();
+                                            // ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
+                                            panel = new GamePanel();
                 
 		gameFrame = new JFrame("Word Journey");
 		gameFrame.setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
-                // any layout really works here, Flow is default i think
-                // theres probably a better one
-                
-		gameFrame.setLayout(new FlowLayout());
-                
-                
-		gameFrame.setVisible(true);
-                gameFrame.setResizable(false);
-                gameFrame.setAlwaysOnTop(true);
 
-                gameFrame.add(panel, "Graphics");
-                
-                // wordle container is a JPanel that contains the 6 rows of letter boxes
-                // and 1 row of user input
-                
-                wordleContainer = new JPanel(new GridLayout(7, 1));
+                                            // any layout really works here, Flow is default i think
+                                            // theres probably a better one
+		gameFrame.setLayout(new FlowLayout());
+		gameFrame.setVisible(true);
+                                            gameFrame.setResizable(false);
+                                            gameFrame.setAlwaysOnTop(true);
+                                            gameFrame.add(panel, "Graphics");
+
+                                            // wordle container is a JPanel that contains the 6 rows of letter boxes
+                                            // and 1 row of user input
+
+                                            
+                                            wordleContainer = new JPanel(new GridLayout(7, 1));
                 
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
 			wordleContainer.add(wordPanelArray[i]);
 		}
-                gameFrame.add(wordleContainer, "WordPanelGrid");
+                                            gameFrame.add(wordleContainer, "WordPanelGrid");
 		userPanel = new UserPanel();
-		userPanel.getOkButton().addActionListener(this);
+		userPanel.getEnterButton().addActionListener(this);
                 
-                // adds user input to 7th row of the wordleContainer GridLayout
+                                            // adds user input to 7th row of the wordleContainer GridLayout
                 
 		wordleContainer.add(userPanel, "UserPanel");
+
+                                            // IMPORTANT: adds wordleContainer to the JLabel "background" which
+                                            // has the background image. didn't know it was possible but i guess
+                                            // we can add stuff on top of JLabels
+
+                                            // If you remove ", new GridBagConstraints()" the window looks exactly the same
+                                            // but it might be necessary for some reason
                 
-                // IMPORTANT: adds wordleContainer to the JLabel "background" which
-                // has the background image. didn't know it was possible but i guess
-                // we can add stuff on top of JLabels
-                
-                // If you remove ", new GridBagConstraints()" the window looks exactly the same
-                // but it might be necessary for some reason
-                
-                GamePanel.background.add(wordleContainer, new GridBagConstraints());
+                                            GamePanel.background.setLayout(new FlowLayout());
+                                            GamePanel.background.add(wordleContainer);
                 
 		gameFrame.setLocationRelativeTo(null);
-                gameFrame.pack();
+                                            gameFrame.pack();
                 
-                // always revalidate after adding component to window
+                                            // always revalidate after adding component to window
                 
 		gameFrame.revalidate();
 
@@ -160,18 +152,17 @@ public class WordleComponent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String userWord = this.userPanel.getUserInput().getText();
+                                            this.userPanel.getUserInput().setText("");
 
 		if (userWord.length() > 4) {
 			if (isWordleWordEqualTo(userWord.trim().toUpperCase())) {
 				clearAllPanels();
-				JOptionPane.showMessageDialog(null, "You Win!!!", "Congrats", JOptionPane.INFORMATION_MESSAGE);
+				
 				gameFrame.dispose();
 				return;
 			}
 		}
 		if (count > 5) {
-			JOptionPane.showMessageDialog(null, "You Lost.Better luck next time.", "Oops",
-					JOptionPane.INFORMATION_MESSAGE);
 			gameFrame.dispose();
 			return;
 		}
