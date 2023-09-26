@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isAscending){
-                    System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
+                    //System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
                     y+=5;
                     if(y == yMoveLimit) {
                         yMoveLimit = yMoveLimit * -1;

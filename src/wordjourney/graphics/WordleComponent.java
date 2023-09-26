@@ -127,20 +127,20 @@ public class WordleComponent implements ActionListener {
                 
 		wordleContainer.add(userPanel, "UserPanel");
 
-                // IMPORTANT: adds wordleContainer to the JLabel "background" which
-                // has the background image. didn't know it was possible but i guess
-                // we can add stuff on top of JLabels
+                                        // IMPORTANT: adds wordleContainer to the JLabel "background" which
+                                        // has the background image. didn't know it was possible but i guess
+                                        // we can add stuff on top of JLabels
 
-                // If you remove ", new GridBagConstraints()" the window looks exactly the same
-                // but it might be necessary for some reason
+                                        // If you remove ", new GridBagConstraints()" the window looks exactly the same
+                                        // but it might be necessary for some reason
 
-                GamePanel.background.setLayout(new FlowLayout());
-                GamePanel.background.add(wordleContainer);
+                                            GamePanel.background.setLayout(new FlowLayout());
+                                            GamePanel.background.add(wordleContainer);
                 
 		gameFrame.setLocationRelativeTo(null);
-                gameFrame.pack();
+                                            gameFrame.pack();
 
-                // always revalidate after adding component to window
+                                            // always revalidate after adding component to window
                 
 		gameFrame.revalidate();
 
@@ -151,32 +151,36 @@ public class WordleComponent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String userWord = this.userPanel.getUserInput().getText();
-                this.userPanel.getUserInput().setText("");
+                                            this.userPanel.getUserInput().setText("");
 
                 // dont allow words not equal to 5
-		if (userWord.length() != 5) { return; }
+		if (userWord.length() != 5) { 
+                                                                  return; 
+                                                        }
                 
-                if (isWordleWordEqualTo(userWord.trim().toUpperCase())) {
+                                            if (isWordleWordEqualTo(userWord.trim().toUpperCase())) {
                 
-                //TODO: implement successfully guessed word logic
-                // points++;
-                        clearAllPanels();
-                        return;
-                }
+                                                                    //TODO: implement successfully guessed word logic
+                                                                    // points++;
+                                                                  clearAllPanels();
+                                                                  return;
+                                                       }
 		if (count > 5) {
-                //TODO: implement FAILED wordle logic
-                // points--;
-                        clearAllPanels();
-			return;
-		}
-		count++;
-	}
+                                                                //TODO: implement FAILED wordle logic
+                                                                // points--;
+                                                                  clearAllPanels();
+                                                                 return;
+                                                       }
+                                            count++;
+                      }
 
 	private void clearAllPanels() {
 		for (int i = 0; i <= count; i++) {
-			wordPanelArray[i].clearWordPanel();
+			wordPanelArray[i].clearWordPanel();                       
 		}
-                count=0;
+                                            wordleString = getWordleString();
+		System.out.println("Word for the day : " + wordleString);
+                                            count=0;
 	}
 
 	private boolean isWordleWordEqualTo(String userWord) {
