@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -12,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,28 +32,15 @@ public class GamePanel extends JPanel implements ActionListener {
     Timer moveTimer;
     JButton moveButton;
     public static JLabel background;
-    int xVelocity = 1;
+    int xVelocity = 3;
     static int x = 0;
     int y = 0;
-    int xMoveLimit = x+50;
+    int yMoveLimit = y+50;
+    boolean isAscending = false;
     
     public void movePlayer() {
-        xMoveLimit = x+50;
-        moveTimer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(x != xMoveLimit) {
-                    if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null)) {
-                        x--;
-                    }
-                    else {
-                        x++;
-                    }
-                } else {
-                    moveTimer.stop();
-                }
-            }
-        });
+        yMoveLimit = y+50;
+        isAscending = true;
         moveTimer.restart();
     }
     
@@ -76,7 +64,31 @@ public class GamePanel extends JPanel implements ActionListener {
         player = new ImageIcon("src/assets/sprite.png").getImage();
         backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
         background.setIcon(backgroundImage);
-        timer = new Timer(10, this);
+        timer = new javax.swing.Timer(10, this);
+        
+        
+        moveTimer = new Timer(0, new ActionListener() {
+            // LITTLE BUDDY JUMPING LOGIC, can put anything in here bc this is activated from movePlayer() function
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(isAscending){
+                    System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
+                    y+=5;
+                    if(y == yMoveLimit) {
+                        yMoveLimit = yMoveLimit * -1;
+                        isAscending = false;
+                    }
+                } else {
+                    if(y == 0) {
+                        moveTimer.stop();
+                    } else {
+                        y-=5;
+                    }
+                }
+            }
+        });
+        
+        
         this.add(background);
         timer.start();
     }
@@ -85,16 +97,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         Graphics2D g2D = (Graphics2D) g;
-        g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT, null);
+        g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT - y, null);
         
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(x >= WIDTH-player.getWidth(null) || x<0) {
+        if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null) || x<0) {
             xVelocity = xVelocity * -1;
         }
-        //x = x + xVelocity;
+        x = x + xVelocity;
         repaint();
     }
     
