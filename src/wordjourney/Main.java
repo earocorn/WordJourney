@@ -4,8 +4,8 @@
  */
 package wordjourney;
 
-import javax.swing.JFrame;
-import wordjourney.graphics.GameFrame;
+import wordjourney.util.DataManager;
+import wordjourney.graphics.WordleComponent;
 import wordjourney.graphics.GamePanel;
 
 /**
@@ -13,13 +13,18 @@ import wordjourney.graphics.GamePanel;
  * @author alexalmanza
  */
 public class Main {
-    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new GameFrame();
+        // GameData test function
+        DataManager.test();
+        
+        // look in WordleComponent constructor for more information
+        // this is definitely a tiny bit CRAZY doing this but we will
+        // change it later to make the code pretty
+        new WordleComponent();
     }
     
 }

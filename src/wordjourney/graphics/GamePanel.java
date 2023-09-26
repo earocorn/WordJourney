@@ -1,17 +1,18 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package wordjourney.graphics;
 
+import wordjourney.util.GameUtility;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,45 +26,29 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener {
 
     
-    
-    final int WIDTH = 508;
-    final int HEIGHT = 254;
     Image player;
     ImageIcon backgroundImage;
     Timer timer;
     Timer moveTimer;
     JButton moveButton;
-    JLabel background;
-    int xVelocity = 1;
+    public static JLabel background;
+    int xVelocity = 3;
     static int x = 0;
     int y = 0;
-    int xMoveLimit = x+50;
+    int yMoveLimit = y+50;
+    boolean isAscending = false;
     
-    private void movePlayer() {
-        xMoveLimit = x+50;
-        moveTimer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(x != xMoveLimit) {
-                    if(x > WIDTH-player.getWidth(null)) {
-                        x--;
-                    }
-                    else {
-                        x++;
-                    }
-                } else {
-                    moveTimer.stop();
-                }
-            }
-        });
+    public void movePlayer() {
+        yMoveLimit = y+50;
+        isAscending = true;
         moveTimer.restart();
     }
     
     public GamePanel() {
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
         
         moveButton = new JButton("Solve Wordle");
-        moveButton.setLocation(WIDTH + 50, HEIGHT + 50);
+        moveButton.setLocation(GameUtility.WINDOW_WIDTH + 50, GameUtility.WINDOW_HEIGHT + 50);
         moveButton.setEnabled(true);
         moveButton.setVisible(true);
         moveButton.addActionListener(new ActionListener() {
@@ -77,11 +62,34 @@ public class GamePanel extends JPanel implements ActionListener {
         background.setLayout(new GridBagLayout());
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
-        backgroundImage = new ImageIcon("src/assets/forestBackground.png");
+        backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
         background.setIcon(backgroundImage);
-        timer = new Timer(10, this);
+        timer = new javax.swing.Timer(10, this);
+        
+        
+        moveTimer = new Timer(0, new ActionListener() {
+            // LITTLE BUDDY JUMPING LOGIC, can put anything in here bc this is activated from movePlayer() function
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(isAscending){
+                    System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
+                    y+=5;
+                    if(y == yMoveLimit) {
+                        yMoveLimit = yMoveLimit * -1;
+                        isAscending = false;
+                    }
+                } else {
+                    if(y == 0) {
+                        moveTimer.stop();
+                    } else {
+                        y-=5;
+                    }
+                }
+            }
+        });
+        
+        
         this.add(background);
-        background.add(moveButton, new GridBagConstraints());
         timer.start();
     }
 
@@ -89,16 +97,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         Graphics2D g2D = (Graphics2D) g;
-        g2D.drawImage(player, x, HEIGHT-player.getHeight(null), null);
+        g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT - y, null);
         
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(x >= WIDTH-player.getWidth(null) || x<0) {
+        if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null) || x<0) {
             xVelocity = xVelocity * -1;
         }
-        //x = x + xVelocity;
+        x = x + xVelocity;
         repaint();
     }
     
