@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener {
         timer = new javax.swing.Timer(10, this);
         
         
-        moveTimer = new Timer(0, new ActionListener() {
+        moveTimer = new Timer(20, new ActionListener() {
             // LITTLE BUDDY JUMPING LOGIC, can put anything in here bc this is activated from movePlayer() function
             @Override
             public void actionPerformed(ActionEvent e) {

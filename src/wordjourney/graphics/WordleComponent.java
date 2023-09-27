@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +29,27 @@ import wordjourney.util.GameManager;
 import wordjourney.graphics.GamePanel;
 import wordjourney.util.GameUtility;
 
-public class WordleComponent implements ActionListener {
+public class WordleComponent implements ActionListener, KeyListener {
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+            System.out.println("key pressed : " + e);
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+            //GameManager.move(panel);
+            enterButtonEvent();
+            System.out.println("jump key");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
 
 	class WordPanel extends JPanel {
 
@@ -108,6 +130,8 @@ public class WordleComponent implements ActionListener {
                 gameFrame.setResizable(false);
                 gameFrame.setAlwaysOnTop(true);
                 gameFrame.add(panel, "Graphics");
+                
+                //gameFrame.addKeyListener(this);
 
                 // wordle container is a JPanel that contains the 6 rows of letter boxes
                 // and 1 row of user input
@@ -127,52 +151,61 @@ public class WordleComponent implements ActionListener {
                 
 		wordleContainer.add(userPanel, "UserPanel");
 
-                                        // IMPORTANT: adds wordleContainer to the JLabel "background" which
-                                        // has the background image. didn't know it was possible but i guess
-                                        // we can add stuff on top of JLabels
+                // IMPORTANT: adds wordleContainer to the JLabel "background" which
+                // has the background image. didn't know it was possible but i guess
+                // we can add stuff on top of JLabels
+                
+                // If you remove ", new GridBagConstraints()" the window looks exactly the same
+                // but it might be necessary for some reason
 
-                                        // If you remove ", new GridBagConstraints()" the window looks exactly the same
-                                        // but it might be necessary for some reason
-
-                                            GamePanel.background.setLayout(new FlowLayout());
-                                            GamePanel.background.add(wordleContainer);
+                GamePanel.background.setLayout(new FlowLayout());
+                GamePanel.background.add(wordleContainer);
                 
 		gameFrame.setLocationRelativeTo(null);
-                                            gameFrame.pack();
+                gameFrame.pack();
 
-                                            // always revalidate after adding component to window
+                // always revalidate after adding component to window
                 
 		gameFrame.revalidate();
 
 		wordleString = getWordleString();
 		System.out.println("Word for the day : " + wordleString);
+                
+                // focus on main JFrame
+                gameFrame.requestFocus();
+                userPanel.getUserInput().grabFocus();
+                userPanel.getUserInput().addKeyListener(this);
 	}
         
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String userWord = this.userPanel.getUserInput().getText();
+        public void enterButtonEvent() {
+                String userWord = this.userPanel.getUserInput().getText();
                                             this.userPanel.getUserInput().setText("");
 
                 // dont allow words not equal to 5
 		if (userWord.length() != 5) { 
-                                                                  return; 
-                                                        }
-                
-                                            if (isWordleWordEqualTo(userWord.trim().toUpperCase())) {
-                
-                                                                    //TODO: implement successfully guessed word logic
-                                                                    // points++;
-                                                                  clearAllPanels();
-                                                                  return;
-                                                       }
+                   return; 
+                }
+
+                if (isWordleWordEqualTo(userWord.trim().toUpperCase())) {
+
+                    //TODO: implement successfully guessed word logic
+                    // points++;
+                  clearAllPanels();
+                  return;
+                }
 		if (count > 5) {
-                                                                //TODO: implement FAILED wordle logic
-                                                                // points--;
-                                                                  clearAllPanels();
-                                                                 return;
-                                                       }
-                                            count++;
-                      }
+                                //TODO: implement FAILED wordle logic
+                                // points--;
+                                  clearAllPanels();
+                                 return;
+                       }
+                    count++;
+        }
+        
+	@Override
+	public void actionPerformed(ActionEvent e) {
+            enterButtonEvent();
+        }
 
 	private void clearAllPanels() {
 		for (int i = 0; i <= count; i++) {
