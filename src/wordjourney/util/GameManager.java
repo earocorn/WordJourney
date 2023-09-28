@@ -14,6 +14,7 @@ public class GameManager {
     
     // should add parameter for how far we want to move him
     public static void move(GamePanel panel) {
+
         panel.movePlayer();
     }
     

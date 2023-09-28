@@ -5,16 +5,11 @@
 package wordjourney.graphics;
 
 import wordjourney.util.GameUtility;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
+import java.io.*;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,19 +19,20 @@ import javax.swing.Timer;
  * @author alexalmanza
  */
 public class GamePanel extends JPanel implements ActionListener {
-
-    
     Image player;
+    Image lives;
     ImageIcon backgroundImage;
     Timer timer;
     Timer moveTimer;
-    JButton moveButton;
     public static JLabel background;
-    int xVelocity = 3;
+    int xVelocity = 2;
     static int x = 0;
     int y = 0;
     int yMoveLimit = y+50;
     boolean isAscending = false;
+    public static int time =365;
+    public static int score =0;
+    public Font gameFont;
     
     public void movePlayer() {
         yMoveLimit = y+50;
@@ -46,26 +42,18 @@ public class GamePanel extends JPanel implements ActionListener {
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
-        
-        moveButton = new JButton("Solve Wordle");
-        moveButton.setLocation(GameUtility.WINDOW_WIDTH + 50, GameUtility.WINDOW_HEIGHT + 50);
-        moveButton.setEnabled(true);
-        moveButton.setVisible(true);
-        moveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                movePlayer();
-            }
-        });
-        
+
         background = new JLabel();
         background.setLayout(new GridBagLayout());
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
+        lives = new ImageIcon("src/assets/hearts.png").getImage();
         backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
         background.setIcon(backgroundImage);
         timer = new javax.swing.Timer(10, this);
-        
+
+
+
         
         moveTimer = new Timer(20, new ActionListener() {
             // LITTLE BUDDY JUMPING LOGIC, can put anything in here bc this is activated from movePlayer() function
@@ -73,7 +61,7 @@ public class GamePanel extends JPanel implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if(isAscending){
                     //System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
-                    y+=5;
+                    y+=10;
                     if(y == yMoveLimit) {
                         yMoveLimit = yMoveLimit * -1;
                         isAscending = false;
@@ -87,8 +75,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        
-        
+
         this.add(background);
         timer.start();
     }
@@ -98,7 +85,20 @@ public class GamePanel extends JPanel implements ActionListener {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT - y, null);
-        
+
+
+        //display hearts on the screen
+        g2D.drawImage(lives,x, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y, null);
+        //set font and font color
+        gameFont= new Font ("SUPER GAME", Font.PLAIN, 30);
+        g.setColor(Color.BLACK);
+        g.setFont(gameFont);
+
+
+        //display time on screen
+        g.drawString("Time: "+ time, 700, 45);
+        //score displayed on screen
+        g.drawString("Score: "+ score, 100, 45);
     }
 
     @Override

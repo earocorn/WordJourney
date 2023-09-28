@@ -4,7 +4,7 @@
  */
 package wordjourney;
 
-import wordjourney.util.DataManager;
+//import wordjourney.util.DataManager;
 import wordjourney.graphics.WordleComponent;
 import wordjourney.graphics.GamePanel;
 
@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // GameData test function
-        DataManager.test();
+//        DataManager.test();
         
         // look in WordleComponent constructor for more information
         // this is definitely a tiny bit CRAZY doing this but we will
