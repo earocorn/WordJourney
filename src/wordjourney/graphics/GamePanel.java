@@ -34,6 +34,8 @@ public class GamePanel extends JPanel implements ActionListener {
     public static int score =0;
     public Font gameFont;
     
+    int livesCount = 3;
+    
     public void movePlayer() {
         yMoveLimit = y+50;
         isAscending = true;
@@ -75,6 +77,13 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         });
+        
+        // create font SUPER GAME
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
+        } catch (IOException|FontFormatException e) {
+            e.printStackTrace();
+        }
 
         this.add(background);
         timer.start();
@@ -88,9 +97,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
         //display hearts on the screen
-        g2D.drawImage(lives,x, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y, null);
+        g2D.drawImage(lives,x, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y-60, null);
+        for (int i = 1; i < livesCount; i++) {
+            g2D.drawImage(lives,x+20*i, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y-60, null);
+        }
         //set font and font color
-        gameFont= new Font ("SUPER GAME", Font.PLAIN, 30);
         g.setColor(Color.BLACK);
         g.setFont(gameFont);
 
