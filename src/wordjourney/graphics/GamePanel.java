@@ -29,12 +29,22 @@ public class GamePanel extends JPanel implements ActionListener {
     static int x = 0;
     int y = 0;
     int yMoveLimit = y+50;
+    
+    int livesCount = 3;
+    
+    int[] heartY = new int[livesCount];
+    int[] heartYLimits = new int[livesCount];
+    int[] heartJumpDistances = {10, 10, 10};
+    int initialHeartY;
+    
     boolean isAscending = false;
+    
+    boolean[] heartAscending = new boolean[livesCount];
+    
     public static int time =365;
     public static int score =0;
     public Font gameFont;
     
-    int livesCount = 3;
     
     public void movePlayer() {
         yMoveLimit = y+50;
@@ -84,6 +94,16 @@ public class GamePanel extends JPanel implements ActionListener {
         } catch (IOException|FontFormatException e) {
             e.printStackTrace();
         }
+        
+        initialHeartY = GameUtility.WINDOW_HEIGHT - player.getHeight(null) - GameUtility.GROUND_HEIGHT - y - 20;
+        
+        for (int i = 0; i < livesCount; i++) {
+            heartY[i] = initialHeartY;
+            heartYLimits[i] = heartY[i] - heartJumpDistances[i];
+            heartY[i] -= 7*(i+2);
+            heartAscending[i] = true;
+        }
+        
 
         this.add(background);
         timer.start();
@@ -97,14 +117,13 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
         //display hearts on the screen
-        g2D.drawImage(lives,x, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y-60, null);
+        g2D.drawImage(lives,x, heartY[0], null);
         for (int i = 1; i < livesCount; i++) {
-            g2D.drawImage(lives,x+20*i, GameUtility.WINDOW_HEIGHT-lives.getHeight(null)- GameUtility.GROUND_HEIGHT-y-60, null);
+            g2D.drawImage(lives, x + 18 * i, heartY[i], null);
         }
         //set font and font color
         g.setColor(Color.BLACK);
         g.setFont(gameFont);
-
 
         //display time on screen
         g.drawString("Time: "+ time, 700, 45);
@@ -118,6 +137,21 @@ public class GamePanel extends JPanel implements ActionListener {
             xVelocity = xVelocity * -1;
         }
         x = x + xVelocity;
+        
+        for (int i = 0; i < livesCount; i++) {
+            if (heartAscending[i]) {
+                heartY[i]--;
+                if (heartY[i] < heartYLimits[i]) {
+                    heartAscending[i] = false;
+                }
+            } else {
+                heartY[i]++;
+                if (heartY[i] >= initialHeartY + heartJumpDistances[i]) {
+                    heartAscending[i] = true;
+                }
+            }
+        }
+        
         repaint();
     }
     
