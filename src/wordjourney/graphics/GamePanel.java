@@ -161,14 +161,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
         
-        if(livesCount > 0) { 
-            repaint();
-        } else {
-            this.getGraphics().dispose();
-            add(gameOverPanel);
-            super.revalidate();
-            this.repaint();
-        }
+        repaint();
     }
     
     

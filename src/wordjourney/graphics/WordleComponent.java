@@ -22,7 +22,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 
 	public static GamePanel panel;
 	public GameOverPanel gameOverPanel;
-	private JFrame gameFrame;
+	public static JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;
 	private String wordleString;
