@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import wordjourney.util.GameManager;
 
 public class WordleComponent implements KeyListener, ActionListener {
 
@@ -28,18 +29,16 @@ public class WordleComponent implements KeyListener, ActionListener {
 	private int currentLine = 0;
 	private JPanel wordleContainer;
 
-	private static int lives = 3;
-
     @Override
     public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
-            System.out.println("key pressed : " + e);
+            //System.out.println("key pressed : " + e);
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             //GameManager.move(panel);
             enterButtonEvent();
-            System.out.println("jump key");
+            //System.out.println("jump key");
         }
     }
 
@@ -115,7 +114,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		if (currentLine >=5) {
 			//TODO: implement FAILED wordle logic
 			// points--;
-			removeOneLife();
+			GameManager.removeOneLife(panel);
 			clearAllPanels();
 			return;
 		}
@@ -123,13 +122,6 @@ public class WordleComponent implements KeyListener, ActionListener {
 		currentLine++;
 	}
 
-	public void removeOneLife(){
-		lives--;
-		System.out.println("A life was lost");
-		if (lives<=0){
-			System.out.println("Out of lives");
-		}
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
             enterButtonEvent();

@@ -21,4 +21,6 @@ public class GameUtility {
     
     public static int GROUND_HEIGHT = 85;
     
+    public static int STARTING_LIVES = 3;
+    
 }

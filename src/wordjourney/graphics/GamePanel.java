@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import wordjourney.Main;
 
 /**
  *
@@ -24,13 +25,14 @@ public class GamePanel extends JPanel implements ActionListener {
     ImageIcon backgroundImage;
     Timer timer;
     Timer moveTimer;
+    GameOverPanel gameOverPanel;
     public static JLabel background;
     int xVelocity = 2;
     static int x = 0;
     int y = 0;
     int yMoveLimit = y+50;
     
-    int livesCount = 3;
+    public int livesCount = GameUtility.STARTING_LIVES;
     
     int[] heartY = new int[livesCount];
     int[] heartYLimits = new int[livesCount];
@@ -54,6 +56,8 @@ public class GamePanel extends JPanel implements ActionListener {
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
+        
+        gameOverPanel = new GameOverPanel();
 
         background = new JLabel();
         background.setLayout(new GridBagLayout());
@@ -113,11 +117,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         Graphics2D g2D = (Graphics2D) g;
-        g2D.drawImage(player, x, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT - y, null);
-
+        g2D.drawImage(player, livesCount > 0 ? x : 0, GameUtility.WINDOW_HEIGHT-player.getHeight(null) - GameUtility.GROUND_HEIGHT - y, null);
 
         //display hearts on the screen
-        g2D.drawImage(lives,x, heartY[0], null);
+        if(livesCount > 0) {
+            g2D.drawImage(lives, x, heartY[0], null);
+        } else {
+            this.add(gameOverPanel);
+        }
+        
+        
         for (int i = 1; i < livesCount; i++) {
             g2D.drawImage(lives, x + 18 * i, heartY[i], null);
         }
@@ -152,7 +161,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
         
-        repaint();
+        if(livesCount > 0) { 
+            repaint();
+        } else {
+            this.getGraphics().dispose();
+            add(gameOverPanel);
+            super.revalidate();
+            this.repaint();
+        }
     }
     
     

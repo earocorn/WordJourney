@@ -14,16 +14,18 @@ import java.awt.event.ActionListener;
 import java.util.TimerTask;
 
 public class GameOverPanel extends JPanel{
-    Image gameOverImage;
+    
+    ImageIcon gameOverImage;
 
     public static JLabel gameOver;
+    
     public GameOverPanel(){
-        this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH,GameUtility.WINDOW_HEIGHT ));
+        this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH,GameUtility.WINDOW_HEIGHT));
         gameOver = new JLabel();
         gameOver.setLayout(new GridBagLayout());
         gameOver.setVisible(true);
-        gameOverImage = new ImageIcon("src/assets/gameOver.png").getImage();
-        gameOver.setIcon((Icon) gameOverImage);
+        gameOverImage = new ImageIcon("src/assets/gameOver.png");
+        gameOver.setIcon( gameOverImage);
 
     }
 
