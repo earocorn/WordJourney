@@ -43,8 +43,8 @@ public class GamePanel extends JPanel implements ActionListener {
     
     boolean[] heartAscending = new boolean[livesCount];
     
-    public static int time =365;
-    public static int score =0;
+    public static int time = 365;
+    public static int score = 0;
     public Font gameFont;
     
     

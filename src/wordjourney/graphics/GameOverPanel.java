@@ -6,6 +6,9 @@ import wordjourney.util.GameUtility;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import wordjourney.util.GameManager;
 
 public class GameOverPanel extends JPanel{
     
@@ -27,7 +30,13 @@ public class GameOverPanel extends JPanel{
         
         startButton = new JButton();
         quitButton = new JButton();
-        startButton.setLocation(450, 100);
+        startButton.setLocation(450, 150);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameManager.showNewGameScreen();
+            }
+        } );
         gameOver.add(startButton);
         //System.out.println("wordjourney.graphics.GameOverPanel.<init>()");
     }

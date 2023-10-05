@@ -26,14 +26,24 @@ public class GameManager {
         panel.livesCount--;
         System.out.println("A life was lost");
         if (panel.livesCount<=0){
-            gameOverPanel = new GameOverPanel();
-            WordleComponent.gameFrame.remove(panel);
-            WordleComponent.gameFrame.add(gameOverPanel);
-            WordleComponent.gameFrame.invalidate();
-            WordleComponent.gameFrame.validate();
+            showGameOverScreen(panel);
             
             System.out.println("Out of lives");
         }
+    }
+    
+    public static void showGameOverScreen(GamePanel panel) {
+        gameOverPanel = new GameOverPanel();
+        WordleComponent.gameFrame.remove(panel);
+        WordleComponent.gameFrame.add(gameOverPanel);
+        WordleComponent.gameFrame.invalidate();
+        WordleComponent.gameFrame.validate();
+    }
+    
+    public static void showNewGameScreen() {
+        WordleComponent.gameFrame.remove(gameOverPanel);
+        WordleComponent.gameFrame.dispose();
+        new WordleComponent();
     }
     
 }
