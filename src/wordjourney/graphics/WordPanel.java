@@ -14,8 +14,6 @@ import static wordjourney.graphics.WordleComponent.panel;
  */
 class WordPanel extends JPanel {
 
-
-
     JLabel[] wordColumns = new JLabel[5];
 
     public WordPanel() {
@@ -48,6 +46,7 @@ class WordPanel extends JPanel {
         this.wordColumns[position].setBackground(color);
         GameManager.move(panel);
     }
+
 
 }
 

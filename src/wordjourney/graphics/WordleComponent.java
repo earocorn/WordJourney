@@ -1,5 +1,6 @@
 package wordjourney.graphics;
 
+import wordjourney.util.GameManager;
 import wordjourney.util.GameUtility;
 
 import javax.swing.*;
@@ -20,26 +21,26 @@ import java.util.Random;
 public class WordleComponent implements KeyListener, ActionListener {
 
 	public static GamePanel panel;
-	public GameOverPanel gameOverPanel;
-	private JFrame gameFrame;
+
+	public static JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;
 	private String wordleString;
 	private int currentLine = 0;
 	private JPanel wordleContainer;
-
-	private static int lives = 3;
+//	public static int lives = 3;
+	public static int score = 0;
 
     @Override
     public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
-            System.out.println("key pressed : " + e);
+//            System.out.println("key pressed : " + e);
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             //GameManager.move(panel);
             enterButtonEvent();
-            System.out.println("jump key");
+//            System.out.println("jump key");
         }
     }
 
@@ -76,9 +77,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		// adds user input to 7th row of the wordleContainer GridLayo
 		wordleContainer.add(userPanel, "UserPanel");
 
-		// IMPORTANT: adds wordleContainer to the JLabel "background" which
-		// has the background image. didn't know it was possible but i guess
-		// we can add stuff on top of JLabels
+
 
 		GamePanel.background.setLayout(new FlowLayout());
 		GamePanel.background.add(wordleContainer);
@@ -107,28 +106,20 @@ public class WordleComponent implements KeyListener, ActionListener {
 		}
 
 		if (isWordleWordEqualTo(userWord)) {
-			//TODO: implement successfully guessed word logic
-			// points++
+			GameManager.addPoint(panel);
 			clearAllPanels();
 			return;
 		}
 		if (currentLine >=5) {
-			//TODO: implement FAILED wordle logic
-			// points--;
-			removeOneLife();
+			GameManager.removeOneLife(panel);
 			clearAllPanels();
 			return;
 		}
-
 		currentLine++;
 	}
 
-	public void removeOneLife(){
-		lives--;
-		System.out.println("A life was lost");
-		if (lives<=0){
-			System.out.println("Out of lives");
-		}
+	public WordPanel getActivePanel() {
+		return this.wordPanelArray[currentLine];
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -168,10 +159,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		return !wordMatchesList.contains(false);
 	}
 
-	public WordPanel getActivePanel() {
 
-		return this.wordPanelArray[currentLine];
-	}
 
 	public String getWordleString() {
 		Path path = Paths.get("src/assets/Words.txt");
@@ -179,7 +167,8 @@ public class WordleComponent implements KeyListener, ActionListener {
 		try {
 			wordList = Files.readAllLines(path);
 		} catch (IOException e) {
-		}
+            throw new RuntimeException(e);
+        }
 		Random random = new Random();
 		int position = random.nextInt(wordList.size());
 		return wordList.get(position).trim().toUpperCase();
