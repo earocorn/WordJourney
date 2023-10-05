@@ -7,6 +7,7 @@ package wordjourney.graphics;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import wordjourney.util.GameUtility;
+import wordjourney.util.Test;
 
 /**
  *
@@ -14,16 +15,19 @@ import wordjourney.util.GameUtility;
  */
 public class GameFrame extends JFrame {
     
-    GamePanel panel = WordleComponent.panel;
-    
     public GameFrame() {
+        super("Word Journey");
+
+        Test.printObject(this);
+
         setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLayout(new FlowLayout());
-            setVisible(true);
-            setResizable(false);
-            setAlwaysOnTop(true);
-            add(panel, "Graphics");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
+        pack();
+        setVisible(true);
     }
     
 }

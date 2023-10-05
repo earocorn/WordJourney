@@ -1,12 +1,12 @@
 package wordjourney.graphics;
 
+import wordjourney.Main;
 import wordjourney.util.GameManager;
+import wordjourney.util.Test;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-
-import static wordjourney.graphics.WordleComponent.panel;
 
 /**
  * Class that creates the panel that holds the users guesses
@@ -19,6 +19,8 @@ class WordPanel extends JPanel {
     JLabel[] wordColumns = new JLabel[5];
 
     public WordPanel() {
+        Test.printObject(this);
+
         this.setLayout(new GridLayout(1, 5));
         Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
         for (int i = 0; i < 5; i++) {
@@ -46,7 +48,7 @@ class WordPanel extends JPanel {
     public void setPanelText(String charValue, int position, Color color) {
         this.wordColumns[position].setText(charValue);
         this.wordColumns[position].setBackground(color);
-        GameManager.move(panel);
+        GameManager.move(Main.wordleGame.panel);
     }
 
 }

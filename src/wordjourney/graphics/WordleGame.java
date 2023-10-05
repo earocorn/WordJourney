@@ -1,7 +1,5 @@
 package wordjourney.graphics;
 
-import wordjourney.util.GameUtility;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import wordjourney.util.GameManager;
+import wordjourney.util.GameUtility;
+import wordjourney.util.Test;
 
-public class WordleComponent implements KeyListener, ActionListener {
+public class WordleGame implements KeyListener, ActionListener {
 
-	public static GamePanel panel;
+	public GamePanel panel;
 	public GameOverPanel gameOverPanel;
 	public static JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
@@ -46,17 +46,11 @@ public class WordleComponent implements KeyListener, ActionListener {
     public void keyReleased(KeyEvent e) {}
 
 
-	public WordleComponent() {
+	public WordleGame(GameFrame gameFrame) {
+		Test.printObject(this);
 		// ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
 		panel = new GamePanel();
 
-		gameFrame = new JFrame("Word Journey");
-		gameFrame.setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setLayout(new FlowLayout());
-		gameFrame.setVisible(true);
-		gameFrame.setResizable(false);
-		gameFrame.setAlwaysOnTop(true);
 		gameFrame.add(panel, "Graphics");
 
 		//gameFrame.addKeyListener(this);
@@ -82,9 +76,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		GamePanel.background.setLayout(new FlowLayout());
 		GamePanel.background.add(wordleContainer);
 
-		gameFrame.setLocationRelativeTo(null);
 		gameFrame.pack();
-		gameFrame.revalidate();
 
 		//load the word for the round
 		wordleString = getWordleString();
@@ -94,6 +86,17 @@ public class WordleComponent implements KeyListener, ActionListener {
 		gameFrame.requestFocus();
 		userPanel.getUserInput().grabFocus();
 		userPanel.getUserInput().addKeyListener(this);
+
+		//GameManager.showGameOverScreen(panel); // use this to look at just the GameOverPanel to design :3
+	}
+
+	public void clean() {
+		for (int i = 0; i < 6; i++) {
+			wordPanelArray[i] = null;
+		}
+		userPanel = null;
+		wordleContainer = null;
+		panel = null;
 	}
         
 	public void enterButtonEvent() {

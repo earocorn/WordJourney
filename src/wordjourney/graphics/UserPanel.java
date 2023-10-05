@@ -1,5 +1,7 @@
 package wordjourney.graphics;
 
+import wordjourney.util.Test;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +11,8 @@ class UserPanel extends JPanel {
     private JButton enterButton;
 
     public UserPanel() {
+        Test.printObject(this);
+
         this.setLayout(new GridLayout(1, 1));
         userInput = new JTextField();
         this.add(userInput);
