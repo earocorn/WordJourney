@@ -96,7 +96,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
         g2D.drawImage(gameOverTitleIcon.getImage(), titleX, titleY, null);
 
         // to draw high score number
-        g2D.setFont(GameUtility.gameFont);
+        g2D.setFont(GameUtility.getFont());
         g2D.setColor(Color.BLACK);
         g2D.drawString("500", 790, 55);
     }

@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import wordjourney.Main;
+import wordjourney.util.GameState;
 import wordjourney.util.Test;
 
  /**
@@ -130,7 +131,7 @@ public class GamePanel extends JPanel {
         }
         //set font and font color
         g.setColor(Color.BLACK);
-        g.setFont(GameUtility.gameFont);
+        g.setFont(GameUtility.getFont());
 
         //display time on screen
         g.drawString("Time: "+ time, 700, 45);

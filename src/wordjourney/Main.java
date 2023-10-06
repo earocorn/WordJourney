@@ -30,6 +30,7 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             GameUtility.loadFont();
+            GameUtility.loadMusic();
             gameFrame = new GameFrame();
             wordleGame = new WordleGame(gameFrame);
         });
