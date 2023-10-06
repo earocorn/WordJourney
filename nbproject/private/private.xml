@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/earoc/OneDrive/Documents/GitHub/WordJourney/src/wordjourney/graphics/GamePanel.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/util/GameUtility.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/graphics/GameOverPanel.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/graphics/GamePanel.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/util/GameManager.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/graphics/WordPanel.java</file>
+            <file>file:/Users/alexalmanza/NetBeansProjects/WordJourney/src/wordjourney/Main.java</file>
         </group>
     </open-files>
 </project-private>

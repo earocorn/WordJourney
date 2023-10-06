@@ -65,7 +65,7 @@ public class GamePanel extends JPanel {
 
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
         gameAnimationListener = new GameAnimationListener(this);
-        timer = new Timer(5, gameAnimationListener);
+        timer = new Timer(10, gameAnimationListener);
         
         gameOverPanel = new GameOverPanel();
 
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel {
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
         lives = new ImageIcon("src/assets/hearts.png").getImage();
-        backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
+        backgroundImage = new ImageIcon("src/assets/gameBackground.jpg");
         background.setIcon(backgroundImage);
         
         moveTimer = new Timer(20, new ActionListener() {
