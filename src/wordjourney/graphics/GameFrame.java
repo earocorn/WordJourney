@@ -7,16 +7,19 @@ import java.awt.FlowLayout;
 
 public class GameFrame extends JFrame {
 
-    GamePanel panel = WordleComponent.panel;
 
     public GameFrame() {
+        super ("Word Journey");
+
         setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
-        setVisible(true);
         setResizable(false);
+        setLocationRelativeTo(null);
         setAlwaysOnTop(true);
-        add(panel, "Graphics");
+        pack();
+        setVisible(true);
+
     }
 
 }

@@ -1,7 +1,6 @@
 package wordjourney.graphics;
 
 import wordjourney.util.GameManager;
-import wordjourney.util.GameUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,17 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class WordleComponent implements KeyListener, ActionListener {
+public class WordleGame implements KeyListener, ActionListener {
 
 	public static GamePanel panel;
-
 	public static JFrame gameFrame;
-	private WordPanel[] wordPanelArray = new WordPanel[6];
-	private UserPanel userPanel;
+	private final WordPanel[] wordPanelArray = new WordPanel[6];
+	private final UserPanel userPanel;
 	private String wordleString;
 	private int currentLine = 0;
-	private JPanel wordleContainer;
-//	public static int lives = 3;
 	public static int score = 0;
 
     @Override
@@ -36,80 +32,67 @@ public class WordleComponent implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//            System.out.println("key pressed : " + e);
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            //GameManager.move(panel);
             enterButtonEvent();
-//            System.out.println("jump key");
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {}
 
-
-	public WordleComponent() {
+	public WordleGame(GameFrame gameFrame) {
+		
 		// ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
 		panel = new GamePanel();
 
-		gameFrame = new JFrame("Word Journey");
-		gameFrame.setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setLayout(new FlowLayout());
-		gameFrame.setVisible(true);
-		gameFrame.setResizable(false);
-		gameFrame.setAlwaysOnTop(true);
 		gameFrame.add(panel, "Graphics");
 
-		//gameFrame.addKeyListener(this);
-
-		// wordle container is a JPanel that contains the 6 rows of letter boxes
 		// and 1 row of user input
-		wordleContainer = new JPanel(new GridLayout(7, 1));
-                
+		JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
 			wordleContainer.add(wordPanelArray[i]);
 		}
 		gameFrame.add(wordleContainer, "WordPanelGrid");
+
 		userPanel = new UserPanel();
 		userPanel.getEnterButton().addActionListener(this);
-		// adds user input to 7th row of the wordleContainer GridLayo
+		// adds user input to 7th row of the wordleContainer GridLayout
 		wordleContainer.add(userPanel, "UserPanel");
-
-
-
 		GamePanel.background.setLayout(new FlowLayout());
 		GamePanel.background.add(wordleContainer);
-
-		gameFrame.setLocationRelativeTo(null);
 		gameFrame.pack();
-		gameFrame.revalidate();
 
 		//load the word for the round
 		wordleString = getWordleString();
 		System.out.println("Word for the day : " + wordleString);
-                
+
 		// focus on main JFrame
 		gameFrame.requestFocus();
 		userPanel.getUserInput().grabFocus();
 		userPanel.getUserInput().addKeyListener(this);
+
+//		GameManager.showStartMenuScreen(panel); // use this to look at just the GameOverPanel to design :3
 	}
+
         
 	public void enterButtonEvent() {
 		String userWord = this.userPanel.getUserInput().getText().trim().toUpperCase();
-		this.userPanel.getUserInput().setText("");
+		this.userPanel.clearUserInput();
 
 		// dont allow words not equal to 5
 		if (userWord.length() != 5) {
 			return;
 		}
 
+		//check if user word is equal if so increments points and clears panel
 		if (isWordleWordEqualTo(userWord)) {
 			GameManager.addPoint(panel);
 			clearAllPanels();
 			return;
 		}
+		//checks if users current line is over guess limit, if so removes life and clears panel
 		if (currentLine >=5) {
 			GameManager.removeOneLife(panel);
 			clearAllPanels();
@@ -119,6 +102,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 	}
 
 	public WordPanel getActivePanel() {
+
 		return this.wordPanelArray[currentLine];
 	}
 	@Override
@@ -136,7 +120,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		currentLine=0;
 	}
 
-	//function that
+	//function that  checks if users guess is equal to the wordle
 	private boolean isWordleWordEqualTo(String userWord) {
 		List<String> wordleWordsList = Arrays.asList(wordleString.split(""));
 		String[] userWordsArray = userWord.split("");
@@ -160,18 +144,19 @@ public class WordleComponent implements KeyListener, ActionListener {
 	}
 
 
-
 	public String getWordleString() {
 		Path path = Paths.get("src/assets/Words.txt");
 		List<String> wordList = new ArrayList<>();
 		try {
 			wordList = Files.readAllLines(path);
 		} catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+			throw new RuntimeException(e);
+		}
 		Random random = new Random();
 		int position = random.nextInt(wordList.size());
 		return wordList.get(position).trim().toUpperCase();
 	}
+
+
 
 }

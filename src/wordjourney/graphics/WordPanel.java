@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-import static wordjourney.graphics.WordleComponent.panel;
+import static wordjourney.graphics.WordleGame.panel;
 
 /**
  * Class that creates the panel that holds the users guesses

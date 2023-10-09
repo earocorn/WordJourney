@@ -4,10 +4,11 @@
  */
 package wordjourney.util;
 
-import wordjourney.graphics.GameFrame;
-import wordjourney.graphics.GameOverPanel;
-import wordjourney.graphics.GamePanel;
-import wordjourney.graphics.WordleComponent;
+import wordjourney.Main;
+import wordjourney.graphics.*;
+
+import javax.swing.*;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -16,21 +17,32 @@ import wordjourney.graphics.WordleComponent;
 public class GameManager {
 
     static GameOverPanel gameOverPanel;
+//    static StartGamePanel startGamePanel;
+    static GamePanel gamePanel;
+    static MenuPanel menuPanel;
+
+    public static ImageIcon title;
+    static ImageIcon gameOverTitleIcon;
+
+
     // should add parameter for how far we want to move him
     public static void move(GamePanel panel) {
+
         panel.movePlayer();
     }
 
+    //function to remove hearts from little guys head
     public static void removeOneLife(GamePanel panel){
-        WordleComponent.panel.livesCount--;
-        System.out.println("A life was lost");
-        if (panel.livesCount<=0){
-            showGameOverScreen(panel);
+
+        //removes a heart above little guys head
+        panel.livesCount--;
+        //if lives are 0 it shows menu panel and resets points
+        if (panel.livesCount == 0){
+            showMenuPanel();
             resetPoints(panel);
-            System.out.println("Out of lives");
         }
     }
-    //when player gets the wordle corret increment their points by 1
+    //when player gets the wordle correct increment their points by 1
     public static void addPoint(GamePanel panel){
         panel.score++;
         System.out.println("point added");
@@ -41,23 +53,66 @@ public class GameManager {
         System.out.println("score reset");
     }
 
-    public static void showGameOverScreen(GamePanel panel) {
-        gameOverPanel = new GameOverPanel();
-        WordleComponent.gameFrame.remove(panel);
-        WordleComponent.gameFrame.add(gameOverPanel);
-        WordleComponent.gameFrame.invalidate();
-        WordleComponent.gameFrame.validate();
+    //show start menu panel
+//    public static void showStartMenuScreen(){
+//        startGamePanel = new StartGamePanel();
+//        Main.gameFrame.getContentPane().removeAll();
+////        Main.gameFrame.add(startGamePanel);
+//        Main.gameFrame.getContentPane().add(startGamePanel);
+//        Main.gameFrame.getContentPane().revalidate();
+//        Main.gameFrame.getContentPane().repaint();
+//
+//    }
+
+    //show a new gamePanel when user presses start from the start menu
+    public static void showGamePanel(){
+        gamePanel = new GamePanel();
+        clearAndShowPanel(gamePanel);
     }
 
-    public static void showNewGameScreen() {
-        WordleComponent.gameFrame.remove(gameOverPanel);
-        WordleComponent.gameFrame.invalidate();
-        WordleComponent.gameFrame.dispose();
-        new WordleComponent();
+    // function to call menu panel
+    public static void showMenuPanel(){
+        menuPanel = new MenuPanel();
+        clearAndShowPanel(menuPanel);
     }
 
-    public static void quitGame(){
-        WordleComponent.gameFrame.dispose();
+    private static void clearAndShowPanel(JPanel newPanel){
+        Main.gameFrame.getContentPane().removeAll();
+        Main.gameFrame.getContentPane().add(newPanel);
+        Main.gameFrame.getContentPane().revalidate();
+        Main.gameFrame.getContentPane().repaint();
+    }
+
+    private static void clearAndClose(JPanel clearPanel){
 
     }
+
+    //function to call game over panel
+//    public static void showGameOverScreen() {
+//        gameOverPanel = new GameOverPanel();
+//        Main.gameFrame.getContentPane().removeAll();
+//        Main.gameFrame.getContentPane().add(gameOverPanel);
+//        Main.gameFrame.getContentPane().revalidate();
+//        Main.gameFrame.getContentPane().repaint();
+//    }
+
+    //function to call for new game panel
+    public static void showNewGame() {
+        menuPanel.removeAll();
+        Main.gameFrame.getContentPane().removeAll();
+        Main.wordleGame = new WordleGame(Main.gameFrame);
+        Main.gameFrame.getContentPane().add(WordleGame.panel);
+        Main.gameFrame.getContentPane().revalidate();
+        Main.gameFrame.getContentPane().repaint();
+    }
+
+    //function to call if user quits game
+    public static void quitGame() {
+        menuPanel.removeAll();
+        Main.gameFrame.getContentPane().removeAll();
+        Main.gameFrame.dispose();
+        System.out.println("Game Frame disposed");
+        System.exit(0);
+    }
+
 }

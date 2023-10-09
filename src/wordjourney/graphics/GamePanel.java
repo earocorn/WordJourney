@@ -85,15 +85,15 @@
              }
          });
 
-         // create font SUPER GAME
-         try {
-             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
-         } catch (IOException|FontFormatException e) {
-             e.printStackTrace();
-         }
+//         // create font SUPER GAME
+//         try {
+//             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
+//         } catch (IOException|FontFormatException e) {
+//             e.printStackTrace();
+//         }
 
 
-         //heart inital
+         //heart initial
          initialHeartY = GameUtility.WINDOW_HEIGHT - player.getHeight(null) - GameUtility.GROUND_HEIGHT - y - 20;
 
          for (int i = 0; i < livesCount; i++) {
@@ -125,7 +125,7 @@
          }
          //set font and font color
          g.setColor(Color.BLACK);
-         g.setFont(gameFont);
+         g.setFont(GameUtility.getFont());
 
          //display time on screen
 //         g.drawString("Time: "+ time, 700, 45);

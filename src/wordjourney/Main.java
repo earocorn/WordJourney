@@ -6,7 +6,9 @@ package wordjourney;
 
 //import wordjourney.util.DataManager;
 
-import wordjourney.graphics.WordleComponent;
+import wordjourney.graphics.GameFrame;
+import wordjourney.graphics.MenuPanel;
+import wordjourney.graphics.WordleGame;
 
 
 /**
@@ -15,16 +17,15 @@ import wordjourney.graphics.WordleComponent;
  */
 public class Main {
 
-    public static WordleComponent wordleComponent;
+    public static WordleGame wordleGame;
+    public static GameFrame gameFrame;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        new Thread(new GameLoop());
-        // look in WordleComponent constructor for more information
-        // this is definitely a tiny bit CRAZY doing this but we will
-        // change it later to make the code pretty
-        wordleComponent = new WordleComponent();
+        gameFrame = new GameFrame();
+        wordleGame = new WordleGame(gameFrame);
     }
     
 }

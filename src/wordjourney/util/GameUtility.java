@@ -4,6 +4,11 @@
  */
 package wordjourney.util;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author alexalmanza
@@ -23,4 +28,21 @@ public class GameUtility {
 
     public static int STARTING_LIVES = 3;
     public static int STARTING_SCORE =0;
+
+
+    private static Font gameFont;
+
+    // call wherever we load assets
+    public static void loadFont() {
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Font getFont() {
+        return gameFont;
+    }
+
 }
