@@ -4,16 +4,11 @@
  */
 package wordjourney.util;
 
-import wordjourney.Main;
-import wordjourney.listeners.GameAnimationListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
