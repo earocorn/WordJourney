@@ -61,12 +61,8 @@ public class GameManager {
 
     public static void quitGame() {
         // https://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
-        Main.gameFrame.dispatchEvent(new WindowEvent(WordleGame.gameFrame, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public static void cleanupGame() {
-        Main.wordleGame.clean();
-        Main.wordleGame = null;
+        //Main.gameFrame.dispatchEvent(new WindowEvent(Main.gameFrame, WindowEvent.WINDOW_CLOSING));
+        System.exit(0);
     }
     
 }
