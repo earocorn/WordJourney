@@ -4,9 +4,13 @@
  */
 package wordjourney;
 
-import wordjourney.util.DataManager;
-import wordjourney.graphics.WordleComponent;
-import wordjourney.graphics.GamePanel;
+//import wordjourney.util.DataManager;
+import wordjourney.graphics.GameFrame;
+import wordjourney.graphics.WordleGame;
+import wordjourney.util.GameManager;
+import wordjourney.util.GameUtility;
+
+import javax.swing.*;
 
 /**
  *
@@ -14,17 +18,22 @@ import wordjourney.graphics.GamePanel;
  */
 public class Main {
 
+    public static WordleGame wordleGame;
+    public static GameFrame gameFrame;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // GameData test function
-        DataManager.test();
-        
-        // look in WordleComponent constructor for more information
-        // this is definitely a tiny bit CRAZY doing this but we will
-        // change it later to make the code pretty
-        new WordleComponent();
+//        DataManager.test();
+
+        SwingUtilities.invokeLater(() -> {
+            GameUtility.loadFont();
+            GameUtility.loadMusic();
+            gameFrame = new GameFrame();
+            wordleGame = new WordleGame(gameFrame);
+        });
     }
     
 }
