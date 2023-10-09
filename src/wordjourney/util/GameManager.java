@@ -4,10 +4,12 @@
  */
 package wordjourney.util;
 
-import wordjourney.graphics.GameFrame;
 import wordjourney.graphics.GameOverPanel;
 import wordjourney.graphics.GamePanel;
-import wordjourney.graphics.WordleComponent;
+import wordjourney.Main;
+import wordjourney.graphics.WordleGame;
+
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -26,14 +28,45 @@ public class GameManager {
         panel.livesCount--;
         System.out.println("A life was lost");
         if (panel.livesCount<=0){
-            gameOverPanel = new GameOverPanel();
-            WordleComponent.gameFrame.remove(panel);
-            WordleComponent.gameFrame.add(gameOverPanel);
-            WordleComponent.gameFrame.invalidate();
-            WordleComponent.gameFrame.validate();
+            showGameOverScreen();
             
             System.out.println("Out of lives");
         }
+    }
+    
+    public static void showGameOverScreen() {
+        gameOverPanel = new GameOverPanel();
+        Main.gameFrame.getContentPane().removeAll();
+        Main.gameFrame.getContentPane().add(gameOverPanel);
+        Main.gameFrame.getContentPane().revalidate();
+        Main.gameFrame.getContentPane().repaint();
+    }
+    
+    public static void showNewGameScreen() {
+//        gameOverPanel.removeAll();
+//        gameOverPanel.invalidate();
+//        Main.gameFrame.remove(gameOverPanel);
+//        Main.wordleGame = new WordleGame(Main.gameFrame);
+//        Main.wordleGame.panel.invalidate();
+//        Main.wordleGame.panel.validate();
+//        Main.gameFrame.invalidate();
+//        Main.gameFrame.validate();
+        gameOverPanel.removeAll();
+        Main.gameFrame.getContentPane().removeAll();
+        Main.wordleGame = new WordleGame(Main.gameFrame);
+        Main.gameFrame.getContentPane().add(Main.wordleGame.panel);
+        Main.gameFrame.getContentPane().revalidate();
+        Main.gameFrame.getContentPane().repaint();
+    }
+
+    public static void quitGame() {
+        // https://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
+        Main.gameFrame.dispatchEvent(new WindowEvent(WordleGame.gameFrame, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public static void cleanupGame() {
+        Main.wordleGame.clean();
+        Main.wordleGame = null;
     }
     
 }

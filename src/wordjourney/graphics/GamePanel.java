@@ -4,6 +4,7 @@
  */
 package wordjourney.graphics;
 
+import wordjourney.listeners.GameAnimationListener;
 import wordjourney.util.GameUtility;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,38 +15,40 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import wordjourney.Main;
+import wordjourney.util.GameState;
+import wordjourney.util.Test;
 
-/**
+ /**
  *
  * @author alexalmanza
  */
-public class GamePanel extends JPanel implements ActionListener {
-    Image player;
+public class GamePanel extends JPanel {
+    private GameAnimationListener gameAnimationListener;
+    public Image player;
+    Timer timer;
     Image lives;
     ImageIcon backgroundImage;
-    Timer timer;
     Timer moveTimer;
     GameOverPanel gameOverPanel;
     public static JLabel background;
-    int xVelocity = 2;
-    static int x = 0;
-    int y = 0;
+    public int xVelocity = 2;
+    public int x = 0;
+    public int y = 0;
     int yMoveLimit = y+50;
     
     public int livesCount = GameUtility.STARTING_LIVES;
+
+    public int[] heartY = new int[livesCount];
+    public int[] heartYLimits = new int[livesCount];
+    public int[] heartJumpDistances = {10, 10, 10};
+    public int initialHeartY;
+
+    public boolean isAscending = false;
+
+    public boolean[] heartAscending = new boolean[livesCount];
     
-    int[] heartY = new int[livesCount];
-    int[] heartYLimits = new int[livesCount];
-    int[] heartJumpDistances = {10, 10, 10};
-    int initialHeartY;
-    
-    boolean isAscending = false;
-    
-    boolean[] heartAscending = new boolean[livesCount];
-    
-    public static int time =365;
-    public static int score =0;
-    public Font gameFont;
+    public static int time = 365;
+    public static int score = 0;
     
     
     public void movePlayer() {
@@ -55,7 +58,15 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     
     public GamePanel() {
+        super.invalidate();
+
+        setDoubleBuffered(true);
+
+        Test.printObject(this);
+
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
+        gameAnimationListener = new GameAnimationListener(this);
+        timer = new Timer(10, gameAnimationListener);
         
         gameOverPanel = new GameOverPanel();
 
@@ -64,12 +75,8 @@ public class GamePanel extends JPanel implements ActionListener {
         background.setVisible(true);
         player = new ImageIcon("src/assets/sprite.png").getImage();
         lives = new ImageIcon("src/assets/hearts.png").getImage();
-        backgroundImage = new ImageIcon("src/assets/gameBackground.jpeg");
+        backgroundImage = new ImageIcon("src/assets/gameBackground.jpg");
         background.setIcon(backgroundImage);
-        timer = new javax.swing.Timer(10, this);
-
-
-
         
         moveTimer = new Timer(20, new ActionListener() {
             // LITTLE BUDDY JUMPING LOGIC, can put anything in here bc this is activated from movePlayer() function
@@ -92,13 +99,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
         
-        // create font SUPER GAME
-        try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
-        } catch (IOException|FontFormatException e) {
-            e.printStackTrace();
-        }
-        
         initialHeartY = GameUtility.WINDOW_HEIGHT - player.getHeight(null) - GameUtility.GROUND_HEIGHT - y - 20;
         
         for (int i = 0; i < livesCount; i++) {
@@ -107,7 +107,6 @@ public class GamePanel extends JPanel implements ActionListener {
             heartY[i] -= 7*(i+2);
             heartAscending[i] = true;
         }
-        
 
         this.add(background);
         timer.start();
@@ -132,36 +131,12 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         //set font and font color
         g.setColor(Color.BLACK);
-        g.setFont(gameFont);
+        g.setFont(GameUtility.getFont());
 
         //display time on screen
         g.drawString("Time: "+ time, 700, 45);
         //score displayed on screen
         g.drawString("Score: "+ score, 100, 45);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null) || x<0) {
-            xVelocity = xVelocity * -1;
-        }
-        x = x + xVelocity;
-        
-        for (int i = 0; i < livesCount; i++) {
-            if (heartAscending[i]) {
-                heartY[i]--;
-                if (heartY[i] < heartYLimits[i]) {
-                    heartAscending[i] = false;
-                }
-            } else {
-                heartY[i]++;
-                if (heartY[i] >= initialHeartY + heartJumpDistances[i]) {
-                    heartAscending[i] = true;
-                }
-            }
-        }
-        
-        repaint();
     }
     
     
