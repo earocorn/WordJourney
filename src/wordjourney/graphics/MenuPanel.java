@@ -9,10 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static wordjourney.graphics.GameTitle.setTitle;
 
 
-public class MenuPanel extends JPanel {
+
+public class MenuPanel extends JPanel implements ActionListener {
 
     public static JLabel menu;
     JPanel buttonContainer;
@@ -22,15 +22,17 @@ public class MenuPanel extends JPanel {
     ImageIcon startButtonIcon;
     ImageIcon quitButtonIcon;
     GameTitle gameTitle;
+    Timer newTimer;
 
     public MenuPanel(){
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH,GameUtility.WINDOW_HEIGHT));
-
+        newTimer = new Timer(10, this);
         setLayout(new BorderLayout());
 
         //create new instances of components
         gameTitle = new GameTitle();
-        gameTitle.startAnimation();
+//        gameTitle.startAnimation();
+        add(gameTitle);
         menu = new JLabel();
         buttonContainer = new JPanel();
         startButton = new JButton();
@@ -45,8 +47,6 @@ public class MenuPanel extends JPanel {
         quitButtonIcon = new ImageIcon("src/assets/quitButton.PNG");
 
         menu.setIcon(menuBG);
-
-        setTitle();
 
         startButton.setIcon(startButtonIcon);
         startButton.setOpaque(false);
@@ -78,9 +78,7 @@ public class MenuPanel extends JPanel {
         add(menu);
 
         buttonContainer.setVisible(true);
-        revalidate();;
-        repaint();
-
+        newTimer.start();
     }
     @Override
     public void paint(Graphics g){
@@ -89,9 +87,24 @@ public class MenuPanel extends JPanel {
         //draw menu background
         g.drawImage(menuBG.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        //draw the game Title and buttons
-        gameTitle.paintComponent(g);
+        g.drawImage(gameTitle.getTitle().getImage(), gameTitle.titleX, gameTitle.titleY, null);
+        //draw the buttons
         buttonContainer.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("X: " + gameTitle.titleX + ", Y: " + gameTitle.titleY);
+        if ((gameTitle.titleX > gameTitle.titleXLimitRight) || (gameTitle.titleX < gameTitle.titleXLimitLeft)) {
+            gameTitle.titleXVelocity -= gameTitle.titleXVelocity * 2;
+        }
+        if (gameTitle.titleY > gameTitle.titleYLimitTop || gameTitle.titleY <= gameTitle.titleYLimitBottom) {
+            gameTitle.titleYVelocity -= gameTitle.titleYVelocity * 2;
+        }
+        gameTitle.titleX += gameTitle.titleXVelocity;
+        gameTitle.titleY += gameTitle.titleYVelocity;
+
+        repaint();
     }
 
 
