@@ -80,7 +80,7 @@ public class WordleGame implements KeyListener, ActionListener {
 		userPanel.getUserInput().grabFocus();
 		userPanel.getUserInput().addKeyListener(this);
 
-		//GameManager.showGameOverScreen(); // use this to look at just the GameOverPanel to design :3
+		//GameManager.showMenuPanel(); // use this to look at just the GameOverPanel to design :3
 	}
 
 	public void clean() {

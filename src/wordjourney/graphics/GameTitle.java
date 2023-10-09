@@ -35,30 +35,4 @@ public class GameTitle extends JLabel {
         return title;
     }
 
-//    public static void setTitle(){
-//
-//
-////        if (WordleGame.panel.livesCount == 3){
-////            title = new ImageIcon("src/assets/gameOverTitle.png");
-////        }
-////        else{
-////            title= new ImageIcon("src/assets/title.png");
-////        }
-//
-//    }
-//    public void startAnimation(){
-//        System.out.println("animation started for title");
-//        timer.start();
-//    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-//        System.out.println("Painting GameTitle!"); // Add this line
-        Graphics2D g2D = (Graphics2D) g;
-
-    }
-
-
-
 }

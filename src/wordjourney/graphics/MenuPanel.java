@@ -43,8 +43,8 @@ public class MenuPanel extends JPanel implements ActionListener {
         menu.setVisible(true);
 
         menuBG = new ImageIcon("src/assets/pinkBG.png");
-        startButtonIcon = new ImageIcon("src/assets/startButton.PNG");
-        quitButtonIcon = new ImageIcon("src/assets/quitButton.PNG");
+        startButtonIcon = new ImageIcon("src/assets/startButton.png");
+        quitButtonIcon = new ImageIcon("src/assets/quitButton.png");
 
         menu.setIcon(menuBG);
 
@@ -52,11 +52,13 @@ public class MenuPanel extends JPanel implements ActionListener {
         startButton.setOpaque(false);
         startButton.setContentAreaFilled(false);
         startButton.setBorderPainted(false);
+        startButton.setVisible(true);
 
         quitButton.setIcon(quitButtonIcon);
         quitButton.setOpaque(false);
         quitButton.setContentAreaFilled(false);
         quitButton.setBorderPainted(false);
+        quitButton.setVisible(true);
 
         buttonContainer.setOpaque(false);
         buttonContainer.add(startButton);
