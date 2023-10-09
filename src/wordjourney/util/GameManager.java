@@ -16,13 +16,10 @@ import java.awt.event.WindowEvent;
  */
 public class GameManager {
 
-    static GameOverPanel gameOverPanel;
+//    static GameOverPanel gameOverPanel;
 //    static StartGamePanel startGamePanel;
     static GamePanel gamePanel;
     static MenuPanel menuPanel;
-
-    public static ImageIcon title;
-    static ImageIcon gameOverTitleIcon;
 
 
     // should add parameter for how far we want to move him
@@ -111,7 +108,7 @@ public class GameManager {
         menuPanel.removeAll();
         Main.gameFrame.getContentPane().removeAll();
         Main.gameFrame.dispose();
-        System.out.println("Game Frame disposed");
+//        System.out.println("Game Frame disposed");
         System.exit(0);
     }
 

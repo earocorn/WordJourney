@@ -50,7 +50,7 @@ public class GameTitle implements ActionListener {
     }
 
     public void paintComponent(Graphics g) {
-        System.out.println("Painting GameTitle!"); // Add this line
+//        System.out.println("Painting GameTitle!"); // Add this line
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(title.getImage(), titleX, titleY, null);
 

@@ -21,7 +21,6 @@ public class MenuPanel extends JPanel {
     ImageIcon menuBG;
     ImageIcon startButtonIcon;
     ImageIcon quitButtonIcon;
-
     GameTitle gameTitle;
 
     public MenuPanel(){
@@ -42,20 +41,20 @@ public class MenuPanel extends JPanel {
         menu.setVisible(true);
 
         menuBG = new ImageIcon("src/assets/pinkBG.png");
-        startButtonIcon = new ImageIcon("src/assets/startButton.png");
-        quitButtonIcon = new ImageIcon("src/assets/quitButton.png");
+        startButtonIcon = new ImageIcon("src/assets/startButton.PNG");
+        quitButtonIcon = new ImageIcon("src/assets/quitButton.PNG");
 
         menu.setIcon(menuBG);
 
         setTitle();
 
         startButton.setIcon(startButtonIcon);
-        startButton.setOpaque(true);
+        startButton.setOpaque(false);
         startButton.setContentAreaFilled(false);
         startButton.setBorderPainted(false);
 
         quitButton.setIcon(quitButtonIcon);
-        quitButton.setOpaque(true);
+        quitButton.setOpaque(false);
         quitButton.setContentAreaFilled(false);
         quitButton.setBorderPainted(false);
 
@@ -79,8 +78,6 @@ public class MenuPanel extends JPanel {
         add(menu);
 
         buttonContainer.setVisible(true);
-
-
         revalidate();;
         repaint();
 

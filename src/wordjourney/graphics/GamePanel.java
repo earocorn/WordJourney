@@ -69,11 +69,14 @@
              @Override
              public void actionPerformed(ActionEvent e) {
                  if(isAscending){
-                     //System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
+//                     System.out.println("Limit: " + yMoveLimit + "\nY: " + y);
                      y+=5;
                      if(y == yMoveLimit) {
                          yMoveLimit = yMoveLimit * -1;
                          isAscending = false;
+                         if(yMoveLimit> GameUtility.PLAYER_MAX_HEIGHT){
+                             yMoveLimit -= 50;
+                         }
                      }
                  } else {
                      if(y == 0) {
@@ -84,14 +87,6 @@
                  }
              }
          });
-
-//         // create font SUPER GAME
-//         try {
-//             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
-//         } catch (IOException|FontFormatException e) {
-//             e.printStackTrace();
-//         }
-
 
          //heart initial
          initialHeartY = GameUtility.WINDOW_HEIGHT - player.getHeight(null) - GameUtility.GROUND_HEIGHT - y - 20;

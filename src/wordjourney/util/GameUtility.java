@@ -23,9 +23,9 @@ public class GameUtility {
     public static int PLAYER_Y = 0;
     public static int PLAYER_VELOCITY_X = 1;
     public static int PLAYER_VELOCITY_Y = 0;
-    
-    public static int GROUND_HEIGHT = 85;
 
+    public static int PLAYER_MAX_HEIGHT =120;
+    public static int GROUND_HEIGHT = 85;
     public static int STARTING_LIVES = 3;
     public static int STARTING_SCORE =0;
 
