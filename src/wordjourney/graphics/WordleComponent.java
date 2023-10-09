@@ -28,6 +28,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 	private String wordleString;
 	private int currentLine = 0;
 	private JPanel wordleContainer;
+        private MainMenu menu;
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -47,6 +48,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 
 
 	public WordleComponent() {
+                
 		// ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
 		panel = new GamePanel();
 
@@ -59,6 +61,7 @@ public class WordleComponent implements KeyListener, ActionListener {
 		gameFrame.setAlwaysOnTop(true);
 		gameFrame.add(panel, "Graphics");
 
+                
 		//gameFrame.addKeyListener(this);
 
 		// wordle container is a JPanel that contains the 6 rows of letter boxes

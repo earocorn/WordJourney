@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import wordjourney.Main;
+
 
 /**
  *
@@ -138,6 +138,10 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString("Time: "+ time, 700, 45);
         //score displayed on screen
         g.drawString("Score: "+ score, 100, 45);
+        
+        
+        
+      
     }
 
     @Override
