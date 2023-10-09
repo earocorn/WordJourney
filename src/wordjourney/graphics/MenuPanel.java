@@ -22,11 +22,11 @@ public class MenuPanel extends JPanel implements ActionListener {
     ImageIcon startButtonIcon;
     ImageIcon quitButtonIcon;
     GameTitle gameTitle;
-    Timer newTimer;
+    Timer timer;
 
     public MenuPanel(){
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH,GameUtility.WINDOW_HEIGHT));
-        newTimer = new Timer(10, this);
+        timer = new Timer(10, this);
         setLayout(new BorderLayout());
 
         //create new instances of components
@@ -58,27 +58,17 @@ public class MenuPanel extends JPanel implements ActionListener {
         quitButton.setContentAreaFilled(false);
         quitButton.setBorderPainted(false);
 
-        //start and quit button functionality
-        startButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {
-                GameManager.showNewGame();
-            }
-        });
-        quitButton.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {
-                GameManager.quitGame();
-            }
-        });
-
-        buttonContainer.setOpaque(true);
+        buttonContainer.setOpaque(false);
         buttonContainer.add(startButton);
         buttonContainer.add(quitButton);
 
-        menu.add(buttonContainer);
         add(menu);
 
-        buttonContainer.setVisible(true);
-        newTimer.start();
+        startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGame();}});
+        quitButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.quitGame();}});
+
+        menu.add(buttonContainer);
+        timer.start();
     }
     @Override
     public void paint(Graphics g){

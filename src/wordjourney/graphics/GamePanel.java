@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
     public boolean[] heartAscending = new boolean[livesCount];
     
     public static int time = 365;
-    public static int score = 0;
+    public int score = 0;
     
     
     public void movePlayer() {
@@ -137,30 +137,6 @@ public class GamePanel extends JPanel {
 //         g.drawString("Time: "+ time, 700, 45);
          //score displayed on screen
          g.drawString("Score: "+ score, 100, 45);
-     }
-
-     @Override
-     public void actionPerformed(ActionEvent e) {
-         if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null) || x<0) {
-             xVelocity = xVelocity * -1;
-         }
-         x = x + xVelocity;
-
-         for (int i = 0; i < livesCount; i++) {
-             if (heartAscending[i]) {
-                 heartY[i]--;
-                 if (heartY[i] < heartYLimits[i]) {
-                     heartAscending[i] = false;
-                 }
-             } else {
-                 heartY[i]++;
-                 if (heartY[i] >= initialHeartY + heartJumpDistances[i]) {
-                     heartAscending[i] = true;
-                 }
-             }
-         }
-
-         repaint();
      }
 
 

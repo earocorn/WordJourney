@@ -1,5 +1,7 @@
 package wordjourney.graphics;
 
+import wordjourney.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +20,7 @@ public class GameTitle extends JLabel {
     public int titleYVelocity = 2;
 
     public GameTitle(){
-        if (WordleGame.panel.livesCount == 3){
+        if (Main.wordleGame.panel.livesCount == 3){
             title= new ImageIcon("src/assets/title.png");
         }
         else{

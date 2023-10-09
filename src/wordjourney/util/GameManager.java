@@ -7,8 +7,10 @@ package wordjourney.util;
 import wordjourney.graphics.GameOverPanel;
 import wordjourney.graphics.GamePanel;
 import wordjourney.Main;
+import wordjourney.graphics.MenuPanel;
 import wordjourney.graphics.WordleGame;
 
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 
 /**
@@ -98,7 +100,7 @@ public class GameManager {
         menuPanel.removeAll();
         Main.gameFrame.getContentPane().removeAll();
         Main.wordleGame = new WordleGame(Main.gameFrame);
-        Main.gameFrame.getContentPane().add(WordleGame.panel);
+        Main.gameFrame.getContentPane().add(Main.wordleGame.panel);
         Main.gameFrame.getContentPane().revalidate();
         Main.gameFrame.getContentPane().repaint();
     }

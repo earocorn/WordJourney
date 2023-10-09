@@ -19,7 +19,6 @@ import wordjourney.util.GameUtility;
 import wordjourney.util.Test;
 
 public class WordleGame implements KeyListener, ActionListener {
-public class WordleGame implements KeyListener, ActionListener {
 
 	public GamePanel panel;
 	public GameOverPanel gameOverPanel;
@@ -133,6 +132,10 @@ public class WordleGame implements KeyListener, ActionListener {
 		wordleString = getWordleString();
 		System.out.println("Word for the day : " + wordleString);
 		currentLine=0;
+	}
+
+	public WordPanel getActivePanel() {
+		return this.wordPanelArray[currentLine];
 	}
 
 	//function that  checks if users guess is equal to the wordle

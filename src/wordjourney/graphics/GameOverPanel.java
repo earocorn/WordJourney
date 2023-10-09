@@ -90,7 +90,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
 
         add(gameOver);
 
-        startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGameScreen();}});
+        startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGame();}});
         quitButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.quitGame();}});
 
         gameOver.add(buttonContainer);

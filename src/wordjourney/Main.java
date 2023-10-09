@@ -21,9 +21,6 @@ public class Main {
     public static WordleGame wordleGame;
     public static GameFrame gameFrame;
 
-    public static WordleGame wordleGame;
-    public static GameFrame gameFrame;
-
     /**
      * @param args the command line arguments
      */
