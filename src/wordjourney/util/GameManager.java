@@ -15,12 +15,8 @@ import java.awt.event.WindowEvent;
  * @author alexalmanza
  */
 public class GameManager {
-
-//    static GameOverPanel gameOverPanel;
-//    static StartGamePanel startGamePanel;
     static GamePanel gamePanel;
     static MenuPanel menuPanel;
-
 
     // should add parameter for how far we want to move him
     public static void move(GamePanel panel) {
@@ -50,17 +46,6 @@ public class GameManager {
         System.out.println("score reset");
     }
 
-    //show start menu panel
-//    public static void showStartMenuScreen(){
-//        startGamePanel = new StartGamePanel();
-//        Main.gameFrame.getContentPane().removeAll();
-////        Main.gameFrame.add(startGamePanel);
-//        Main.gameFrame.getContentPane().add(startGamePanel);
-//        Main.gameFrame.getContentPane().revalidate();
-//        Main.gameFrame.getContentPane().repaint();
-//
-//    }
-
     //show a new gamePanel when user presses start from the start menu
     public static void showGamePanel(){
         gamePanel = new GamePanel();
@@ -80,18 +65,10 @@ public class GameManager {
         Main.gameFrame.getContentPane().repaint();
     }
 
-    private static void clearAndClose(JPanel clearPanel){
-
-    }
-
-    //function to call game over panel
-//    public static void showGameOverScreen() {
-//        gameOverPanel = new GameOverPanel();
-//        Main.gameFrame.getContentPane().removeAll();
-//        Main.gameFrame.getContentPane().add(gameOverPanel);
-//        Main.gameFrame.getContentPane().revalidate();
-//        Main.gameFrame.getContentPane().repaint();
+//    private static void clearAndClose(JPanel clearPanel){
+//
 //    }
+
 
     //function to call for new game panel
     public static void showNewGame() {

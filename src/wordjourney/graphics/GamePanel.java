@@ -4,11 +4,11 @@
   */
  package wordjourney.graphics;
 
+ import GameNotImplemented.notUsing.GameOverPanel;
  import wordjourney.util.GameUtility;
  import java.awt.*;
  import java.awt.event.ActionEvent;
  import java.awt.event.ActionListener;
- import java.io.*;
  import javax.swing.ImageIcon;
  import javax.swing.JLabel;
  import javax.swing.JPanel;
@@ -39,7 +39,7 @@
      int[] heartYLimits = new int[livesCount];
      int[] heartJumpDistances = {10, 10, 10};
      int initialHeartY;
-//     GameTimer gameTimer;
+
     boolean[] heartAscending = new boolean[livesCount];
 
     public int score = GameUtility.STARTING_SCORE;

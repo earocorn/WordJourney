@@ -4,12 +4,19 @@ package wordjourney.graphics;
 import wordjourney.util.GameManager;
 import wordjourney.util.GameUtility;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
 
 
 public class MenuPanel extends JPanel implements ActionListener {
@@ -49,14 +56,14 @@ public class MenuPanel extends JPanel implements ActionListener {
         menu.setIcon(menuBG);
 
         startButton.setIcon(startButtonIcon);
-        startButton.setOpaque(false);
-        startButton.setContentAreaFilled(false);
-        startButton.setBorderPainted(false);
+//        startButton.setOpaque(true);
+//        startButton.setContentAreaFilled(false);
+//        startButton.setBorderPainted(false);
 
         quitButton.setIcon(quitButtonIcon);
-        quitButton.setOpaque(false);
-        quitButton.setContentAreaFilled(false);
-        quitButton.setBorderPainted(false);
+//        quitButton.setOpaque(true);
+//        quitButton.setContentAreaFilled(false);
+//        quitButton.setBorderPainted(false);
 
         //start and quit button functionality
         startButton.addActionListener(new ActionListener() {
@@ -70,7 +77,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             }
         });
 
-        buttonContainer.setOpaque(true);
+//        buttonContainer.setOpaque(true);
         buttonContainer.add(startButton);
         buttonContainer.add(quitButton);
 
@@ -94,7 +101,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("X: " + gameTitle.titleX + ", Y: " + gameTitle.titleY);
+//        System.out.println("X: " + gameTitle.titleX + ", Y: " + gameTitle.titleY);
         if ((gameTitle.titleX > gameTitle.titleXLimitRight) || (gameTitle.titleX < gameTitle.titleXLimitLeft)) {
             gameTitle.titleXVelocity -= gameTitle.titleXVelocity * 2;
         }
@@ -105,6 +112,10 @@ public class MenuPanel extends JPanel implements ActionListener {
         gameTitle.titleY += gameTitle.titleYVelocity;
 
         repaint();
+    }
+
+    public void showBubble(){
+
     }
 
 

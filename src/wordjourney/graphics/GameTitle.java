@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 public class GameTitle extends JLabel {
 
     public static ImageIcon title;
+    JLabel pinkBubble;
+    ImageIcon pinkBubbleIcon;
+    JPanel titleContainer;
     final int titleXLimitRight = 45;
     final int titleXLimitLeft = 25;
     final int titleYLimitTop = 120;
@@ -19,7 +22,16 @@ public class GameTitle extends JLabel {
 
     public GameTitle(){
         if (WordleGame.panel.livesCount == 3){
-            title= new ImageIcon("src/assets/title.png");
+            title = new ImageIcon("src/assets/title.png");
+            titleContainer = new JPanel();
+            pinkBubble = new JLabel();
+
+            pinkBubbleIcon = new ImageIcon("src/assets/pinkBubble.png");
+            pinkBubble.setIcon(pinkBubbleIcon);
+            pinkBubble.setOpaque(false);
+            titleContainer.setOpaque(false);
+
+            titleContainer.add(pinkBubble);
         }
         else{
             title = new ImageIcon("src/assets/gameOverTitle.png");
@@ -33,21 +45,7 @@ public class GameTitle extends JLabel {
         return title;
     }
 
-//    public static void setTitle(){
-//
-//
-////        if (WordleGame.panel.livesCount == 3){
-////            title = new ImageIcon("src/assets/gameOverTitle.png");
-////        }
-////        else{
-////            title= new ImageIcon("src/assets/title.png");
-////        }
-//
-//    }
-//    public void startAnimation(){
-//        System.out.println("animation started for title");
-//        timer.start();
-//    }
+
 
     @Override
     public void paint(Graphics g) {
@@ -56,6 +54,8 @@ public class GameTitle extends JLabel {
         Graphics2D g2D = (Graphics2D) g;
 
     }
+
+
 
 
 
