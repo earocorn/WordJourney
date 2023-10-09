@@ -1,8 +1,8 @@
  /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package wordjourney.graphics;
+  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+  */
+ package wordjourney.graphics;
 
 import wordjourney.listeners.GameAnimationListener;
 import wordjourney.util.GameUtility;
@@ -133,12 +133,35 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         g.setFont(GameUtility.getFont());
 
-        //display time on screen
-        g.drawString("Time: "+ time, 700, 45);
-        //score displayed on screen
-        g.drawString("Score: "+ score, 100, 45);
-    }
-    
-    
-    
-}
+         //display time on screen
+//         g.drawString("Time: "+ time, 700, 45);
+         //score displayed on screen
+         g.drawString("Score: "+ score, 100, 45);
+     }
+
+     @Override
+     public void actionPerformed(ActionEvent e) {
+         if(x > GameUtility.WINDOW_WIDTH-player.getWidth(null) || x<0) {
+             xVelocity = xVelocity * -1;
+         }
+         x = x + xVelocity;
+
+         for (int i = 0; i < livesCount; i++) {
+             if (heartAscending[i]) {
+                 heartY[i]--;
+                 if (heartY[i] < heartYLimits[i]) {
+                     heartAscending[i] = false;
+                 }
+             } else {
+                 heartY[i]++;
+                 if (heartY[i] >= initialHeartY + heartJumpDistances[i]) {
+                     heartAscending[i] = true;
+                 }
+             }
+         }
+
+         repaint();
+     }
+
+
+ }
