@@ -21,6 +21,8 @@ class UserPanel extends JPanel {
         enterButton.setVisible(false);
         enterButton.setFont(GameUtility.getFont().deriveFont(22f));
         this.add(enterButton);
+//        this.getUserInput().grabFocus();
+//        this.getUserInput().addKeyListener( );
 
     }
     public JTextField getUserInput() {
@@ -28,6 +30,9 @@ class UserPanel extends JPanel {
     }
     public JButton getEnterButton() {
         return enterButton;
+    }
+    public void clearUserInput(){
+        userInput.setText("");
     }
 
 }

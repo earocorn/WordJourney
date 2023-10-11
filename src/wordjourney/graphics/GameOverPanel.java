@@ -1,9 +1,11 @@
 package wordjourney.graphics;
 
 
+import wordjourney.util.GameManager;
 import wordjourney.util.GameUtility;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +56,13 @@ public class GameOverPanel extends JPanel implements ActionListener {
 
         gameOver.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
         buttonContainer.setLayout(new GridLayout(2, 1));
+        gameOverTitle = new JLabel();
+        buttonContainer = new JPanel();
+        startButton = new JButton();
+        quitButton = new JButton();
+
+        gameOver.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
+        buttonContainer.setLayout(new GridLayout(2, 1));
         gameOver.setVisible(true);
 
         gameOverImage = new ImageIcon("src/assets/gameOverBackground.png");
@@ -81,7 +90,7 @@ public class GameOverPanel extends JPanel implements ActionListener {
 
         add(gameOver);
 
-        startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGameScreen();}});
+        startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGame();}});
         quitButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.quitGame();}});
 
         gameOver.add(buttonContainer);

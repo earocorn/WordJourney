@@ -27,16 +27,14 @@ public class GameUtility {
     public static int PLAYER_Y = 0;
     public static int PLAYER_VELOCITY_X = 1;
     public static int PLAYER_VELOCITY_Y = 0;
-    
+
+    public static int PLAYER_MAX_HEIGHT =120;
     public static int GROUND_HEIGHT = 85;
-    
     public static int STARTING_LIVES = 3;
+    public static int STARTING_SCORE =0;
+
 
     private static Font gameFont;
-    
-    private static AudioInputStream gameAudioInput;
-    
-    private static Clip gameAudioClip;
 
     // call wherever we load assets
     public static void loadFont() {
@@ -46,10 +44,14 @@ public class GameUtility {
             e.printStackTrace();
         }
     }
-    
+
     public static Font getFont() {
         return gameFont;
     }
+    
+    private static AudioInputStream gameAudioInput;
+    
+    private static Clip gameAudioClip;
     
     public static void loadMusic() {
         try {

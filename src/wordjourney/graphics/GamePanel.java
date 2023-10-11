@@ -1,8 +1,8 @@
  /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package wordjourney.graphics;
+  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+  */
+ package wordjourney.graphics;
 
 import wordjourney.listeners.GameAnimationListener;
 import wordjourney.util.GameUtility;
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
     public boolean[] heartAscending = new boolean[livesCount];
     
     public static int time = 365;
-    public static int score = 0;
+    public int score = 0;
     
     
     public void movePlayer() {
@@ -133,12 +133,11 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         g.setFont(GameUtility.getFont());
 
-        //display time on screen
-        g.drawString("Time: "+ time, 700, 45);
-        //score displayed on screen
-        g.drawString("Score: "+ score, 100, 45);
-    }
-    
-    
-    
-}
+         //display time on screen
+//         g.drawString("Time: "+ time, 700, 45);
+         //score displayed on screen
+         g.drawString("Score: "+ score, 100, 45);
+     }
+
+
+ }

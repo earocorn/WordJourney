@@ -27,6 +27,7 @@ public class WordleGame implements KeyListener, ActionListener {
 	private UserPanel userPanel;
 	private String wordleString;
 	private int currentLine = 0;
+	public static int score = 0;
 	private JPanel wordleContainer;
 
     @Override
@@ -36,7 +37,6 @@ public class WordleGame implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
             //System.out.println("key pressed : " + e);
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            //GameManager.move(panel);
             enterButtonEvent();
             //System.out.println("jump key");
         }
@@ -53,26 +53,19 @@ public class WordleGame implements KeyListener, ActionListener {
 
 		gameFrame.add(panel, "Graphics");
 
-		//gameFrame.addKeyListener(this);
-
-		// wordle container is a JPanel that contains the 6 rows of letter boxes
 		// and 1 row of user input
-		wordleContainer = new JPanel(new GridLayout(7, 1));
-                
+		JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
 			wordleContainer.add(wordPanelArray[i]);
 		}
 		gameFrame.add(wordleContainer, "WordPanelGrid");
+
 		userPanel = new UserPanel();
 		userPanel.getEnterButton().addActionListener(this);
-		// adds user input to 7th row of the wordleContainer GridLayo
+		// adds user input to 7th row of the wordleContainer GridLayout
 		wordleContainer.add(userPanel, "UserPanel");
-
-		// IMPORTANT: adds wordleContainer to the JLabel "background" which
-		// has the background image. didn't know it was possible but i guess
-		// we can add stuff on top of JLabels
-
 		GamePanel.background.setLayout(new FlowLayout());
 		GamePanel.background.add(wordleContainer);
 
@@ -81,13 +74,13 @@ public class WordleGame implements KeyListener, ActionListener {
 		//load the word for the round
 		wordleString = getWordleString();
 		System.out.println("Word for the day : " + wordleString);
-                
+
 		// focus on main JFrame
 		gameFrame.requestFocus();
 		userPanel.getUserInput().grabFocus();
 		userPanel.getUserInput().addKeyListener(this);
 
-		//GameManager.showGameOverScreen(panel); // use this to look at just the GameOverPanel to design :3
+		//GameManager.showMenuPanel(); // use this to look at just the GameOverPanel to design :3
 	}
 
 	public void clean() {
@@ -98,22 +91,24 @@ public class WordleGame implements KeyListener, ActionListener {
 		wordleContainer = null;
 		panel = null;
 	}
+
         
 	public void enterButtonEvent() {
 		String userWord = this.userPanel.getUserInput().getText().trim().toUpperCase();
-		this.userPanel.getUserInput().setText("");
+		this.userPanel.clearUserInput();
 
 		// dont allow words not equal to 5
 		if (userWord.length() != 5) {
 			return;
 		}
 
+		//check if user word is equal if so increments points and clears panel
 		if (isWordleWordEqualTo(userWord)) {
-			//TODO: implement successfully guessed word logic
-			// points++
+			GameManager.addPoint(panel);
 			clearAllPanels();
 			return;
 		}
+		//checks if users current line is over guess limit, if so removes life and clears panel
 		if (currentLine >=5) {
 			//TODO: implement FAILED wordle logic
 			// points--;
@@ -121,7 +116,6 @@ public class WordleGame implements KeyListener, ActionListener {
 			clearAllPanels();
 			return;
 		}
-
 		currentLine++;
 	}
 
@@ -140,7 +134,11 @@ public class WordleGame implements KeyListener, ActionListener {
 		currentLine=0;
 	}
 
-	//function that
+	public WordPanel getActivePanel() {
+		return this.wordPanelArray[currentLine];
+	}
+
+	//function that  checks if users guess is equal to the wordle
 	private boolean isWordleWordEqualTo(String userWord) {
 		List<String> wordleWordsList = Arrays.asList(wordleString.split(""));
 		String[] userWordsArray = userWord.split("");
@@ -163,10 +161,6 @@ public class WordleGame implements KeyListener, ActionListener {
 		return !wordMatchesList.contains(false);
 	}
 
-	public WordPanel getActivePanel() {
-
-		return this.wordPanelArray[currentLine];
-	}
 
 	public String getWordleString() {
 		Path path = Paths.get("src/assets/Words.txt");
@@ -174,10 +168,13 @@ public class WordleGame implements KeyListener, ActionListener {
 		try {
 			wordList = Files.readAllLines(path);
 		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 		Random random = new Random();
 		int position = random.nextInt(wordList.size());
 		return wordList.get(position).trim().toUpperCase();
 	}
+
+
 
 }
