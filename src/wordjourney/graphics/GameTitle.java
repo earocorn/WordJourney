@@ -26,7 +26,6 @@ public class GameTitle extends JLabel {
         else{
             title = new ImageIcon("src/assets/gameOverTitle.png");
         }
-        setOpaque(false);
         setIcon(title);
 
     }

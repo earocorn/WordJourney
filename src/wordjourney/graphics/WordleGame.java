@@ -54,7 +54,7 @@ public class WordleGame implements KeyListener, ActionListener {
 		gameFrame.add(panel, "Graphics");
 
 		// and 1 row of user input
-		JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+		wordleContainer = new JPanel(new GridLayout(7, 1));
 
 		for (int i = 0; i < 6; i++) {
 			wordPanelArray[i] = new WordPanel();
@@ -134,7 +134,7 @@ public class WordleGame implements KeyListener, ActionListener {
 		currentLine=0;
 	}
 
-	public WordPanel getActivePanel() {
+	private WordPanel getActivePanel() {
 		return this.wordPanelArray[currentLine];
 	}
 

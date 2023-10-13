@@ -30,41 +30,36 @@ public class MenuPanel extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
 
         //create new instances of components
-        gameTitle = new GameTitle();
-//        gameTitle.startAnimation();
-        add(gameTitle);
         menu = new JLabel();
+        gameTitle = new GameTitle();
         buttonContainer = new JPanel();
         startButton = new JButton();
         quitButton = new JButton();
 
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
-        buttonContainer.setLayout(new GridLayout(2, 1));
-        menu.setVisible(true);
+        buttonContainer.setLayout(new GridLayout(3, 1));
 
-        menuBG = new ImageIcon("src/assets/pinkBG.png");
+        //menuBG = new ImageIcon("src/assets/pinkBG.png");
         startButtonIcon = new ImageIcon("src/assets/startButton.png");
         quitButtonIcon = new ImageIcon("src/assets/quitButton.png");
 
-        menu.setIcon(menuBG);
+        //menu.setIcon(menuBG);
 
         startButton.setIcon(startButtonIcon);
         startButton.setOpaque(false);
         startButton.setContentAreaFilled(false);
         startButton.setBorderPainted(false);
-        startButton.setVisible(true);
 
         quitButton.setIcon(quitButtonIcon);
         quitButton.setOpaque(false);
         quitButton.setContentAreaFilled(false);
         quitButton.setBorderPainted(false);
-        quitButton.setVisible(true);
 
         buttonContainer.setOpaque(false);
         buttonContainer.add(startButton);
         buttonContainer.add(quitButton);
 
-        add(menu);
+        menu.add(gameTitle);
 
         startButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.showNewGame();}});
         quitButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {GameManager.quitGame();}});
