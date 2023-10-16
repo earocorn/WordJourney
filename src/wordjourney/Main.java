@@ -7,7 +7,6 @@ package wordjourney;
 //import wordjourney.util.DataManager;
 import wordjourney.graphics.GameFrame;
 import wordjourney.graphics.WordleGame;
-import wordjourney.util.GameManager;
 import wordjourney.util.GameUtility;
 
 import javax.swing.*;

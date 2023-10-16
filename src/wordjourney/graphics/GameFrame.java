@@ -5,9 +5,6 @@
 package wordjourney.graphics;
 
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Taskbar;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import wordjourney.util.GameUtility;

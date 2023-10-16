@@ -1,9 +1,7 @@
 package wordjourney.graphics;
 
-
 import wordjourney.util.GameManager;
 import wordjourney.util.GameUtility;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

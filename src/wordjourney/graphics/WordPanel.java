@@ -3,7 +3,6 @@ package wordjourney.graphics;
 import wordjourney.Main;
 import wordjourney.util.GameManager;
 import wordjourney.util.Test;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;

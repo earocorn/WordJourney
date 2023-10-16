@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import wordjourney.util.GameState;
 import wordjourney.util.Test;
 
  /**

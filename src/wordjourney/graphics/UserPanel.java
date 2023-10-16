@@ -1,7 +1,6 @@
 package wordjourney.graphics;
 
 import wordjourney.util.Test;
-
 import javax.swing.*;
 import java.awt.*;
 import wordjourney.util.GameUtility;
