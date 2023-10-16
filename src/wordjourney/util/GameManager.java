@@ -22,6 +22,19 @@ public class GameManager {
     static GamePanel gamePanel;
     static MenuPanel menuPanel;
 
+    public static void init() {
+        // new GamePanel
+        // new MenuPanel
+    }
+
+    public static GamePanel getGamePanel() {
+        return new GamePanel();
+    }
+
+    public static MenuPanel getMenuPanel() {
+        return new MenuPanel();
+    }
+
 
     // should add parameter for how far we want to move him
     public static void move(GamePanel panel) {

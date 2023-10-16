@@ -24,7 +24,6 @@ import wordjourney.util.Test;
 public class WordleGame implements KeyListener, ActionListener {
 
 	public GamePanel panel;
-	public GameOverPanel gameOverPanel;
 	public static JFrame gameFrame;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;

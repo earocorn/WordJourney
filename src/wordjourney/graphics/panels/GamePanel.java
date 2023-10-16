@@ -27,7 +27,6 @@ public class GamePanel extends JPanel {
     Image lives;
     ImageIcon backgroundImage;
     Timer moveTimer;
-    GameOverPanel gameOverPanel;
     public static JLabel background;
     public int xVelocity = 2;
     public int x = 0;
@@ -65,8 +64,6 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
         gameAnimationListener = new GameAnimationListener(this);
         timer = new Timer(10, gameAnimationListener);
-        
-        gameOverPanel = new GameOverPanel();
 
         background = new JLabel();
         background.setLayout(new GridBagLayout());
@@ -120,7 +117,7 @@ public class GamePanel extends JPanel {
         if(livesCount > 0) {
             g2D.drawImage(lives, x, heartY[0], null);
         } else {
-            this.add(gameOverPanel);
+            // ???
         }
         
         

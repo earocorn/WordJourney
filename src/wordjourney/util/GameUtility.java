@@ -30,8 +30,8 @@ public class GameUtility {
 
     public static int PLAYER_MAX_HEIGHT =120;
     public static int GROUND_HEIGHT = 85;
-    public static int STARTING_LIVES = 1;
-    public static int STARTING_SCORE =0;
+    public static final int STARTING_LIVES = 1;
+    public static int STARTING_SCORE = 0;
 
 
     private static Font gameFont;
@@ -48,14 +48,12 @@ public class GameUtility {
     public static Font getFont() {
         return gameFont;
     }
-    
-    private static AudioInputStream gameAudioInput;
-    
+
     private static Clip gameAudioClip;
     
     public static void loadMusic() {
         try {
-            gameAudioInput = AudioSystem.getAudioInputStream(new File("src/assets/gameMusic.wav").getAbsoluteFile());
+            AudioInputStream gameAudioInput = AudioSystem.getAudioInputStream(new File("src/assets/gameMusic.wav").getAbsoluteFile());
             gameAudioClip = AudioSystem.getClip();
             gameAudioClip.open(gameAudioInput);
             gameAudioClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -64,7 +62,7 @@ public class GameUtility {
         }
     }
     
-    public static Clip getClip(GameState gameState) {
+    Clip getClip(GameState gameState) {
         // get audio clip for whatever gamestate
         switch (gameState) {
             case IN_GAME:
