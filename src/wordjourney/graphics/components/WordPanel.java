@@ -1,4 +1,4 @@
-package wordjourney.graphics;
+package wordjourney.graphics.components;
 
 import wordjourney.Main;
 import wordjourney.util.GameManager;
@@ -13,7 +13,7 @@ import wordjourney.util.GameUtility;
  * Class that creates the panel that holds the users guesses
  *
  */
-class WordPanel extends JPanel {
+public class WordPanel extends JPanel {
 
     JLabel[] wordColumns = new JLabel[5];
 

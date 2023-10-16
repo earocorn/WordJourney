@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import wordjourney.graphics.components.UserPanel;
+import wordjourney.graphics.components.WordPanel;
+import wordjourney.graphics.panels.GamePanel;
 import wordjourney.util.GameManager;
-import wordjourney.util.GameUtility;
 import wordjourney.util.Test;
 
 public class WordleGame implements KeyListener, ActionListener {

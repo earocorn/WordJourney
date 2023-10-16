@@ -1,6 +1,6 @@
 package wordjourney.listeners;
 
-import wordjourney.graphics.GamePanel;
+import wordjourney.graphics.panels.GamePanel;
 import wordjourney.util.GameUtility;
 import wordjourney.util.Test;
 

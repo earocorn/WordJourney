@@ -4,14 +4,12 @@
  */
 package wordjourney.util;
 
-import wordjourney.graphics.GameOverPanel;
-import wordjourney.graphics.GamePanel;
+import wordjourney.graphics.panels.GamePanel;
 import wordjourney.Main;
-import wordjourney.graphics.MenuPanel;
+import wordjourney.graphics.panels.MenuPanel;
 import wordjourney.graphics.WordleGame;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
 
 /**
  *

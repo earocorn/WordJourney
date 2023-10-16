@@ -1,4 +1,4 @@
-package wordjourney.graphics;
+package wordjourney.graphics.components;
 
 import wordjourney.util.Test;
 
@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import wordjourney.util.GameUtility;
 
-class UserPanel extends JPanel {
+public class UserPanel extends JPanel {
 
     private JTextField userInput;
     private JButton enterButton;

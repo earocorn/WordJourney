@@ -2,20 +2,18 @@
   * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
   * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
   */
- package wordjourney.graphics;
+ package wordjourney.graphics.panels;
 
 import wordjourney.listeners.GameAnimationListener;
 import wordjourney.util.GameUtility;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import wordjourney.Main;
-import wordjourney.util.GameState;
+
 import wordjourney.util.Test;
 
  /**
