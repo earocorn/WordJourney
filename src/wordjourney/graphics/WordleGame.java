@@ -19,16 +19,16 @@ import wordjourney.util.Test;
 
 public class WordleGame implements KeyListener, ActionListener {
 
-	public GamePanel panel;
-	public GameOverPanel gameOverPanel;
-	public static JFrame gameFrame;
-	private WordPanel[] wordPanelArray = new WordPanel[6];
-	private UserPanel userPanel;
-	private String wordleString;
-	private int currentLine = 0;
-	public static int score = 0;
-	private JPanel wordleContainer;
-        private ArrayList<String> wordList;
+    public GamePanel panel;
+    public GameOverPanel gameOverPanel;
+    public static JFrame gameFrame;
+    private WordPanel[] wordPanelArray = new WordPanel[6];
+    private UserPanel userPanel;
+    private String wordleString;
+    private int currentLine = 0;
+    public static int score = 0;
+    private JPanel wordleContainer;
+    private ArrayList<String> wordList;
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -73,9 +73,9 @@ public class WordleGame implements KeyListener, ActionListener {
 
         Path path = Paths.get("src/assets/Words.txt");
         try {
-                wordList = new ArrayList<>(Files.readAllLines(path));
+            wordList = new ArrayList<>(Files.readAllLines(path));
         } catch (IOException e) {
-                throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         
         //load the word for the round

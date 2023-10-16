@@ -2,7 +2,6 @@ package wordjourney.listeners;
 
 import wordjourney.graphics.GamePanel;
 import wordjourney.util.GameUtility;
-import wordjourney.util.Test;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +10,6 @@ public class GameAnimationListener implements ActionListener {
     private final GamePanel gamePanel;
 
     public GameAnimationListener(GamePanel gamePanel) {
-        Test.printObject(this);
         this.gamePanel = gamePanel;
     }
     @Override

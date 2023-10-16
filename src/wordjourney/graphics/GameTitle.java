@@ -1,7 +1,6 @@
 package wordjourney.graphics;
 
 import wordjourney.Main;
-
 import javax.swing.*;
 import java.awt.*;
 

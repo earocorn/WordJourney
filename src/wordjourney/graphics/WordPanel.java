@@ -2,7 +2,6 @@ package wordjourney.graphics;
 
 import wordjourney.Main;
 import wordjourney.util.GameManager;
-import wordjourney.util.Test;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -17,7 +16,6 @@ class WordPanel extends JPanel {
     JLabel[] wordColumns = new JLabel[5];
 
     public WordPanel() {
-        Test.printObject(this);
 
         this.setLayout(new GridLayout(1, 5));
         Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
