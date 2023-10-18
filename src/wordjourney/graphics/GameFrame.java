@@ -5,9 +5,6 @@
 package wordjourney.graphics;
 
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Taskbar;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import wordjourney.util.GameUtility;
@@ -26,11 +23,11 @@ public class GameFrame extends JFrame {
 
         Test.printObject(this);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/wordJourneyIcon.png");
+        /* Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/wordJourneyIcon.png");
         //https://runmodule.com/2020/01/05/how-to-set-dock-icon-of-java-application/
         final Taskbar taskbar = Taskbar.getTaskbar();
         taskbar.setIconImage(icon);
-        setIconImage(icon);
+        setIconImage(icon); */
         
         setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -9,13 +9,10 @@ import wordjourney.util.GameUtility;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import wordjourney.Main;
-import wordjourney.util.GameState;
 import wordjourney.util.Test;
 
  /**
