@@ -4,6 +4,7 @@
  */
 package wordjourney.util;
 
+import wordjourney.graphics.GameFrame;
 import wordjourney.graphics.panels.GamePanel;
 import wordjourney.Main;
 import wordjourney.graphics.panels.MenuPanel;
@@ -28,7 +29,7 @@ public class GameManager {
     }
 
     public static GamePanel getGamePanel() {
-        return new GamePanel();
+        return Main.wordleGame.getPanel();
     }
 
     public static MenuPanel getMenuPanel() {
@@ -97,23 +98,16 @@ public class GameManager {
 
     }
 
-    //function to call game over panel
-//    public static void showGameOverScreen() {
-//        gameOverPanel = new GameOverPanel();
-//        Main.gameFrame.getContentPane().removeAll();
-//        Main.gameFrame.getContentPane().add(gameOverPanel);
-//        Main.gameFrame.getContentPane().revalidate();
-//        Main.gameFrame.getContentPane().repaint();
-//    }
-
     //function to call for new game panel
     public static void showNewGame() {
         menuPanel.removeAll();
         Main.gameFrame.getContentPane().removeAll();
-        Main.wordleGame = new WordleGame(Main.gameFrame);
-        Main.gameFrame.getContentPane().add(Main.wordleGame.panel);
-        Main.gameFrame.getContentPane().revalidate();
         Main.gameFrame.getContentPane().repaint();
+        Main.gameFrame.getContentPane().revalidate();
+    }
+
+    public static void initWordle(GameFrame gameFrame) {
+        WordleGame wordleGame = new WordleGame(gameFrame);
     }
 
     //function to call if user quits game

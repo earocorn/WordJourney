@@ -4,10 +4,7 @@
  */
 package wordjourney.graphics;
 
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Taskbar;
-import java.awt.Toolkit;
+import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import wordjourney.util.GameUtility;
@@ -34,7 +31,7 @@ public class GameFrame extends JFrame {
         
         setSize(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new CardLayout());
         setResizable(false);
         setLocationRelativeTo(null);
         setAlwaysOnTop(true);

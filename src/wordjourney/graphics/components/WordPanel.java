@@ -48,7 +48,7 @@ public class WordPanel extends JPanel {
         this.wordColumns[position].setFont(GameUtility.getFont().deriveFont(22f));
         this.wordColumns[position].setText(charValue);
         this.wordColumns[position].setBackground(color);
-        GameManager.move(Main.wordleGame.panel);
+        GameManager.move(Main.wordleGame.getPanel());
     }
 
 

@@ -23,13 +23,12 @@ import wordjourney.util.Test;
 
 public class WordleGame implements KeyListener, ActionListener {
 
-	public GamePanel panel;
-	public static JFrame gameFrame;
+	private static GamePanel panel;
 	private WordPanel[] wordPanelArray = new WordPanel[6];
 	private UserPanel userPanel;
 	private String wordleString;
 	private int currentLine = 0;
-	public static int score = 0;
+	private int score = 0;
 	private JPanel wordleContainer;
 
     @Override
@@ -49,7 +48,6 @@ public class WordleGame implements KeyListener, ActionListener {
 
 
 	public WordleGame(GameFrame gameFrame) {
-		Test.printObject(this);
 		// ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
 		panel = new GamePanel();
 
@@ -62,7 +60,7 @@ public class WordleGame implements KeyListener, ActionListener {
 			wordPanelArray[i] = new WordPanel();
 			wordleContainer.add(wordPanelArray[i]);
 		}
-		gameFrame.add(wordleContainer, "WordPanelGrid");
+		panel.add(wordleContainer, "WordPanelGrid");
 
 		userPanel = new UserPanel();
 		userPanel.getEnterButton().addActionListener(this);
@@ -85,13 +83,8 @@ public class WordleGame implements KeyListener, ActionListener {
 		//GameManager.showMenuPanel(); // use this to look at just the GameOverPanel to design :3
 	}
 
-	public void clean() {
-		for (int i = 0; i < 6; i++) {
-			wordPanelArray[i] = null;
-		}
-		userPanel = null;
-		wordleContainer = null;
-		panel = null;
+	public GamePanel getPanel() {
+		return panel;
 	}
 
         
