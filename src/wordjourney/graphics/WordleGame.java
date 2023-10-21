@@ -29,7 +29,7 @@ public class WordleGame implements KeyListener, ActionListener {
     public static int score = 0;
     private JPanel wordleContainer;
     private ArrayList<String> wordList;
-
+    
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -47,7 +47,6 @@ public class WordleGame implements KeyListener, ActionListener {
 
 
     public WordleGame(GameFrame gameFrame) {
-        Test.printObject(this);
         // ok i just initialized GamePanel in this class because this is where all the JFrame stuff is
         panel = new GamePanel();
 
@@ -102,6 +101,9 @@ public class WordleGame implements KeyListener, ActionListener {
         
     public void enterButtonEvent() {
         String userWord = this.userPanel.getUserInput().getText().trim().toUpperCase();
+        if (panel.warningMessage.isVisible()){
+            panel.warningMessage.setVisible(false);
+        }
         this.userPanel.clearUserInput();
 
         // dont allow words not equal to 5
@@ -111,6 +113,9 @@ public class WordleGame implements KeyListener, ActionListener {
         
         // dont allow words NOT in the word list
         if (!wordList.contains(userWord.toLowerCase())) {
+            if (!panel.warningMessage.isVisible()) {
+                panel.warningMessage.setVisible(true);
+            }
             return;
         }
         

@@ -47,6 +47,9 @@ public class GamePanel extends JPanel {
     public static int time = 365;
     public int score = 0;
     
+    public JLabel warningMessage;
+
+    
     
     public void movePlayer() {
         yMoveLimit = y+50;
@@ -56,16 +59,19 @@ public class GamePanel extends JPanel {
     
     public GamePanel() {
         super.invalidate();
-
+        
         setDoubleBuffered(true);
-
-        Test.printObject(this);
-
+        
         this.setPreferredSize(new Dimension(GameUtility.WINDOW_WIDTH, GameUtility.WINDOW_HEIGHT));
         gameAnimationListener = new GameAnimationListener(this);
         timer = new Timer(10, gameAnimationListener);
         
         gameOverPanel = new GameOverPanel();
+        
+        warningMessage = new JLabel();
+        warningMessage.setText("That guess is not in the word list!");
+        warningMessage.setVisible(false);
+        this.add(warningMessage);
 
         background = new JLabel();
         background.setLayout(new GridBagLayout());
@@ -135,6 +141,4 @@ public class GamePanel extends JPanel {
          //score displayed on screen
          g.drawString("Score: "+ score, 100, 45);
      }
-
-
  }
