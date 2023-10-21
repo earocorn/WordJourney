@@ -15,8 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import wordjourney.util.GameManager;
-import wordjourney.util.Test;
-
 public class WordleGame implements KeyListener, ActionListener {
 
     public GamePanel panel;
@@ -53,7 +51,7 @@ public class WordleGame implements KeyListener, ActionListener {
         gameFrame.add(panel, "Graphics");
 
         // and 1 row of user input
-        JPanel wordleContainer = new JPanel(new GridLayout(7, 1));
+        wordleContainer = new JPanel(new GridLayout(7, 1));
 
         for (int i = 0; i < 6; i++) {
             wordPanelArray[i] = new WordPanel();
