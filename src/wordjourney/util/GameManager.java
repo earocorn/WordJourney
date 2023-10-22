@@ -56,7 +56,7 @@ public class GameManager {
 //    public static void showStartMenuScreen(){
 //        startGamePanel = new StartGamePanel();
 //        Main.gameFrame.getContentPane().removeAll();
-////        Main.gameFrame.add(startGamePanel);
+//        Main.gameFrame.add(startGamePanel);
 //        Main.gameFrame.getContentPane().add(startGamePanel);
 //        Main.gameFrame.getContentPane().revalidate();
 //        Main.gameFrame.getContentPane().repaint();
