@@ -18,6 +18,7 @@ import java.awt.event.WindowEvent;
  * @author alexalmanza
  */
 public class GameManager {
+private static WordleGame wordleGame;
 
 //    static GameOverPanel gameOverPanel;
 //    static StartGamePanel startGamePanel;
@@ -25,6 +26,10 @@ public class GameManager {
     static MenuPanel menuPanel;
 
 
+    public static void setWordleGame(WordleGame game) {
+        wordleGame = game;
+    }
+    
     // should add parameter for how far we want to move him
     public static void move(GamePanel panel) {
         panel.movePlayer();
@@ -39,7 +44,9 @@ public class GameManager {
         if (panel.livesCount == 0){
             showMenuPanel();
             resetPoints(panel);
+            
         }
+        
     }
     //when player gets the wordle correct increment their points by 1
     public static void addPoint(GamePanel panel){

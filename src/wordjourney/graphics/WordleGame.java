@@ -29,6 +29,8 @@ public class WordleGame implements KeyListener, ActionListener {
     public static int score = 0;
     private JPanel wordleContainer;
     private ArrayList<String> wordList;
+    private int remainingSeconds = 180; // 3 minutes
+    private Timer timer;
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -88,7 +90,34 @@ public class WordleGame implements KeyListener, ActionListener {
         userPanel.getUserInput().addKeyListener(this);
 
         //GameManager.showGameOverScreen(); // use this to look at just the GameOverPanel to design :3
+        
+        // Create a timer with a 1-second interval
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingSeconds--;
+                if (remainingSeconds <= 0) {
+                    // Time is up, handle game over
+                    handleGameOver();
+                }
+                else {
+                System.out.println("Time remaining: " + (remainingSeconds / 60) + " minutes " + (remainingSeconds % 60) + " seconds");
+            }
+                
+            }
+        });
+        timer.start(); // Start the timer
         }
+    
+     // Function to handle game over when you run out of time
+    private void handleGameOver() {
+        timer.stop(); // Stop the timer
+        GameManager.showMenuPanel(); // Handle game over logic
+    }
+    // Function to reset the timer
+    private void resetTimer() {
+        remainingSeconds = 180; // Reset to 3 minutes
+    }
 
     public void clean() {
         for (int i = 0; i < 6; i++) {
@@ -136,14 +165,15 @@ public class WordleGame implements KeyListener, ActionListener {
         enterButtonEvent();
     }
 
-	//function to clear panel and calls another wordle
+    // Function to clear panel and call another wordle
     private void clearAllPanels() {
         for (int i = 0; i <= currentLine; i++) {
-            wordPanelArray[i].clearWordPanel();                       
+            wordPanelArray[i].clearWordPanel();
         }
+        resetTimer(); // Reset the timer when the user guesses a word
         wordleString = getWordleString();
-        System.out.println("Word for the day : " + wordleString);
-        currentLine=0;
+        System.out.println("Word for the day: " + wordleString);
+        currentLine = 0;
     }
 
     public WordPanel getActivePanel() {
@@ -180,6 +210,8 @@ public class WordleGame implements KeyListener, ActionListener {
         return wordList.get(position).trim().toUpperCase();
     }
 
-
+public Timer getTimer() {
+        return timer;
+    }
 
 }
