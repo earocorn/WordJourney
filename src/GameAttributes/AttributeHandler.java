@@ -20,10 +20,9 @@ public class AttributeHandler {
     private int wordsSolved;
     private int difficulty;
     private int mapIndex;
+    private int mapCount;
     private boolean gameOver;
     
-    private final int mapCount = 11;
-
     /**
      * Default constructor - Initializes attributes for the first round of guessing
      */
@@ -35,8 +34,22 @@ public class AttributeHandler {
         wordsSolved = 0;
         difficulty = 0;
         mapIndex = 0;
+        mapCount = 11;
         gameOver = false;
     }
+    
+        public AttributeHandler(int MapCount) {
+        score = 0;
+        lives = 3;
+        timeLimit = 600;
+        guessesAllowed = 6;
+        wordsSolved = 0;
+        difficulty = 0;
+        mapIndex = 0;
+        mapCount = MapCount;
+        gameOver = false;
+    }
+        
     /**
      * Called by the game whenever the player finishes a round of guessing
      * Either by A. guessing correctly, B. using up all guesses, C. running out of time
