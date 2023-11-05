@@ -16,6 +16,7 @@ public class PlayerJumpListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        // TODO: DIFFICULT: Replace jumping logic with shooting an arrow at the wordle monster.
         if(player.isAscending()){
             player.move(0, 10);
             if(player.getY() == player.getYMoveLimit()){

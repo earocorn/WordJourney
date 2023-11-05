@@ -17,6 +17,7 @@ public class PlayerAnimationListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        // TODO: Currently this method is to move the player back and forth but we want to have one fluid movement from one level to the next when the player's score reaches the threshold to change levels.
         if(player.getX() > GameUtility.WINDOW_WIDTH-player.getPlayerIcon().getImage().getWidth(null) || player.getX()<0) {
             player.setXVelocity(player.getXVelocity()*-1);
         }

@@ -68,6 +68,9 @@ public class Player {
      * @param score
      */
     public void setScore(int score) {
+        // I think this is the best place to call difficulty logic / animation logic for changing backgrounds
+        // Either change this setScore() method to addPoint() and losePoint() in order to not allow score of more/less than +/- 1
+        // TODO: Implement logic to let the game view know that the background should be updated and to change the number of level that the player is on and difficulty logic and shit like that.
         this.score = score;
     }
 
@@ -96,9 +99,7 @@ public class Player {
      * @param lives
      */
     public void setLives(int lives) {
-        if(lives == 0) {
-            // TODO: change game state
-        }
+        // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)
         this.lives = lives;
     }
 

@@ -95,14 +95,16 @@ public class WordleController implements ActionListener, KeyListener {
         wordleView.getInput().clearUserInput();
 
         if(userWord.length() != 5){
+            // TODO: LESS IMPORTANT: Either implement something to keep the user from inputting more than 5 letters such as disabling the input box at input.length > 5 and adding backspace key listener OR implement something to display an error message that the word is over the limit or call an animation to shake the wordle panel.
             return;
         }
         if(isWordleEqualTo(userWord)){
-            clearAllPanels();
+            // TODO: Implement game logic to update player's score with proper error checking
             clearAllPanels();
         }
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
+            // TODO: Implement game logic for player losing a life with proper error checking
             clearAllPanels();
             return;
         }

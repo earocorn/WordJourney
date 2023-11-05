@@ -43,18 +43,8 @@ public class ButtonContainer extends JPanel{
         quitButton.setBorderPainted(false);
 
         //creating functionality of the buttons to set the game state to be in game or to exit the game
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GameController.getInstance().setGameState(GameState.IN_GAME);
-            }
-        });
-        quitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        startButton.addActionListener(e -> GameController.getInstance().setGameState(GameState.IN_GAME));
+        quitButton.addActionListener(e -> System.exit(0));
 
         //adding the buttons start and quit to the button container
         setOpaque(false);

@@ -20,14 +20,7 @@ public class GameController {
     private GameController() {
         System.out.println("GameController singleton has been created!");
 
-        // TODO: initialize game to start on menu screen
-    }
-
-    public void setGameView(GameFrame gameFrame) {
-        if(this.gameFrame == null) {
-            this.gameFrame = gameFrame;
-            gameFrame.setPanel(gameState);
-        }
+        // TODO: Put other initialization here. When GameController is constructed we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something idk.
     }
 
     public static GameController getInstance() {
@@ -37,12 +30,20 @@ public class GameController {
         return instance;
     }
 
+    public void setGameView(GameFrame gameFrame) {
+        if(this.gameFrame == null) {
+            this.gameFrame = gameFrame;
+            gameFrame.setPanel(gameState);
+        }
+    }
+
     public GameState getGameState() {
         return gameState;
     }
 
     public void setGameState(GameState gameState) {
         if(this.gameState != gameState) {
+            // TODO: Somehow check for if Wordle-MVC is initialized so that we only have to initialize everything once. This could be using methods like if getWordleView/Model/Controller() returns null. ALSO we could put a switch-case statement here to check which GameState is being set so that we can do other stuff such as
             gameFrame.setPanel(gameState);
             GameUtility.getInstance().playMusic(gameState);
         }
