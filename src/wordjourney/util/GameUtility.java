@@ -1,59 +1,106 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package wordjourney.util;
 
+<<<<<<< HEAD
+=======
+import wordjourney.model.GameState;
+import wordjourney.model.Level;
+
+import javax.sound.sampled.*;
+import javax.swing.*;
+>>>>>>> 605d5689b710feb124daed22cef01616fc20f42d
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 /**
- *
- * @author alexalmanza
+ * Class that contains
  */
-public class GameUtility {
-    
-    // store these kind of global variables here to make stuff easier
-    
-    public static final int WINDOW_WIDTH = 900;    
+public final class GameUtility {
+    private static GameUtility instance = null;
+    public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 600;
-    public static int PLAYER_X = 0;
-    public static int PLAYER_Y = 0;
-    public static int PLAYER_VELOCITY_X = 1;
-    public static int PLAYER_VELOCITY_Y = 0;
-
-    public static int PLAYER_MAX_HEIGHT =120;
-    public static int GROUND_HEIGHT = 85;
-    public static int STARTING_LIVES = 3;
-    public static int STARTING_SCORE =0;
-
-
+    public static final Dimension windowDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
     private static Font gameFont;
+    private static Clip gameAudioClip;
 
-    // call wherever we load assets
-    public static void loadFont() {
+    //character settings
+    public static final int STARTING_LIVES = 3;
+    public static final int STARTING_SCORE = 0;
+    public static final int numLevels = 11;
+    private static final Level[] levels = new Level[numLevels];
+
+    /**
+     * Custom starting heights of where to start the player's y value for each background image
+     */
+    private static final int[] levelsStartingHeight = {560, 540, 550, 480, 540, 485, 460, 450, 520, 458, 475};
+
+    /**
+     * Constructor for the game utility class
+     */
+    private GameUtility(){
+        load();
+    }
+
+    public static GameUtility getInstance() {
+        if(instance == null) {
+            instance = new GameUtility();
+        }
+        return instance;
+    }
+
+
+    /**
+     * loads game font into the game
+     */
+    private void loadFont() {
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
+            System.out.println("Loading font...");
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/fonts/supergame.ttf")).deriveFont(35f);
+            System.out.println("Font successfully loaded");
         } catch (IOException | FontFormatException e) {
+            System.out.println("Unable to load font");
             e.printStackTrace();
         }
     }
 
+
+    public static Level[] getLevels() {
+        return levels;
+    }
+
+    /**
+     * Load the background images in to the array of levels
+     */
+    private void loadLevels() {
+        System.out.println("Loading background images...");
+        for(int i = 0; i < levels.length; i++) {
+            String levelBackgroundPath = "src/assets/ui/levels/level" + (i+1)+ ".png";
+            System.out.println(levelBackgroundPath + " loaded");
+            levels[i] = new Level(new ImageIcon(levelBackgroundPath), levelsStartingHeight[i]);
+        }
+    }
+
+    /**
+     * @return gameFont
+     */
     public static Font getFont() {
         return gameFont;
     }
-    
-    private static AudioInputStream gameAudioInput;
-    
-    private static Clip gameAudioClip;
-    
-    public static void loadMusic() {
+
+    public void load() {
+        System.out.println("Loading game utilities...");
+        loadFont();
+        loadMusic();
+        loadLevels();
+    }
+
+    /**
+     * loads the music for the game
+     */
+    private void loadMusic() {
+        System.out.println("Loading music...");
         try {
-            gameAudioInput = AudioSystem.getAudioInputStream(new File("src/assets/gameMusic.wav").getAbsoluteFile());
+            AudioInputStream gameAudioInput = getGameAudioInput(GameState.MENU);
             gameAudioClip = AudioSystem.getClip();
             gameAudioClip.open(gameAudioInput);
             gameAudioClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -61,15 +108,42 @@ public class GameUtility {
             e.printStackTrace();
         }
     }
-    
-    public static Clip getClip(GameState gameState) {
-        // get audio clip for whatever gamestate
-        switch (gameState) {
-            case IN_GAME:
-                return gameAudioClip;
-            default:
-                throw new AssertionError();
+
+    public void playMusic(GameState gameState) {
+        try {
+            gameAudioClip.stop();
+            gameAudioClip.close();
+            gameAudioClip.flush();
+            gameAudioClip.open(getGameAudioInput(gameState));
+            gameAudioClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
-    
+
+    /**
+     * @param gameState
+     * @return gameAudioClip
+     */
+    private static AudioInputStream getGameAudioInput(GameState gameState) throws UnsupportedAudioFileException, IOException {
+        String song;
+        switch (gameState) {
+            case IN_GAME:
+                song = "gameMusic.wav";
+                break;
+            case MENU:
+                song = "menuMusic.wav";
+                break;
+            default:
+                throw new IOException();
+        }
+        String audioRootPath = "src/assets/audio/" + song;
+        File file = new File(audioRootPath);
+        return AudioSystem.getAudioInputStream(file);
+    }
+
+
+
+
+
 }
