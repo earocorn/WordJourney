@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
         wordleModel = new WordleModel();
         wordleController = new WordleController(wordleModel, wordleView, player);
 
-        playerIcon = new ImageIcon(player.getPlayerIcon().getImage());
+        playerIcon = player.getPlayerIcon();
 
         timer = new Timer(10, new PlayerAnimationListener(player, this));
         jumpTimer = new Timer(20, new PlayerJumpListener(player, jumpTimer));
