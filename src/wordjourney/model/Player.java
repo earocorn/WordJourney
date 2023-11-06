@@ -236,4 +236,8 @@ public class Player {
             lives--; // Decrement lives by 1
         }
     }
+
+    public void incrementScore() {
+        score++;
+    }
 }

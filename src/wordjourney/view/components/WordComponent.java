@@ -1,13 +1,7 @@
 package wordjourney.view.components;
 
-<<<<<<< HEAD:src/wordjourney/graphics/WordPanel.java
-import wordjourney.Main;
-import wordjourney.util.GameManager;
-=======
-
 import wordjourney.util.GameUtility;
 
->>>>>>> 605d5689b710feb124daed22cef01616fc20f42d:src/wordjourney/view/components/WordComponent.java
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -20,14 +14,8 @@ public class WordComponent extends JPanel {
 
     /** an array to represent the columns**/
     JLabel[] wordColumns = new JLabel[5];
-
-<<<<<<< HEAD:src/wordjourney/graphics/WordPanel.java
-    public WordPanel() {
-
-=======
     /**Constructor WordComponent and initializes components**/
     public WordComponent() {
->>>>>>> 605d5689b710feb124daed22cef01616fc20f42d:src/wordjourney/view/components/WordComponent.java
         this.setLayout(new GridLayout(1, 5));
         Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
         for (int i = 0; i < 5; i++) {

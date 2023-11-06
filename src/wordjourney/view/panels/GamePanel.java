@@ -92,6 +92,11 @@ public class GamePanel extends JPanel {
         for (int i = 1; i < player.getLives(); i++) {
             g2D.drawImage(player.getHeartIcon().getImage(), player.getX() + 18 * i, player.getHeartY()[i], null);
         }
+        g2D.setFont(GameUtility.getFont());
+        g2D.setColor(Color.BLACK);
+
+        g2D.drawString("Score: " + player.getScore(), 100, 100);
+        g2D.drawString("Time: " + player.getTimeLeft(), 500, 100);
         // TODO: Draw player's current score and what level they're on.
         // TODO: ONCE TIMER IS WORKING: Draw time left but don't draw it on the first few levels so I guess check if the player.getTimeLeft() is -1 or null or whatever method works good.
     }

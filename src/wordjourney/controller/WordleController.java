@@ -107,6 +107,7 @@ public class WordleController implements ActionListener, KeyListener {
 
         if (isCorrect) {
             // TODO: Implement game logic to update player's score
+            player.incrementScore();
             clearAllPanels();
             resetGameTimer();
         } 
@@ -168,6 +169,7 @@ public class WordleController implements ActionListener, KeyListener {
                     // Update your game timer UI or perform other game-related tasks here
                     System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
                     remainingTimeInSeconds--;
+                    player.setTimeLeft(remainingTimeInSeconds);
                 } else {
                     // The game is over, handle it here
                     gameTimer.cancel();
@@ -184,19 +186,4 @@ public class WordleController implements ActionListener, KeyListener {
         gameTimer.purge();
     }
     
-    private void setGameState(GameState gameState) {
-        if (this.gameState != gameState) {
-            if (gameState == GameState.IN_GAME) {
-                // Start the WordleController timer when entering the IN_GAME state
-                startGameTimer();
-            } else {
-                // Stop the WordleController timer when leaving the IN_GAME state
-                stopGameTimer();
-                // Reset the WordleController timer if needed
-                resetGameTimer();
-            }
-    }
-    this.gameState = gameState;
-}
-
 }

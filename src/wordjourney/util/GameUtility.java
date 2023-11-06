@@ -1,13 +1,10 @@
 package wordjourney.util;
 
-<<<<<<< HEAD
-=======
 import wordjourney.model.GameState;
 import wordjourney.model.Level;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
->>>>>>> 605d5689b710feb124daed22cef01616fc20f42d
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
