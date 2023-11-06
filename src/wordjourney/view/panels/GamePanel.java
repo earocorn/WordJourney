@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
         // TODO: DONT DO ANYTHING HERE. If you think wordle initialization should go in a different class such as GameController (previously known as GameManager) or have a better idea please let me know. Also let me know if it makes sense that it just goes here.
         wordleView = new WordleView();
         wordleModel = new WordleModel();
-        wordleController = new WordleController(wordleModel, wordleView);
+        wordleController = new WordleController(wordleModel, wordleView, player);
 
         playerIcon = new ImageIcon(player.getPlayerIcon().getImage());
 

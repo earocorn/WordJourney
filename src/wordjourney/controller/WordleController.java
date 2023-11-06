@@ -1,15 +1,7 @@
 package wordjourney.controller;
 
-import wordjourney.model.WordleModel;
-import wordjourney.view.components.WordComponent;
-import wordjourney.view.components.WordleView;
 
 import wordjourney.model.WordleModel;
-import wordjourney.view.components.WordComponent;
-import wordjourney.view.components.WordleView;
-
-import wordjourney.model.WordleModel;
-import wordjourney.view.components.InputComponent;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
 
@@ -26,6 +18,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import wordjourney.model.Player;
+import wordjourney.model.GameState;
 
 /**
  *
@@ -33,11 +29,19 @@ import java.util.Random;
 public class WordleController implements ActionListener, KeyListener {
     WordleModel wordleModel;
     WordleView wordleView;
+    
+    Player player;
+    
+    GameState gameState;
+    private Timer gameTimer = new Timer();
+    private int remainingTimeInSeconds = 180; // 3 minutes in seconds
 
-    public WordleController(WordleModel wordleModel, WordleView wordleView){
+    public WordleController(WordleModel wordleModel, WordleView wordleView,Player player){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
+        this.player = player;
         wordleModel.setCurrentWordle(getWordleString());
+        startGameTimer();
         System.out.println("WordleController constructor");
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
@@ -58,6 +62,7 @@ public class WordleController implements ActionListener, KeyListener {
         Random random = new Random();
         int position = random.nextInt(wordList.size());
         return wordList.get(position).trim().toUpperCase();
+        
     }
 
     private boolean isWordleEqualTo(String userWord){
@@ -98,14 +103,21 @@ public class WordleController implements ActionListener, KeyListener {
             // TODO: LESS IMPORTANT: Either implement something to keep the user from inputting more than 5 letters such as disabling the input box at input.length > 5 and adding backspace key listener OR implement something to display an error message that the word is over the limit or call an animation to shake the wordle panel.
             return;
         }
-        if(isWordleEqualTo(userWord)){
-            // TODO: Implement game logic to update player's score with proper error checking
+         boolean isCorrect = isWordleEqualTo(userWord);
+
+        if (isCorrect) {
+            // TODO: Implement game logic to update player's score
             clearAllPanels();
-        }
+            resetGameTimer();
+        } 
+            
+        
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
             // TODO: Implement game logic for player losing a life with proper error checking
             clearAllPanels();
+            player.decrementLives();
+            resetGameTimer();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
@@ -142,4 +154,49 @@ public class WordleController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
+    
+    
+    private void resetGameTimer() {
+        remainingTimeInSeconds = 180; // Reset to 3 minutes
+    }
+
+    private void startGameTimer() {
+        gameTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (remainingTimeInSeconds > 0) {
+                    // Update your game timer UI or perform other game-related tasks here
+                    System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
+                    remainingTimeInSeconds--;
+                } else {
+                    // The game is over, handle it here
+                    gameTimer.cancel();
+                    gameTimer.purge();
+                    System.out.println("Game Over");
+                    // You can perform game over actions here
+                }
+            }
+        }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
+    }
+
+    private void stopGameTimer() {
+        gameTimer.cancel();
+        gameTimer.purge();
+    }
+    
+    private void setGameState(GameState gameState) {
+        if (this.gameState != gameState) {
+            if (gameState == GameState.IN_GAME) {
+                // Start the WordleController timer when entering the IN_GAME state
+                startGameTimer();
+            } else {
+                // Stop the WordleController timer when leaving the IN_GAME state
+                stopGameTimer();
+                // Reset the WordleController timer if needed
+                resetGameTimer();
+            }
+    }
+    this.gameState = gameState;
+}
+
 }

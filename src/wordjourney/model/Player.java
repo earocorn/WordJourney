@@ -230,4 +230,10 @@ public class Player {
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
+     
+    public void decrementLives() {
+        if (lives > 0) {
+            lives--; // Decrement lives by 1
+        }
+    }
 }
