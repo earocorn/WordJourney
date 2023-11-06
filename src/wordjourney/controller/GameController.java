@@ -6,17 +6,13 @@ import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
 
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class GameController {
     private static GameController instance = null;
     private GameState gameState = GameState.MENU;
     private WordleModel currentWordle = new WordleModel();
     private Player player = null;
     private GameFrame gameFrame = null;
-    
+
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
@@ -70,78 +66,77 @@ public class GameController {
         this.currentWordle = currentWordle;
 
     }
-    
-    
+
+
 }
 
 
 /**
  *
- 
-public class GameController {
 
-    private static GameController instance = null;
-    private GameState gameState = GameState.MENU;
-    private WordleModel currentWordle = new WordleModel();
-    private Player player = null;
-    private GameFrame gameFrame = null;
+ public class GameController {
 
-    private GameController() {
-        System.out.println("GameController singleton has been created!");
+ private static GameController instance = null;
+ private GameState gameState = GameState.MENU;
+ private WordleModel currentWordle = new WordleModel();
+ private Player player = null;
+ private GameFrame gameFrame = null;
 
-        // TODO: Put other initialization here. When GameController is constructed we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something idk.
-    }
+ private GameController() {
+ System.out.println("GameController singleton has been created!");
 
-    public static GameController getInstance() {
-        if(instance == null) {
-            instance = new GameController();
-        }
-        return instance;
-    }
+ // TODO: Put other initialization here. When GameController is constructed we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something idk.
+ }
 
-    public void setGameView(GameFrame gameFrame) {
-        if(this.gameFrame == null) {
-            this.gameFrame = gameFrame;
-            gameFrame.setPanel(gameState);
-        }
-    }
+ public static GameController getInstance() {
+ if(instance == null) {
+ instance = new GameController();
+ }
+ return instance;
+ }
 
-    public GameState getGameState() {
-        return gameState;
-    }
+ public void setGameView(GameFrame gameFrame) {
+ if(this.gameFrame == null) {
+ this.gameFrame = gameFrame;
+ gameFrame.setPanel(gameState);
+ }
+ }
 
-    public void setGameState(GameState gameState) {
-        if(this.gameState != gameState) {
-            // TODO: Somehow check for if Wordle-MVC is initialized so that we only have to initialize everything once. This could be using methods like if getWordleView/Model/Controller() returns null. ALSO we could put a switch-case statement here to check which GameState is being set so that we can do other stuff such as
-            gameFrame.setPanel(gameState);
-            GameUtility.getInstance().playMusic(gameState);
-        }
-        this.gameState = gameState;
-    }
+ public GameState getGameState() {
+ return gameState;
+ }
 
-    public Player getPlayer() {
-        return player;
-    }
+ public void setGameState(GameState gameState) {
+ if(this.gameState != gameState) {
+ // TODO: Somehow check for if Wordle-MVC is initialized so that we only have to initialize everything once. This could be using methods like if getWordleView/Model/Controller() returns null. ALSO we could put a switch-case statement here to check which GameState is being set so that we can do other stuff such as
+ gameFrame.setPanel(gameState);
+ GameUtility.getInstance().playMusic(gameState);
+ }
+ this.gameState = gameState;
+ }
 
-    public void setPlayer(Player player) {
-        if(this.player == null) {
-            this.player = player;
-        }
-    }
+ public Player getPlayer() {
+ return player;
+ }
 
-    public WordleModel getCurrentWordle() {
-        return currentWordle;
-    }
+ public void setPlayer(Player player) {
+ if(this.player == null) {
+ this.player = player;
+ }
+ }
 
-    public void setCurrentWordle(WordleModel currentWordle) {
-        this.currentWordle = currentWordle;
-    }
-    * 
-    */
+ public WordleModel getCurrentWordle() {
+ return currentWordle;
+ }
+
+ public void setCurrentWordle(WordleModel currentWordle) {
+ this.currentWordle = currentWordle;
+ }
+ *
+ */
 
 //    public void updateWordle(WordleModel wordle, ) {
 //        WordleController controller = new WordleController(wordle);
 //        WordleView view = new WordleView(controller);
 //        controller.loadNewWord();
 //    }
-

@@ -20,8 +20,7 @@ public class Player {
 
     private int[] heartJumpDistances;
     private boolean[] heartAscending;
-
-    private int score;
+    private static int score;
     private int lives;
     private int currentLevel;
     private int timeLeft;
@@ -29,6 +28,9 @@ public class Player {
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
 
+    /**
+     * Constructor for player class to initialize and set the properties
+     */
     public Player() {
         // player data
         this.score = GameUtility.STARTING_SCORE;
@@ -57,6 +59,16 @@ public class Player {
     }
 
 
+    public void addPoint(){
+        score++;
+    }
+    public int updateScore(){
+        return score;
+    }
+    public void resetScore(){
+        score = 0;
+    }
+
     /**
      * @return score
      */
@@ -68,9 +80,6 @@ public class Player {
      * @param score
      */
     public void setScore(int score) {
-        // I think this is the best place to call difficulty logic / animation logic for changing backgrounds
-        // Either change this setScore() method to addPoint() and losePoint() in order to not allow score of more/less than +/- 1
-        // TODO: Implement logic to let the game view know that the background should be updated and to change the number of level that the player is on and difficulty logic and shit like that.
         this.score = score;
     }
 
@@ -95,13 +104,18 @@ public class Player {
         return lives;
     }
 
-    /**
-     * @param lives
-     */
-    public void setLives(int lives) {
-        // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)
-        this.lives = lives;
+//    public void setLives(int lives) {
+//        if(lives == 0) {
+//            // TODO: change game state
+//        }
+//        this.lives = lives;
+//    }
+     public void decrementLives() {
+        if (lives > 0) {
+            lives--; // Decrement lives by 1
+        }
     }
+
 
     /**
      * @return timeLeft
@@ -186,10 +200,16 @@ public class Player {
         this.heartYLimits = heartYLimits;
     }
 
+    /**
+     * @return
+     */
     public int[] getHeartJumpDistances() {
         return heartJumpDistances;
     }
 
+    /**
+     * @param heartJumpDistances
+     */
     public void setHeartJumpDistances(int[] heartJumpDistances) {
         this.heartJumpDistances = heartJumpDistances;
     }
@@ -198,42 +218,62 @@ public class Player {
         return heartAscending;
     }
 
+    /**
+     * @param heartAscending
+     */
     public void setHeartAscending(boolean[] heartAscending) {
         this.heartAscending = heartAscending;
     }
 
+    /**
+     * method to move the character at the bottom of the screen
+     * @param deltaX
+     * @param deltaY
+     */
     public void move(int deltaX, int deltaY) {
         this.x += deltaX;
         this.y += deltaY;
     }
 
+    /**
+     * @return yMoveLimit
+     */
     public int getYMoveLimit() {
         return yMoveLimit;
     }
 
+    /**
+     * @param yMoveLimit
+     */
     public void setYMoveLimit(int yMoveLimit) {
         this.yMoveLimit = yMoveLimit;
     }
 
+    /**
+     * @return initialHeartY
+     */
     public int getInitialHeartY() {
         return initialHeartY;
     }
 
+    /**
+     * @param initialHeartY
+     */
     public void setInitialHeartY(int initialHeartY) {
         this.initialHeartY = initialHeartY;
     }
 
+    /**
+     * @return xVelocity
+     */
     public int getXVelocity() {
         return xVelocity;
     }
 
+    /**
+     * @param xVelocity
+     */
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
-    }
-     
-    public void decrementLives() {
-        if (lives > 0) {
-            lives--; // Decrement lives by 1
-        }
     }
 }

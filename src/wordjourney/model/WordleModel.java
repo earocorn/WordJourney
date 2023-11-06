@@ -24,6 +24,7 @@ public class WordleModel {
     }
 
     public String getCurrentWordle() {
+
         return currentWordle;
     }
 
@@ -38,4 +39,5 @@ public class WordleModel {
     public void setUserWord(String userWord) {
         this.userWord = userWord;
     }
+
 }
