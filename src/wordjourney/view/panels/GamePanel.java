@@ -92,8 +92,14 @@ public class GamePanel extends JPanel {
         for (int i = 1; i < player.getLives(); i++) {
             g2D.drawImage(player.getHeartIcon().getImage(), player.getX() + 18 * i, player.getHeartY()[i], null);
         }
-        // TODO: Draw player's current score and what level they're on.
-        // TODO: ONCE TIMER IS WORKING: Draw time left but don't draw it on the first few levels so I guess check if the player.getTimeLeft() is -1 or null or whatever method works good.
+        
+        //set font and font color for paint component
+        g.setColor(Color.BLACK);
+        g.setFont(GameUtility.getFont());
+        
+        //draw score on the screen
+        g.drawString("Score: " + player.getScore(), 700, 45);
+        g.drawString("Time: " + wordleController.getTime(), 350, 45);
     }
 
 

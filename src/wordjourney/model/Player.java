@@ -63,7 +63,13 @@ public class Player {
     public int getScore() {
         return score;
     }
-
+    
+    /**
+     * @increment score
+     */
+    public void addScore() {
+        score++;
+    }
     /**
      * @param score
      */
