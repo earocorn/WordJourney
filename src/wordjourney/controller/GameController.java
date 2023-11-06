@@ -48,6 +48,27 @@ public class GameController {
             // ALSO, we could put a switch-case statement here to check which GameState is being set, so we can do other stuff such as
             gameFrame.setPanel(gameState);
             GameUtility.getInstance().playMusic(gameState);
+            switch (gameState) {
+                case IN_GAME -> {
+                    // TODO: do setup for timer here so that we dont call it on window open
+                    break;
+                }
+                case MENU -> {
+
+                    break;
+                }
+                case GAME_OVER -> {
+
+                    break;
+                }
+                case LEADERBOARD -> {
+
+                    break;
+                }
+                default -> {
+
+                }
+            }
         }
         this.gameState = gameState;
     }

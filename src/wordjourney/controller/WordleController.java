@@ -36,7 +36,7 @@ public class WordleController implements ActionListener, KeyListener {
     private Timer gameTimer = new Timer();
     private int remainingTimeInSeconds = 180; // 3 minutes in seconds
 
-    public WordleController(WordleModel wordleModel, WordleView wordleView,Player player){
+    public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
         this.player = player;
@@ -52,7 +52,7 @@ public class WordleController implements ActionListener, KeyListener {
      * @return wordList
      */
     public String getWordleString(){
-        Path path = Paths.get("src/assets/Words.txt");
+        Path path = Paths.get("src/assets/words/Words.txt");
         List<String> wordList = new ArrayList<>();
         try {
             wordList = Files.readAllLines(path);

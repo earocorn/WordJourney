@@ -52,7 +52,7 @@ public final class GameUtility {
     private void loadFont() {
         try {
             System.out.println("Loading font...");
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/supergame.ttf")).deriveFont(35f);
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/assets/fonts/supergame.ttf")).deriveFont(35f);
             System.out.println("Font successfully loaded");
         } catch (IOException | FontFormatException e) {
             System.out.println("Unable to load font");
@@ -71,7 +71,7 @@ public final class GameUtility {
     private void loadLevels() {
         System.out.println("Loading background images...");
         for(int i = 0; i < levels.length; i++) {
-            String levelBackgroundPath = "src/assets/levels/level" + (i+1)+ ".png";
+            String levelBackgroundPath = "src/assets/ui/levels/level" + (i+1)+ ".png";
             System.out.println(levelBackgroundPath + " loaded");
             levels[i] = new Level(new ImageIcon(levelBackgroundPath), levelsStartingHeight[i]);
         }

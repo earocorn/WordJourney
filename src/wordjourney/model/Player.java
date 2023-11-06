@@ -38,8 +38,8 @@ public class Player {
         this.currentLevel = 4;
 
         // guy graphics
-        this.playerIcon = new ImageIcon("src/assets/sprite.png");
-        this.heartIcon = new ImageIcon("src/assets/hearts.png");
+        this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
+        this.heartIcon = new ImageIcon("src/assets/ui/sprites/hearts.png");
         this.xVelocity = 2;
         this.x = 0;
         this.y = 0;
