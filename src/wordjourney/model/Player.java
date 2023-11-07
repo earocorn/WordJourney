@@ -9,6 +9,7 @@ import javax.swing.*;
  */
 public class Player {
 
+    private AttributeHandler playerStats; // Britton - trying to integrate
     private int xVelocity;
     private int x;
     private int y;
@@ -54,14 +55,26 @@ public class Player {
             heartJumpDistances[i] = 15;
         }
         this.heartAscending = new boolean[lives];
+        this.playerStats = new AttributeHandler(); // Britton - trying to integrate
+        this.timeLeft = this.playerStats.GetTimeLimit();
     }
 
 
     /**
+     * Britton Pearce
+     * Called after every round to update the attribute handler
+     */
+    
+    public void sendRoundResult(int lineNumber, boolean isCorrect) {
+        playerStats.UpdateAttributes(lineNumber + 1, isCorrect);
+        timeLeft = playerStats.GetTimeLimit();
+    }
+    
+    /**
      * @return score
      */
     public int getScore() {
-        return score;
+        return playerStats.GetScore();
     }
 
     /**
@@ -92,7 +105,8 @@ public class Player {
      * @return lives
      */
     public int getLives() {
-        return lives;
+        // Britton - lives moved into AttributeHandler object 
+        return playerStats.GetLives();
     }
 
     /**

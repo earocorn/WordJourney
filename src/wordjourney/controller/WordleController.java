@@ -34,7 +34,7 @@ public class WordleController implements ActionListener, KeyListener {
     
     GameState gameState;
     private Timer gameTimer = new Timer();
-    private int remainingTimeInSeconds = 180; // 3 minutes in seconds
+    private int remainingTimeInSeconds = 15; // 3 minutes in seconds
 
     public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
         this.wordleModel = wordleModel;
@@ -46,6 +46,8 @@ public class WordleController implements ActionListener, KeyListener {
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
         wordleView.getInput().getEnterButton().addActionListener(this);
+        
+        this.remainingTimeInSeconds = player.getTimeLeft();
     }
 
     /**
@@ -107,24 +109,37 @@ public class WordleController implements ActionListener, KeyListener {
 
         if (isCorrect) {
             // TODO: Implement game logic to update player's score
-            player.incrementScore();
+            //player.incrementScore();
+            player.sendRoundResult(wordleModel.getCurrentLine(), isCorrect);
             clearAllPanels();
             resetGameTimer();
         } 
-            
         
+        // Britton - I think adding this else + a setCurrentLine(0) fixes the wrong line issue
+        else {
+            wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
+
+        }
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
-            // TODO: Implement game logic for player losing a life with proper error checking
-            clearAllPanels();
-            player.decrementLives();
-            resetGameTimer();
+            failRound();
             return;
         }
-        wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
 
     }
 
+    // Britton - Eveerything that should happen when the player fails a round
+    private void failRound() {
+            // TODO: Implement game logic for player losing a life with proper error checking
+            clearAllPanels();
+            player.decrementLives();
+            player.sendRoundResult(wordleModel.getCurrentLine(), false);
+            // Britton - Wrong line after correct guess issue resolved - I think
+            wordleModel.setCurrentLine(0);
+            resetGameTimer();
+            return;
+    }
+    
     private void clearAllPanels() {
         for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();
@@ -158,7 +173,7 @@ public class WordleController implements ActionListener, KeyListener {
     
     
     private void resetGameTimer() {
-        remainingTimeInSeconds = 180; // Reset to 3 minutes
+        remainingTimeInSeconds = player.getTimeLeft(); // Reset to 3 minutes
     }
 
     private void startGameTimer() {
@@ -172,10 +187,14 @@ public class WordleController implements ActionListener, KeyListener {
                     player.setTimeLeft(remainingTimeInSeconds);
                 } else {
                     // The game is over, handle it here
-                    gameTimer.cancel();
-                    gameTimer.purge();
+                    //gameTimer.cancel(); // Britton - Commented these out to allow the player to continue at the cost of a life instead of game over
+                    //gameTimer.purge(); // Since we have no game over handling - also I kinda like it working this way
                     System.out.println("Game Over");
                     // You can perform game over actions here
+                    
+                    
+                    // Britton - Sends a 'fail' round result if time reaches zero - reset the round?
+                    failRound();
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
