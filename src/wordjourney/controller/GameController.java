@@ -20,7 +20,6 @@ public class GameController {
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
-
         // TODO: Put other initialization here. When GameController is constructed, we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something, idk.
     }
 

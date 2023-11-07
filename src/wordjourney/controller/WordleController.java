@@ -2,6 +2,7 @@ package wordjourney.controller;
 
 
 import wordjourney.model.WordleModel;
+import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
 
@@ -73,14 +74,14 @@ public class WordleController implements ActionListener, KeyListener {
         for (int i = 0; i < 5; i++) {
             if (wordleWordsList.contains(userWordsArray[i])) {
                 if (wordleWordsList.get(i).equals(userWordsArray[i])) {
-                    getActivePanel().setPanelText(userWordsArray[i], i, Color.GREEN);
+                    getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.GREEN_TRANSPARENT);
                     wordMatchesList.add(true);
                 } else {
-                    getActivePanel().setPanelText(userWordsArray[i], i, Color.YELLOW);
+                    getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.YELLOW_TRANSPARENT);
                     wordMatchesList.add(false);
                 }
             } else {
-                getActivePanel().setPanelText(userWordsArray[i], i, Color.GRAY);
+                getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.GRAY_TRANSPARENT);
                 wordMatchesList.add(false);
             }
         }
@@ -110,6 +111,7 @@ public class WordleController implements ActionListener, KeyListener {
             player.incrementScore();
             clearAllPanels();
             resetGameTimer();
+            return;
         } 
             
         
@@ -118,6 +120,10 @@ public class WordleController implements ActionListener, KeyListener {
             // TODO: Implement game logic for player losing a life with proper error checking
             clearAllPanels();
             player.decrementLives();
+            if(player.getLives() <= 0) {
+                // TODO: move this to Player class
+                //GameController.getInstance().setGameState(GameState.GAME_OVER);
+            }
             resetGameTimer();
             return;
         }
@@ -185,5 +191,5 @@ public class WordleController implements ActionListener, KeyListener {
         gameTimer.cancel();
         gameTimer.purge();
     }
-    
+
 }

@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * A class used to represent a graphical panel for displaying the main game Panel
@@ -22,6 +23,7 @@ import java.awt.event.ActionListener;
 public class GamePanel extends JPanel {
 
     public JLabel background;
+    JLabel monsterLabel;
     ImageIcon  backgroundImage;
     WordleView wordleView;
     WordleModel wordleModel;
@@ -57,7 +59,18 @@ public class GamePanel extends JPanel {
         backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
         background.setIcon(backgroundImage);
 
+        // spacing between wordle monster and wordle
+        background.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 60));
+
         background.add(wordleView);
+
+        Icon monsterIcon = new ImageIcon("src/assets/ui/sprites/monster7.gif");
+        monsterLabel = new JLabel(monsterIcon);
+        monsterLabel.setLayout(new GridBagLayout());
+
+        background.add(monsterLabel);
+
+
         add(background);
 
         player.setInitialHeartY(GameUtility.WINDOW_HEIGHT- player.getPlayerIcon().getImage().getHeight(null) - (GameUtility.WINDOW_HEIGHT - GameUtility.getLevels()[player.getCurrentLevel()].getStartingHeight()) - player.getY() -20);
@@ -99,6 +112,22 @@ public class GamePanel extends JPanel {
         g2D.drawString("Time: " + player.getTimeLeft(), 500, 100);
         // TODO: Draw player's current score and what level they're on.
         // TODO: ONCE TIMER IS WORKING: Draw time left but don't draw it on the first few levels so I guess check if the player.getTimeLeft() is -1 or null or whatever method works good.
+    }
+
+    public void explodeMonster() {
+        JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));
+        monsterLabel.add(explosion);
+        monsterLabel.validate();
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        monsterLabel.setIcon(null);
+                    }
+                },
+                3000
+        );
+
     }
 
 

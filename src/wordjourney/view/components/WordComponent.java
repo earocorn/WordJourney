@@ -17,14 +17,14 @@ public class WordComponent extends JPanel {
     /**Constructor WordComponent and initializes components**/
     public WordComponent() {
         this.setLayout(new GridLayout(1, 5));
-        Border blackBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+        Border blackBorder = BorderFactory.createLineBorder(new Color(200, 200, 200, 99));
         for (int i = 0; i < 5; i++) {
             wordColumns[i] = new JLabel();
             wordColumns[i].setSize(new Dimension(50, 50));
             wordColumns[i].setPreferredSize(new Dimension(50, 50));
             wordColumns[i].setHorizontalAlignment(JLabel.CENTER);
             wordColumns[i].setOpaque(true);
-            wordColumns[i].setBackground(Color.WHITE);
+            wordColumns[i].setBackground(new Color(0, 0, 0, 70));
             wordColumns[i].setBorder(blackBorder);
             this.add(wordColumns[i]);
         }
@@ -34,7 +34,7 @@ public class WordComponent extends JPanel {
     public void clearWordPanel() {
         for (int i = 0; i < 5; i++) {
             wordColumns[i].setText("");
-            wordColumns[i].setBackground(Color.WHITE);
+            wordColumns[i].setBackground(GameUtility.TRANSPARENT);
         }
     }
 
