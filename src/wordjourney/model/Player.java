@@ -1,7 +1,8 @@
 package wordjourney.model;
 
 import wordjourney.util.GameUtility;
-
+import wordjourney.controller.GameController;
+import wordjourney.view.GameFrame;
 import javax.swing.*;
 
 /**
@@ -29,6 +30,9 @@ public class Player {
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
 
+    /**
+     * @constructor 
+     */
     public Player() {
         // player data
         this.score = GameUtility.STARTING_SCORE;
@@ -105,7 +109,6 @@ public class Player {
      * @param lives
      */
     public void setLives(int lives) {
-        // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)
         this.lives = lives;
     }
 
@@ -238,8 +241,13 @@ public class Player {
     }
      
     public void decrementLives() {
-        if (lives > 0) {
+        // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)-- use elseif?
+        if (lives > 1) {
             lives--; // Decrement lives by 1
+        } else if (lives <= 1) {
+            lives--;
+            GameController.getInstance().setGameState(GameState.GAME_OVER);
+            System.out.println("Switched to GameState.GAME_OVER");
         }
     }
 }

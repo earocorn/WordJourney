@@ -16,6 +16,7 @@ public class GameFrame extends JFrame {
     CardLayout cardLayout;
     GamePanel gamePanel; //extends JPanel
     MenuPanel menuPanel; //extends JPanel
+    MenuPanel gameOverPanel; //extends JPanel
 
     /**
      * Constructor GameFrame and initializes properties
@@ -32,6 +33,7 @@ public class GameFrame extends JFrame {
         mainPanel = new JPanel();
 
         menuPanel = new MenuPanel();
+        gameOverPanel = new MenuPanel();
         gamePanel = new GamePanel();
 
         cardLayout = new CardLayout();
@@ -40,6 +42,7 @@ public class GameFrame extends JFrame {
 
         mainPanel.add(gamePanel, GameState.IN_GAME.getTitle());
         mainPanel.add(menuPanel, GameState.MENU.getTitle());
+        mainPanel.add(gameOverPanel, GameState.GAME_OVER.getTitle());
 
         add(mainPanel);
 
@@ -50,9 +53,11 @@ public class GameFrame extends JFrame {
 
     /**
      * method to show the panel depending on game state
+     * @param gameState
      */
     public void setPanel(GameState gameState){
-        cardLayout.show(mainPanel, gameState.getTitle());
+        GameState cardState = gameState == GameState.GAME_OVER ? GameState.MENU : gameState;
+        cardLayout.show(mainPanel, cardState.getTitle());
     }
 
 }
