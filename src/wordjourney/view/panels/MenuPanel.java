@@ -62,7 +62,7 @@ public class MenuPanel extends JPanel implements ActionListener {
      */
     public ImageIcon getTitle(){
         try{
-            if(true){
+            if(GameController.getInstance().getGameState() == GameState.MENU){
                 title =  new ImageIcon("src/assets/ui/titles/title.png");
             }
             else{
