@@ -40,7 +40,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         timer = new Timer(10, this);
 
         //create an instance of the panel
-        bgIcon = new ImageIcon("src/assets/pinkBG.png");
+        bgIcon = new ImageIcon("src/assets/ui/menubackgrounds/pinkBG.png");
         background = new JLabel(bgIcon);
         buttonContainer  =  new ButtonContainer();
 
@@ -62,11 +62,11 @@ public class MenuPanel extends JPanel implements ActionListener {
      */
     public ImageIcon getTitle(){
         try{
-            if(true){
-                title =  new ImageIcon("src/assets/title.png");
+            if(GameController.getInstance().getGameState() == GameState.MENU){
+                title =  new ImageIcon("src/assets/ui/titles/title.png");
             }
             else{
-                title = new ImageIcon("src/assets/gameOverTitle.png");
+                title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
             }
 
         }catch(Exception e){

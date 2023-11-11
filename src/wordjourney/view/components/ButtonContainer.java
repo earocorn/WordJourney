@@ -28,8 +28,8 @@ public class ButtonContainer extends JPanel{
         setLayout(new GridLayout(2, 1));
 
         //creates new instances of image icons
-        startButtonIcon = new ImageIcon("src/assets/startButton.png");
-        quitButtonIcon = new ImageIcon("src/assets/quitButton.png");
+        startButtonIcon = new ImageIcon("src/assets/ui/buttons/startButton.png");
+        quitButtonIcon = new ImageIcon("src/assets/ui/buttons/quitButton.png");
 
         //adding the graphics to the buttons
         startButton.setIcon(startButtonIcon);
