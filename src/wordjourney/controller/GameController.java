@@ -7,26 +7,35 @@ import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
+import wordjourney.view.components.WordleView;
 
 public class GameController {
     private static GameController instance = null;
+    private static final Object lock = new Object();
     private GameState gameState = GameState.MENU;
     private WordleModel currentWordle = new WordleModel();
     private Player player = null;
     private GameFrame gameFrame = null;
+    private WordleView wordleView= new WordleView();
+    private WordleController wordleController;
     
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
         // TODO: Put other initialization here. When GameController is constructed, we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something, idk.
+        player = new Player();
+        wordleController = new WordleController(currentWordle, wordleView, player);
+        
     }
 
     public static GameController getInstance() {
-        if (instance == null) {
+       // if(instance == null){
+           // synchronized (lock){
+            if (instance == null) {
             instance = new GameController();
         }
+        //}
+        //}
         return instance;
     }
 
@@ -50,14 +59,17 @@ public class GameController {
             switch (gameState) {
                 case IN_GAME -> {
                     // TODO: do setup for timer here so that we dont call it on window open
+                    wordleController.startGameTimer();
                     break;
                 }
                 case MENU -> {
-
+                    wordleController.stopGameTimer();
+                    wordleController.resetGameTimer();
                     break;
                 }
                 case GAME_OVER -> {
-
+                    wordleController.stopGameTimer();
+                    wordleController.resetGameTimer();
                     break;
                 }
                 case LEADERBOARD -> {
@@ -85,13 +97,19 @@ public class GameController {
     public WordleModel getCurrentWordle() {
         return currentWordle;
     }
+    
+    public WordleView getWordleView(){
+        return wordleView;
+    }
 
     public void setCurrentWordle(WordleModel currentWordle) {
         this.currentWordle = currentWordle;
 
     }
     
-    
+    public WordleController getWordleController(){
+        return wordleController;
+    }
 }
 
 

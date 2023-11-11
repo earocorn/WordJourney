@@ -47,6 +47,7 @@ public class ButtonContainer extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameController.getInstance().setGameState(GameState.IN_GAME);
+                System.out.println("Setting gameState into IN_GAME");
             }
         });
         quitButton.addActionListener(new ActionListener() {

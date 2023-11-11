@@ -32,16 +32,24 @@ public class WordleController implements ActionListener, KeyListener {
     
     Player player;
     
+    
+    
     GameState gameState;
     private Timer gameTimer = new Timer();
     private int remainingTimeInSeconds = 180; // 3 minutes in seconds
+    
+    
 
     public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
         this.player = player;
         wordleModel.setCurrentWordle(getWordleString());
-        startGameTimer();
+        //startGameTimer();
+        //GameController.getInstance();
+        
+        //GameController.getInstance().getPlayer().setTimeLeft(180);
+        //remainingTimeInSeconds = GameController.getInstance().getPlayer().getTimeLeft(); 
         System.out.println("WordleController constructor");
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
@@ -98,6 +106,8 @@ public class WordleController implements ActionListener, KeyListener {
     private void enterButtonEvent(){
         String userWord = wordleView.getInput().getUserInput().getText().trim().toUpperCase();
         wordleView.getInput().clearUserInput();
+        
+        System.out.println("Enter Button Event");
 
         if(userWord.length() != 5){
             // TODO: LESS IMPORTANT: Either implement something to keep the user from inputting more than 5 letters such as disabling the input box at input.length > 5 and adding backspace key listener OR implement something to display an error message that the word is over the limit or call an animation to shake the wordle panel.
@@ -108,7 +118,6 @@ public class WordleController implements ActionListener, KeyListener {
         if (isCorrect) {
             player.addScore();
             clearAllPanels();
-            resetGameTimer();
         } 
             
         
@@ -116,7 +125,6 @@ public class WordleController implements ActionListener, KeyListener {
         if (wordleModel.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
-            resetGameTimer();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
@@ -130,6 +138,7 @@ public class WordleController implements ActionListener, KeyListener {
         wordleModel.setCurrentWordle(getWordleString());
         System.out.println("Word for the day : " + wordleModel.getCurrentWordle());
         wordleModel.setCurrentLine(0);
+        resetGameTimer();
     }
 
     @Override
@@ -155,11 +164,13 @@ public class WordleController implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {}
     
     
-    private void resetGameTimer() {
-        remainingTimeInSeconds = 180; // Reset to 3 minutes
+    public void resetGameTimer() {
+        //GameController.getInstance().getPlayer().setTimeLeft(180);
+        remainingTimeInSeconds = 180;//GameController.getInstance().getPlayer().getTimeLeft(); // Reset to 3 minutes
+        System.out.println("Reset Game Timer");
     }
 
-    private void startGameTimer() {
+    public void startGameTimer() {
         gameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -182,7 +193,7 @@ public class WordleController implements ActionListener, KeyListener {
         return remainingTimeInSeconds;
     }
 
-    private void stopGameTimer() {
+    public void stopGameTimer() {
         gameTimer.cancel();
         gameTimer.purge();
     }

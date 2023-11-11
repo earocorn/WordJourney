@@ -24,9 +24,9 @@ public class PlayerAnimationListener implements ActionListener {
         }
         player.move(player.getXVelocity(), 0);
 
-        if(player.getLives() <= 0) {
-            container.explodeMonster();
-        }
+       // if(player.getLives() <= 0) {
+           // container.explodeMonster();
+      //  }
 
         for (int i = 0; i < player.getLives(); i++) {
             if (player.getHeartAscending()[i]) {
