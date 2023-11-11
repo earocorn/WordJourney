@@ -2,7 +2,6 @@ package wordjourney.controller;
 
 
 import wordjourney.model.WordleModel;
-import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
 
@@ -74,14 +73,14 @@ public class WordleController implements ActionListener, KeyListener {
         for (int i = 0; i < 5; i++) {
             if (wordleWordsList.contains(userWordsArray[i])) {
                 if (wordleWordsList.get(i).equals(userWordsArray[i])) {
-                    getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.GREEN_TRANSPARENT);
+                    getActivePanel().setPanelText(userWordsArray[i], i, Color.GREEN);
                     wordMatchesList.add(true);
                 } else {
-                    getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.YELLOW_TRANSPARENT);
+                    getActivePanel().setPanelText(userWordsArray[i], i, Color.YELLOW);
                     wordMatchesList.add(false);
                 }
             } else {
-                getActivePanel().setPanelText(userWordsArray[i], i, GameUtility.GRAY_TRANSPARENT);
+                getActivePanel().setPanelText(userWordsArray[i], i, Color.GRAY);
                 wordMatchesList.add(false);
             }
         }
@@ -107,23 +106,16 @@ public class WordleController implements ActionListener, KeyListener {
          boolean isCorrect = isWordleEqualTo(userWord);
 
         if (isCorrect) {
-            // TODO: Implement game logic to update player's score
-            player.incrementScore();
+            player.addScore();
             clearAllPanels();
             resetGameTimer();
-            return;
         } 
             
         
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
-            // TODO: Implement game logic for player losing a life with proper error checking
             clearAllPanels();
             player.decrementLives();
-            if(player.getLives() <= 0) {
-                // TODO: move this to Player class
-                //GameController.getInstance().setGameState(GameState.GAME_OVER);
-            }
             resetGameTimer();
             return;
         }
@@ -175,7 +167,6 @@ public class WordleController implements ActionListener, KeyListener {
                     // Update your game timer UI or perform other game-related tasks here
                     System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
                     remainingTimeInSeconds--;
-                    player.setTimeLeft(remainingTimeInSeconds);
                 } else {
                     // The game is over, handle it here
                     gameTimer.cancel();
@@ -186,10 +177,29 @@ public class WordleController implements ActionListener, KeyListener {
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
     }
+    
+    public int getTime() {
+        return remainingTimeInSeconds;
+    }
 
     private void stopGameTimer() {
         gameTimer.cancel();
         gameTimer.purge();
     }
+    
+    private void setGameState(GameState gameState) {
+        if (this.gameState != gameState) {
+            if (gameState == GameState.IN_GAME) {
+                // Start the WordleController timer when entering the IN_GAME state
+                startGameTimer();
+            } else {
+                // Stop the WordleController timer when leaving the IN_GAME state
+                stopGameTimer();
+                // Reset the WordleController timer if needed
+                resetGameTimer();
+            }
+    }
+    this.gameState = gameState;
+}
 
 }
