@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 
 /**
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel {
         background.add(wordleView);
 
         Icon monsterIcon = new ImageIcon("src/assets/ui/sprites/monster7.gif");
+
         monsterLabel = new JLabel(monsterIcon);
         monsterLabel.setLayout(new GridBagLayout());
 
