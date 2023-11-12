@@ -107,7 +107,6 @@ public class WordleController implements ActionListener, KeyListener {
          boolean isCorrect = isWordleEqualTo(userWord);
 
         if (isCorrect) {
-            // TODO: Implement game logic to update player's score
             player.incrementScore();
             clearAllPanels();
             resetGameTimer();
@@ -117,7 +116,6 @@ public class WordleController implements ActionListener, KeyListener {
         
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
-            // TODO: Implement game logic for player losing a life with proper error checking
             clearAllPanels();
             player.decrementLives();
             if(player.getLives() <= 0) {
@@ -185,6 +183,10 @@ public class WordleController implements ActionListener, KeyListener {
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
+    }
+    
+    public int getTime() {
+        return remainingTimeInSeconds;
     }
 
     private void stopGameTimer() {
