@@ -4,6 +4,8 @@
  */
 package wordjourney.model;
 
+import wordjourney.util.GameUtility;
+
 import java.lang.Boolean;
 /**
  * Attribute handler class
@@ -12,42 +14,19 @@ import java.lang.Boolean;
  * @author Britton
  */
 public class AttributeHandler {
-    
-    private int score;
-    private int lives;
-    private int timeLimit;
     private int guessesAllowed;
     private int wordsSolved;
     private int difficulty;
-    private int mapIndex;
-    private int mapCount;
-    private boolean gameOver;
+    private Player player;
     
     /**
      * Default constructor - Initializes attributes for the first round of guessing
      */
-    public AttributeHandler() {
-        score = 0;
-        lives = 3;
-        timeLimit = 600;
+    public AttributeHandler(Player player) {
+        this.player = player;
         guessesAllowed = 6;
         wordsSolved = 0;
         difficulty = 0;
-        mapIndex = 0;
-        mapCount = 11;
-        gameOver = false;
-    }
-    
-        public AttributeHandler(int MapCount) {
-        score = 0;
-        lives = 3;
-        timeLimit = 600;
-        guessesAllowed = 6;
-        wordsSolved = 0;
-        difficulty = 0;
-        mapIndex = 0;
-        mapCount = MapCount;
-        gameOver = false;
     }
         
     /**
@@ -62,16 +41,17 @@ public class AttributeHandler {
         if(IsInGuessRange(attempts)) {
             
             if(solvedWord) {
-                score += guessesAllowed - attempts + 1;
-                wordsSolved += 1;
-                mapIndex = (wordsSolved / 5) % mapCount;
+                player.setScore(guessesAllowed - attempts + 1);
+                wordsSolved++;
+//                mapIndex = (wordsSolved / 5) % mapCount;
+                player.setCurrentLevel((wordsSolved / 5) % GameUtility.numLevels);
             }
             else {
-                lives -= 1;
+                player.decrementLives();
             }
-            if(lives <= 0) {
-                gameOver = true;
-            }
+//            if(player.getLives() <= 0) {
+//                gameOver = true;
+//            }
             
             difficulty = wordsSolved;
             
@@ -79,51 +59,17 @@ public class AttributeHandler {
             
             float tmp = difficulty;
             if((tmp = 0.002f * (tmp + 10f)) != 0f) {
-                timeLimit = 100 + (int)(10f / tmp);
+                player.setTimeLeft(100 + (int)(10f / tmp));
             }
         }
     }
-    /**
-     * Used to get the players score for display and logging
-     * @return score
-     */
-    public int GetScore() {
-        return score;
-    }
-    /**
-     * Used to get the player's remaining lives for display
-     * @return lives
-     */
-    public int GetLives() {
-        return lives;
-    }
-    /**
-     *  Used to get the time limit for the next word
-     * @return timeLimit in seconds
-     */
-    public int GetTimeLimit() {
-        return timeLimit;
-    }
+
     /**
      * Used to get the max guesses allowed for the next word
      * @return guesses allowed
      */
     public int GetGuessesAllowed() {
         return guessesAllowed;
-    }
-    /**
-     * Used to get the index of the background map that should be displayed
-     * @return map index
-     */
-    public int GetMapIndex() {
-        return mapIndex;
-    }
-    /**
-     * Used to tell if the game should be over
-     * @return game over boolean
-     */
-    public boolean IsGameOver() {
-        return gameOver;
     }
     
     boolean IsInGuessRange(int attempts) {

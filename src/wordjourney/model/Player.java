@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 public class Player {
 
-    private AttributeHandler playerStats; // Britton - trying to integrate
+    private final AttributeHandler playerStats; // Britton - trying to integrate
     private int xVelocity;
     private int x;
     private int y;
@@ -55,8 +55,7 @@ public class Player {
             heartJumpDistances[i] = 15;
         }
         this.heartAscending = new boolean[lives];
-        this.playerStats = new AttributeHandler(); // Britton - trying to integrate
-        this.timeLeft = this.playerStats.GetTimeLimit();
+        this.playerStats = new AttributeHandler(this); // Britton - trying to integrate
     }
 
 
@@ -67,14 +66,13 @@ public class Player {
     
     public void sendRoundResult(int lineNumber, boolean isCorrect) {
         playerStats.UpdateAttributes(lineNumber + 1, isCorrect);
-        timeLeft = playerStats.GetTimeLimit();
     }
     
     /**
      * @return score
      */
     public int getScore() {
-        return playerStats.GetScore();
+        return score;
     }
 
     /**
@@ -85,6 +83,10 @@ public class Player {
         // Either change this setScore() method to addPoint() and losePoint() in order to not allow score of more/less than +/- 1
         // TODO: Implement logic to let the game view know that the background should be updated and to change the number of level that the player is on and difficulty logic and shit like that.
         this.score = score;
+    }
+
+    public void incrementScore() {
+        score++;
     }
 
     /**
@@ -106,7 +108,7 @@ public class Player {
      */
     public int getLives() {
         // Britton - lives moved into AttributeHandler object 
-        return playerStats.GetLives();
+        return lives;
     }
 
     /**
@@ -115,6 +117,12 @@ public class Player {
     public void setLives(int lives) {
         // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)
         this.lives = lives;
+    }
+
+    public void decrementLives() {
+        if (lives > 0) {
+            lives--; // Decrement lives by 1
+        }
     }
 
     /**
@@ -244,14 +252,5 @@ public class Player {
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
-     
-    public void decrementLives() {
-        if (lives > 0) {
-            lives--; // Decrement lives by 1
-        }
-    }
 
-    public void incrementScore() {
-        score++;
-    }
 }
