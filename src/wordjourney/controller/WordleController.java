@@ -35,14 +35,16 @@ public class WordleController implements ActionListener, KeyListener {
     
     GameState gameState;
     private Timer gameTimer = new Timer();
-    private int remainingTimeInSeconds = 180; // 3 minutes in seconds
+    private int remainingTimeInSeconds ; 
 
     public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
         this.player = player;
+        player.setTimeLeft(180);
+        this.remainingTimeInSeconds = player.getTimeLeft();
         wordleModel.setCurrentWordle(getWordleString());
-        startGameTimer();
+        //startGameTimer();
         System.out.println("WordleController constructor");
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
@@ -161,11 +163,12 @@ public class WordleController implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {}
     
     
-    private void resetGameTimer() {
-        remainingTimeInSeconds = 180; // Reset to 3 minutes
+    public void resetGameTimer() {
+        player.setTimeLeft(180);
+        remainingTimeInSeconds = player.getTimeLeft();
     }
 
-    private void startGameTimer() {
+    public void startGameTimer() {
         gameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -189,7 +192,7 @@ public class WordleController implements ActionListener, KeyListener {
         return remainingTimeInSeconds;
     }
 
-    private void stopGameTimer() {
+    public void stopGameTimer() {
         gameTimer.cancel();
         gameTimer.purge();
     }
