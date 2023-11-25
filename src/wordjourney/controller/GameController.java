@@ -13,13 +13,12 @@ public class GameController {
     private WordleModel currentWordle = new WordleModel();
     private Player player = null;
     private GameFrame gameFrame = null;
-    public GameTimer gameTimer;
+    public GameTimer gameTimer = null;
 
     
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
-        gameTimer= new GameTimer();
         // TODO: Put other initialization here. When GameController is constructed, we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something, idk.
     }
 
@@ -50,7 +49,11 @@ public class GameController {
             switch (gameState) {
                 case IN_GAME -> {
                     // TODO: do setup for timer here so that we dont call it on window open
+                    if (gameTimer == null){
+                        gameTimer = new GameTimer();
+                    }
                     gameTimer.startGameTimer();
+
                     break;
                 }
                 case MENU -> {
@@ -72,6 +75,7 @@ public class GameController {
     }
 
     public Player getPlayer() {
+
         return player;
     }
 

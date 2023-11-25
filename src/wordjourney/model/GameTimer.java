@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameTimer {
-    private Timer gameTimer = new Timer();
+    private Timer timer = new Timer();
     private int remainingTimeInSeconds =10;// 3 minutes in seconds
 
     Player player;
@@ -23,7 +23,6 @@ public class GameTimer {
         player = new Player();
         wordleView = new WordleView();
         wordleModel = new WordleModel();
-
         wordleController = new WordleController(wordleModel,wordleView,player);
     }
 
@@ -40,7 +39,7 @@ public class GameTimer {
      * method to start the game timer and adds functionality to remove player lives if time runs out
      */
     public void startGameTimer() {
-        gameTimer.scheduleAtFixedRate(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (remainingTimeInSeconds > 0) {
@@ -67,7 +66,7 @@ public class GameTimer {
      * method to cancel the game timer when it moves from game state to another state
      */
     public void stopGameTimer() {
-        gameTimer.cancel();
+        timer.purge();
     }
 
 }
