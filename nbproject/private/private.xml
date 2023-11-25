@@ -3,8 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/earoc/OneDrive/Documents/GitHub/WordJourney/src/wordjourney/util/GameManager.java</file>
-            <file>file:/C:/Users/earoc/OneDrive/Documents/GitHub/WordJourney/src/wordjourney/graphics/WordleGame.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/controller/WordleController.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/components/InputComponent.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/controller/GameController.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/util/GameUtility.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/util/DataManager.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/panels/MenuPanel.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/Core.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/model/Player.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/components/WordleView.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/assets/playerdata/highscores.json</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/model/GameState.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/model/Level.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/components/ButtonContainer.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/model/WordleModel.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/GameFrame.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/components/WordComponent.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/controller/listener/PlayerAnimationListener.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/controller/listener/PlayerJumpListener.java</file>
+            <file>file:/C:/Users/bhump/Documents/NetBeansProjects/WordJourney/WordJourney/src/wordjourney/view/panels/GamePanel.java</file>
         </group>
     </open-files>
 </project-private>
