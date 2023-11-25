@@ -33,9 +33,7 @@ public class GamePanel extends JPanel {
     Player player;
     Timer jumpTimer;
     Timer timer;
-    //hearts
-
-    int targetScore;
+    
     /**
      * Constructor for  game panel and initializes properties
      */
