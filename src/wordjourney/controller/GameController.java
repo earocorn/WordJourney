@@ -6,11 +6,6 @@ import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
-import wordjourney.view.components.WordleView;
-
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameController {
     private static GameController instance = null;
@@ -18,8 +13,8 @@ public class GameController {
     private WordleModel currentWordle = new WordleModel();
     private Player player = null;
     private GameFrame gameFrame = null;
-
     public GameTimer gameTimer;
+
     
 
     private GameController() {
@@ -94,6 +89,5 @@ public class GameController {
         this.currentWordle = currentWordle;
 
     }
-    
-    
+
 }
