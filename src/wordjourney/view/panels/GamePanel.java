@@ -116,10 +116,8 @@ public class GamePanel extends JPanel {
         g.drawString("Score: " + player.getScore(), 700, 45);
         g.drawString("Time: " + wordleController.getTime(), 350, 45);
 
-        //update background if needed
-
+        //update background when the score reaches level requirement
         updateBackground();
-
 
     }
 
@@ -154,10 +152,9 @@ public class GamePanel extends JPanel {
 
             // Check if the new level exists in the array of levels
             if (player.getCurrentLevel() >= GameUtility.getLevels().length) {
-                // Handles the case where we cycle through all the levels
                 // should we start the levels over or should we do a completion of the game
                 // im just going to reset the score and levels for now
-                // so if score reaches 22 restarts
+                // so if score reaches 22 restarts points etc
                 player.setScore(0);
                 player.setCurrentLevel(0);
             }
@@ -168,34 +165,6 @@ public class GamePanel extends JPanel {
             repaint();
         }
     }
-
-//    public void updateBackground(){
-//
-//        int targetScore = 2;
-//         //setting a target score because level changes based on 2 point value
-//        if(player.getScore() >= targetScore && player.getScore() % targetScore == 0) {
-//            player.setCurrentLevel(player.getCurrentLevel() + 1);
-//
-//            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
-//            background.setIcon(backgroundImage);
-//            player.setScore(0);
-//            repaint();
-//
-//        }
-//    }
-
-//    public void updateBackground(){
-//        int targetInterval = 2;
-//        int currentLevel = player.getCurrentLevel();
-//        int targetScore = (currentLevel+1) * targetInterval;
-//        if(player.getScore() >= targetScore){
-//            player.setCurrentLevel(player.getCurrentLevel() + 1);
-//            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
-//            background.setIcon(backgroundImage);
-//
-//            repaint();
-//        }
-//    }
 
 
 }
