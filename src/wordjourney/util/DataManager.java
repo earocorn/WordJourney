@@ -55,23 +55,23 @@ public class DataManager {
         System.out.println("Highscores = " + scores);
     }
     
-    public void updateScore(int score){
-        if (score > Integer.parseInt(scores.get(0))) {
+    public void updateScore(int finalScore){
+        if (finalScore > Integer.parseInt(scores.get(0), 10)) {
             scores.set(2, scores.get(1));
             scores.set(1, scores.get(0));
-            scores.set(0, Integer.toString(score));
+            scores.set(0, Integer.toString(finalScore));
         }
-        else if (score > Integer.parseInt(scores.get(1))) {
+        else if (finalScore > Integer.parseInt(scores.get(1), 10)) {
             scores.set(2, scores.get(1));
-            scores.set(1, Integer.toString(score));
+            scores.set(1, Integer.toString(finalScore));
         }
-        else if (score > Integer.parseInt(scores.get(2))) {
-            scores.set(2, Integer.toString(score));
+        else if (finalScore > Integer.parseInt(scores.get(2), 10)) {
+            scores.set(2, Integer.toString(finalScore));
         }
         this.writeScores();
     }
     
     public void writeScores() {
-        jo.put("scores", scores);
+        jo.put("scores", this.scores);
     }
 }

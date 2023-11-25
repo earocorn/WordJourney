@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Class that contains
@@ -32,7 +33,10 @@ public final class GameUtility {
     public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220);
     public static final Color GRAY_TRANSPARENT = new Color(80, 80, 80, 220);
     public static final Color TRANSPARENT = new Color(0, 0, 0, 220);
-
+    
+    public final DataManager scoreData = new DataManager();
+    public ArrayList<String> scores = new ArrayList<>();
+    
     /**
      * Custom starting heights of where to start the player's y value for each background image
      */
@@ -96,6 +100,8 @@ public final class GameUtility {
         loadFont();
         loadMusic();
         loadLevels();
+        scores = scoreData.getScores();
+        scoreData.print();
     }
 
     /**

@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * Class used to represent a graphical panel displaying a menu
@@ -22,7 +21,6 @@ public class MenuPanel extends JPanel implements ActionListener {
     JLabel background;
     ImageIcon title;
     Timer timer;
-    DataManager scoreData;
 
     ButtonContainer buttonContainer;
     int titleXLimitRight = 45;
@@ -33,7 +31,6 @@ public class MenuPanel extends JPanel implements ActionListener {
     int titleY = 50;
     int titleXVelocity = 3;
     int titleYVelocity = 2;
-    ArrayList<String> scores;
 
     /**
      * Constructor to initialize MenuPanel and  its properties
@@ -44,10 +41,6 @@ public class MenuPanel extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         
         //pull json data for leaderboard
-        scoreData = new DataManager();
-        scoreData.print();
-        scores = new ArrayList<>();
-        scores = scoreData.getScores();
         
         //create an instance of the panel
         bgIcon = new ImageIcon("src/assets/ui/menubackgrounds/pinkBG.png");
@@ -91,7 +84,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         super.paint(g);
         // TODO: Also print the player's high score on the gameover screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
-        g.drawString("1: " +  scores.get(0) + "\n" + "2: " +  scores.get(1) + "\n" + "3: " + scores.get(2), 15, 15);
+        // g.drawString("1: " +  scores.get(0) + "\n" + "2: " +  scores.get(1) + "\n" + "3: " + scores.get(2), 15, 15);
     }
 
 

@@ -246,6 +246,7 @@ public class Player {
             lives--; // Decrement lives by 1
         } else if (lives <= 1) {
             lives--;
+            GameUtility.getInstance().scoreData.updateScore(this.score);
             GameController.getInstance().setGameState(GameState.GAME_OVER);
             System.out.println("Switched to GameState.GAME_OVER");
         }
