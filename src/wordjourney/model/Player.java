@@ -66,9 +66,10 @@ public class Player {
     public int getScore() {
         return score;
     }
-    
+
+
     /**
-     * @increment score
+     *
      */
     public void addScore() {
         score++;
@@ -240,7 +241,6 @@ public class Player {
     }
      
     public void decrementLives() {
-        // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)-- use elseif?
         if (lives > 1) {
             lives--; // Decrement lives by 1
         } else {

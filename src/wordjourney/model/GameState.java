@@ -4,7 +4,6 @@ package wordjourney.model;
  *
  */
 public enum GameState {
-
     MENU("MAIN MENU"),
     GAME_OVER("GAME-OVER"),
     IN_GAME("WORD JOURNEY") {

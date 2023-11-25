@@ -1,6 +1,7 @@
 package wordjourney.controller;
 
 
+import wordjourney.model.GameTimer;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
@@ -30,23 +31,22 @@ import wordjourney.model.GameState;
 public class WordleController implements ActionListener, KeyListener {
     WordleModel wordleModel;
     WordleView wordleView;
-    
     Player player;
-    
-    GameState gameState;
-    private Timer gameTimer = new Timer();
-    private int remainingTimeInSeconds = 10; // 3 minutes in seconds
+
 
     public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
+
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
         this.player = player;
         wordleModel.setCurrentWordle(getWordleString());
-        startGameTimer(); //TODO: THIS SHOULD START WHEN GAME STATE IT PUT INTO GAME MODE NOOT WHEN THE GAME IS LAUNCHED
         System.out.println("WordleController constructor");
+
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
         wordleView.getInput().getEnterButton().addActionListener(this);
+
+
     }
 
     /**
@@ -63,7 +63,6 @@ public class WordleController implements ActionListener, KeyListener {
         Random random = new Random();
         int position = random.nextInt(wordList.size());
         return wordList.get(position).trim().toUpperCase();
-        
     }
 
     private boolean isWordleEqualTo(String userWord){
@@ -109,27 +108,22 @@ public class WordleController implements ActionListener, KeyListener {
         if (isCorrect) {
             player.incrementScore();
             clearAllPanels();
-            resetGameTimer();
+            GameController.getInstance().gameTimer.resetGameTimer();
             return;
         } 
-            
-        
+
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
-            if(player.getLives() <= 0) {
-                // TODO: move this to Player class
-                //GameController.getInstance().setGameState(GameState.GAME_OVER);
-            }
-            resetGameTimer();
+            GameController.getInstance().gameTimer.resetGameTimer();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
 
     }
 
-    private void clearAllPanels() {
+    public void clearAllPanels() {
         for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();
         }
@@ -150,49 +144,13 @@ public class WordleController implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             enterButtonEvent();
             System.out.println("Enter Key");
         }
 
     }
-
     @Override
     public void keyReleased(KeyEvent e) {}
-    
-    
-    private void resetGameTimer() {
-        System.out.println("Timer reset");
-        remainingTimeInSeconds = 10; // Reset to 3 minute
-        player.setTimeLeft(remainingTimeInSeconds);
-    }
-
-    private void startGameTimer() {
-        gameTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (remainingTimeInSeconds > 0) {
-                    //System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
-                    remainingTimeInSeconds--;
-                    player.setTimeLeft(remainingTimeInSeconds);
-                } else {
-                    System.out.println("Ran out of time");
-                    clearAllPanels();
-                    player.decrementLives();
-                    resetGameTimer();
-                }
-            }
-        }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
-    }
-    
-    public int getTime() {
-
-        return remainingTimeInSeconds;
-    }
-
-    private void stopGameTimer() {
-        gameTimer.cancel();
-        gameTimer.purge();
-    }
 
 }

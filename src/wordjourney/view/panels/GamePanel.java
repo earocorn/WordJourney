@@ -5,6 +5,7 @@ import wordjourney.controller.GameController;
 import wordjourney.controller.WordleController;
 import wordjourney.controller.listener.PlayerAnimationListener;
 import wordjourney.controller.listener.PlayerJumpListener;
+import wordjourney.model.GameTimer;
 import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
@@ -33,7 +34,8 @@ public class GamePanel extends JPanel {
     Player player;
     Timer jumpTimer;
     Timer timer;
-    
+    GameTimer gameTimer;
+
     /**
      * Constructor for  game panel and initializes properties
      */
@@ -48,6 +50,8 @@ public class GamePanel extends JPanel {
         wordleView = new WordleView();
         wordleModel = new WordleModel();
         wordleController = new WordleController(wordleModel, wordleView, player);
+
+        gameTimer = new GameTimer();
 
         playerIcon = player.getPlayerIcon();
 
@@ -112,7 +116,7 @@ public class GamePanel extends JPanel {
         
         //draw score on the screen
         g.drawString("Score: " + player.getScore(), 700, 45);
-        g.drawString("Time: " + wordleController.getTime(), 350, 45);
+        g.drawString("Time: " + GameController.getInstance().gameTimer.getTime(), 350, 45);
 
         //update background when the score reaches level requirement
         updateBackground();
