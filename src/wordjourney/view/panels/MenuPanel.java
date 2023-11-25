@@ -15,12 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
-
     ImageIcon bgIcon;
     JLabel background;
     ImageIcon title;
     Timer timer;
-
     ButtonContainer buttonContainer;
     int titleXLimitRight = 45;
     int titleXLimitLeft = 25;
@@ -79,7 +77,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        // TODO: Also print the player's high score on the gameover screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
+        // TODO: Also print the player's high score on the game over screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
     }
 
@@ -91,7 +89,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             timer.stop();
         }
 
-        System.out.println("X: " + titleX + ", Y: " + titleY);
+        //System.out.println("X: " + titleX + ", Y: " + titleY);
         if ((titleX > titleXLimitRight) || (titleX < titleXLimitLeft)) {
             titleXVelocity -= titleXVelocity * 2;
         }

@@ -21,7 +21,6 @@ public class Player {
 
     private int[] heartJumpDistances;
     private boolean[] heartAscending;
-
     private int score;
     private int lives;
     private int currentLevel;
@@ -39,7 +38,7 @@ public class Player {
         this.lives = GameUtility.STARTING_LIVES;
         this.name = "PLAYER";
         this.timeLeft = -1;
-        this.currentLevel = 4;
+        this.currentLevel = 0;
 
         // guy graphics
         this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
@@ -244,7 +243,7 @@ public class Player {
         // TODO: Set game state to GAME_OVER and do any destruction/resetting of player/wordle models if player is dead (lives == 0)-- use elseif?
         if (lives > 1) {
             lives--; // Decrement lives by 1
-        } else if (lives <= 1) {
+        } else {
             lives--;
             GameController.getInstance().setGameState(GameState.GAME_OVER);
             System.out.println("Switched to GameState.GAME_OVER");

@@ -35,10 +35,12 @@ public class GamePanel extends JPanel {
     Timer timer;
     //hearts
 
+    int targetScore;
     /**
      * Constructor for  game panel and initializes properties
      */
     public GamePanel(){
+
         // TODO: Ideally GameController should be able to get any current event/model being acted upon which is why it might make sense to initialize the wordle in GameController and get the instance of the wordle. SEE TODO COMMENT IN wordjourney.Core
         player = GameController.getInstance().getPlayer();
 
@@ -95,8 +97,6 @@ public class GamePanel extends JPanel {
         super.paint(g);
         Graphics2D g2D = (Graphics2D) g;
 
-        // TODO: NEED WORDLE MONSTER GUY: In this paint() method somehow we need to paint a wordle monster but I don't think we have decided on a wordle monster. This can be just painted behind the wordle box and we can animate it and change opacity of the panels to make it look better.
-
         // draw Little Guy
         g2D.drawImage(playerIcon.getImage(), player.getLives() > 0 ? player.getX() : 0, GameUtility.WINDOW_HEIGHT-playerIcon.getIconHeight() - (GameUtility.WINDOW_HEIGHT- GameUtility.getLevels()[0].getStartingHeight()) - player.getY(), null);
 
@@ -115,8 +115,17 @@ public class GamePanel extends JPanel {
         //draw score on the screen
         g.drawString("Score: " + player.getScore(), 700, 45);
         g.drawString("Time: " + wordleController.getTime(), 350, 45);
+
+        //update background if needed
+
+        updateBackground();
+
+
     }
 
+    /**
+     * method for the animation of the monster to explode
+     */
     public void explodeMonster() {
         JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));
         monsterLabel.add(explosion);
@@ -132,6 +141,61 @@ public class GamePanel extends JPanel {
         );
 
     }
+
+    /**
+     * method to change background based on the players current score
+     */
+    public void updateBackground() {
+        int targetScore = (player.getCurrentLevel() + 1) * 2; // target score increment of 2 points per level
+
+        // Check if the player's score is greater than or equal to the target score
+        if (player.getScore() >= targetScore) {
+            player.setCurrentLevel(player.getCurrentLevel() + 1);
+
+            // Check if the new level exists in the array of levels
+            if (player.getCurrentLevel() >= GameUtility.getLevels().length) {
+                // Handles the case where we cycle through all the levels
+                // should we start the levels over or should we do a completion of the game
+                // im just going to reset the score and levels for now
+                // so if score reaches 22 restarts
+                player.setScore(0);
+                player.setCurrentLevel(0);
+            }
+            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
+            background.setIcon(backgroundImage);
+
+            // Repaint the panel to reflect the background changes
+            repaint();
+        }
+    }
+
+//    public void updateBackground(){
+//
+//        int targetScore = 2;
+//         //setting a target score because level changes based on 2 point value
+//        if(player.getScore() >= targetScore && player.getScore() % targetScore == 0) {
+//            player.setCurrentLevel(player.getCurrentLevel() + 1);
+//
+//            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
+//            background.setIcon(backgroundImage);
+//            player.setScore(0);
+//            repaint();
+//
+//        }
+//    }
+
+//    public void updateBackground(){
+//        int targetInterval = 2;
+//        int currentLevel = player.getCurrentLevel();
+//        int targetScore = (currentLevel+1) * targetInterval;
+//        if(player.getScore() >= targetScore){
+//            player.setCurrentLevel(player.getCurrentLevel() + 1);
+//            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
+//            background.setIcon(backgroundImage);
+//
+//            repaint();
+//        }
+//    }
 
 
 }

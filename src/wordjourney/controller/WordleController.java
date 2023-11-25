@@ -171,7 +171,7 @@ public class WordleController implements ActionListener, KeyListener {
             public void run() {
                 if (remainingTimeInSeconds > 0) {
                     // Update your game timer UI or perform other game-related tasks here
-                    System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
+                    //System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
                     remainingTimeInSeconds--;
                     player.setTimeLeft(remainingTimeInSeconds);
                 } else {

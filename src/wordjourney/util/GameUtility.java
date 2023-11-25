@@ -27,7 +27,6 @@ public final class GameUtility {
     public static final int STARTING_SCORE = 0;
     public static final int numLevels = 11;
     private static final Level[] levels = new Level[numLevels];
-
     public static final Color GREEN_TRANSPARENT = new Color(0, 255, 0, 220);
     public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220);
     public static final Color GRAY_TRANSPARENT = new Color(80, 80, 80, 220);
@@ -78,7 +77,7 @@ public final class GameUtility {
     private void loadLevels() {
         System.out.println("Loading background images...");
         for(int i = 0; i < levels.length; i++) {
-            String levelBackgroundPath = "src/assets/ui/levels/level" + (i+1)+ ".png";
+            String levelBackgroundPath = "src/assets/ui/levels/level" + (i+1) + ".png";
             System.out.println(levelBackgroundPath + " loaded");
             levels[i] = new Level(new ImageIcon(levelBackgroundPath), levelsStartingHeight[i]);
         }
@@ -139,7 +138,7 @@ public final class GameUtility {
                 song = "menuMusic.wav";
                 break;
             case GAME_OVER:
-                // change to gameover music
+                // change to game over music
                 song = "menuMusic.wav";
                 break;
             default:
