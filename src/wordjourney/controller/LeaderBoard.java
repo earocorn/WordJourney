@@ -5,6 +5,7 @@ import wordjourney.view.components.LeaderBoardView;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,8 +14,12 @@ public class LeaderBoard {
     private static LeaderBoard lBoard;
     String playerName;
     int playerScore;
+    private ArrayList<String> players;
+    private ArrayList<String> scores;
 
     public LeaderBoard(){
+        players = new ArrayList<>();
+        scores = new ArrayList<>();
     }
     public static LeaderBoard getInstance() {
         if (lBoard == null) {
@@ -68,6 +73,13 @@ public class LeaderBoard {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateLeaderBoard() {
+        LeaderBoard.getInstance().readPlayerStats();
+        for (int i =0; i< Math.min(5, players.size()); i++){
+           LeaderBoardView.setLBText(players.get(i), Integer.parseInt(scores.get(i)),i);
         }
     }
 

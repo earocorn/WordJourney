@@ -11,15 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LeaderBoardView extends JPanel {
-    JLabel[] lbColumns = new JLabel[5];
+    static JLabel[] lbColumns = new JLabel[5];
     LeaderBoard leaderBoard;
-    private ArrayList<String> players;
-    private ArrayList<String> scores;
+
 
     public LeaderBoardView() {
         leaderBoard = new LeaderBoard();
-        players = new ArrayList<>();
-        scores = new ArrayList<>();
 
         setLayout(new GridLayout(5,1));
         Border pinkBorder = BorderFactory.createLineBorder(new Color(250,28,121,250));
@@ -34,19 +31,12 @@ public class LeaderBoardView extends JPanel {
             add(lbColumns[i]);
         }
     }
-    
-    public void updateLeaderBoard() {
-        LeaderBoard.getInstance().readPlayerStats();
-        for (int i =0; i< Math.min(5, players.size()); i++){
-            setLBText(players.get(i), Integer.parseInt(scores.get(i)),i);
-        }
-    }
-
-    public void setLBText(String name, int score, int position){
+    public static void setLBText(String name, int score, int position){
         System.out.println("Setting label text: " + name + " - " + score);
-        this.lbColumns[position].setFont(GameUtility.getFont());
-        this.lbColumns[position].setText(name+ "-"+ score);
-        this.lbColumns[position].setBackground(Color.PINK);
+        lbColumns[position].setFont(GameUtility.getFont());
+        lbColumns[position].setText(name+ "-"+ score);
+        lbColumns[position].setBackground(Color.PINK);
     }
+    
 
 }

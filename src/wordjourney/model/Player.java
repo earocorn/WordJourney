@@ -254,9 +254,10 @@ public class Player {
             LeaderBoard.getInstance().setPlayer(GameController.getInstance().getPlayer().getName(), GameController.getInstance().getPlayer().getScore());
             //LeaderBoard.getInstance().loadScores(GameController.getInstance().getPlayer().getScore());
             LeaderBoard.getInstance().saveScores();
-            if (leaderBoardView != null){
-                leaderBoardView.updateLeaderBoard();
-            }
+            LeaderBoard.getInstance().updateLeaderBoard();
+//            if (leaderBoardView != null){
+//                leaderBoardVie.updateLeaderBoard();
+//            }
 
             System.out.println("Switched to GameState.GAME_OVER");
         }
