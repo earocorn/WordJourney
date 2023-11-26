@@ -147,6 +147,9 @@ public final class GameUtility {
                 break;
             case GAME_OVER:
                 // change to gameover music
+                song = "gameOverMusic.wav";
+                break;
+            case LEADERBOARD:
                 song = "menuMusic.wav";
                 break;
             default:
