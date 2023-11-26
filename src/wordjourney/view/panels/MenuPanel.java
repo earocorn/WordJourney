@@ -3,9 +3,7 @@ package wordjourney.view.panels;
 import wordjourney.controller.GameController;
 import wordjourney.model.GameState;
 import wordjourney.util.GameUtility;
-import wordjourney.util.DataManager;
 import wordjourney.view.components.ButtonContainer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

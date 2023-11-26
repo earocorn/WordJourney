@@ -8,15 +8,9 @@ import wordjourney.controller.listener.PlayerJumpListener;
 import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
-import wordjourney.view.components.InputComponent;
 import wordjourney.view.components.WordleView;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.io.File;
 
 /**
  * A class used to represent a graphical panel for displaying the main game Panel

@@ -2,7 +2,7 @@ package wordjourney.view.components;
 
 import wordjourney.controller.GameController;
 import wordjourney.model.GameState;
-
+import wordjourney.model.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

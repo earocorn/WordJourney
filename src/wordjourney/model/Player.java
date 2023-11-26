@@ -9,7 +9,7 @@ import javax.swing.*;
  * Class for the player and properties of the player, score; lives , time
  */
 public class Player {
-
+    
     private int xVelocity;
     private int x;
     private int y;
@@ -59,8 +59,7 @@ public class Player {
         }
         this.heartAscending = new boolean[lives];
     }
-
-
+    
     /**
      * @return score
      */
@@ -254,5 +253,10 @@ public class Player {
 
     public void incrementScore() {
         score++;
+    }
+    
+    public void resetPlayer() {
+        this.score = GameUtility.STARTING_SCORE;
+        this.lives = GameUtility.STARTING_LIVES;
     }
 }

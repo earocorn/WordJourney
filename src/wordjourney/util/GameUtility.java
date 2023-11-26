@@ -2,7 +2,6 @@ package wordjourney.util;
 
 import wordjourney.model.GameState;
 import wordjourney.model.Level;
-
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
