@@ -31,8 +31,8 @@ public final class GameUtility {
 
     public static final Color GREEN_TRANSPARENT = new Color(0, 255, 0, 220);
     public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220);
-    public static final Color GRAY_TRANSPARENT = new Color(80, 80, 80, 220);
-    public static final Color TRANSPARENT = new Color(0, 0, 0, 220);
+    public static final Color GRAY_TRANSPARENT = new Color(100, 100, 100, 220);
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 70);
     
     public final DataManager scoreData = new DataManager();
     public ArrayList<String> scores = new ArrayList<>();
@@ -55,7 +55,6 @@ public final class GameUtility {
         }
         return instance;
     }
-
 
     /**
      * loads game font into the game
