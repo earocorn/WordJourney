@@ -59,10 +59,10 @@ public class GameController {
                 case IN_GAME -> {
                     // TODO: do setup for timer here so that we dont call it on window open
                     if(player.getLives() != GameUtility.STARTING_LIVES) {
-                        player.setLives(GameUtility.STARTING_LIVES);
                         player.setTimeLeft(GameUtility.STARTING_TIME);
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);
                         player.setScore(GameUtility.STARTING_SCORE);
+                        player.setLives(GameUtility.STARTING_LIVES);
                     }
                     break;
                 }

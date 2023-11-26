@@ -119,6 +119,9 @@ public class GamePanel extends JPanel {
     }
 
     public void explodeMonster() {
+        System.out.println("Exploding monster ... ");
+        player.setXVelocity(0);
+        wordleView.getInput().setEnabled(false);
         JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));
         monsterLabel.add(explosion);
         monsterLabel.validate();
@@ -127,6 +130,8 @@ public class GamePanel extends JPanel {
                     @Override
                     public void run() {
                         monsterLabel.setIcon(null);
+                        player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY);
+                        player.setRunningToNextLevel(true);
                     }
                 },
                 3000
@@ -134,6 +139,7 @@ public class GamePanel extends JPanel {
     }
 
     public void resetMonster() {
+        monsterLabel.removeAll();
         monsterLabel.setIcon(GameUtility.getInstance().getMonsterIcon());
         background.add(monsterLabel);
         backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();

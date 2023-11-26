@@ -23,13 +23,13 @@ public class MenuPanel extends JPanel implements ActionListener {
     Timer timer;
 
     ButtonContainer buttonContainer;
-    int titleXLimitRight = 45;
-    int titleXLimitLeft = 25;
-    int titleYLimitTop = 0;
-    int titleYLimitBottom = 1000;
+    int titleXLimitRight = 60;
+    int titleXLimitLeft = 15;
+    int titleYLimitTop = 50;
+    int titleYLimitBottom = 80;
     int titleX = 35;
     int titleY = 50;
-    int titleXVelocity = 3;
+    int titleXVelocity = 2;
     int titleYVelocity = 2;
 
     /**
@@ -72,7 +72,7 @@ public class MenuPanel extends JPanel implements ActionListener {
                 title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
             }
 
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
         }
 
@@ -83,22 +83,27 @@ public class MenuPanel extends JPanel implements ActionListener {
     public void paint(Graphics g){
         super.paint(g);
         // TODO: Also print the player's high score on the gameover screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
+        if(GameController.getInstance().getGameState() == GameState.GAME_OVER) {
+            //set font and font color for paint component
+            g.setColor(Color.BLACK);
+            g.setFont(GameUtility.getFont());
+            g.drawString("High Score: " + GameController.getInstance().getPlayer().getScore(), 650, 50);
+        }
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
         // other title menu stuff
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(GameController.getInstance().getGameState() != GameState.MENU) {
+        if(GameController.getInstance().getGameState() != GameState.MENU && GameController.getInstance().getGameState() != GameState.GAME_OVER || GameController.getInstance().getGameState() != GameState.GAME_OVER && GameController.getInstance().getGameState() != GameState.MENU) {
             // TODO: figure out how to stop and start menu timer gracefully when GameState changes
             timer.stop();
         }
 
-        System.out.println("X: " + titleX + ", Y: " + titleY);
         if ((titleX > titleXLimitRight) || (titleX < titleXLimitLeft)) {
             titleXVelocity -= titleXVelocity * 2;
         }
-        if ((titleY > titleYLimitTop) || (titleY < titleYLimitBottom)) {
+        if ((titleY < titleYLimitTop) || (titleY > titleYLimitBottom)) {
             titleYVelocity -= titleYVelocity * 2;
         }
         titleX += titleXVelocity;

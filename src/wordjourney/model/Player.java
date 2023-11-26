@@ -29,6 +29,8 @@ public class Player {
     private String name;
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
+    private boolean isRunningToNextLevel;
+
 
     /**
      * @constructor 
@@ -44,7 +46,7 @@ public class Player {
         // guy graphics
         this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
         this.heartIcon = new ImageIcon("src/assets/ui/sprites/hearts.png");
-        this.xVelocity = 2;
+        this.xVelocity = GameUtility.STARTING_PLAYER_X_VELOCITY;
         this.x = 0;
         this.y = 0;
         this.yMoveLimit = 100;
@@ -58,6 +60,7 @@ public class Player {
             heartJumpDistances[i] = 15;
         }
         this.heartAscending = new boolean[lives];
+        this.isRunningToNextLevel = false;
     }
 
 
@@ -245,12 +248,18 @@ public class Player {
         }
     }
 
+    public boolean isRunningToNextLevel() {
+        return isRunningToNextLevel;
+    }
+
+    public void setRunningToNextLevel(boolean runningToNextLevel) {
+        this.isRunningToNextLevel = runningToNextLevel;
+    }
     public void incrementScore() {
+        score++;
         if(score % 2 == 0 && score != 0) {
-            currentLevel++;
-            GameController.getInstance().getGameView().getGamePanel().resetMonster();
+            GameController.getInstance().getGameView().getGamePanel().explodeMonster();
             System.out.println("Current level = " + currentLevel);
         }
-        score++;
     }
 }
