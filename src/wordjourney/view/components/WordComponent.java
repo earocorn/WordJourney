@@ -16,7 +16,7 @@ public class WordComponent extends JPanel {
     JLabel[] wordColumns = new JLabel[5];
     /**Constructor WordComponent and initializes components**/
     public WordComponent() {
-        this.setLayout(new GridLayout(1, 5));
+        setLayout(new GridLayout(1, 5));
         Border blackBorder = BorderFactory.createLineBorder(new Color(200, 200, 200, 99));
         for (int i = 0; i < 5; i++) {
             wordColumns[i] = new JLabel();

@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class GameTimer {
     private Timer timer = new Timer();
-    private int remainingTimeInSeconds =10;// 3 minutes in seconds
+    private int remainingTimeInSeconds =20;// 3 minutes in seconds
 
     Player player;
     WordleModel wordleModel;
@@ -20,10 +20,11 @@ public class GameTimer {
      *
      */
     public GameTimer(){
-        player = new Player();
-        wordleView = new WordleView();
-        wordleModel = new WordleModel();
-        wordleController = new WordleController(wordleModel,wordleView,player);
+        player = GameController.getInstance().getPlayer();
+        wordleView = WordleController.getInstance().getWordleView();
+        wordleModel = WordleController.getInstance().getCurrentWordle();
+//        wordleController = new WordleController(wordleModel,wordleView, player);
+        wordleController = WordleController.getInstance();
     }
 
     /**
@@ -31,7 +32,7 @@ public class GameTimer {
      */
     public void resetGameTimer() {
         System.out.println("Timer reset");
-        remainingTimeInSeconds = 10; // Reset to 3 minute
+        remainingTimeInSeconds = 20; // Reset to 3 minute
         GameController.getInstance().getPlayer().setTimeLeft(remainingTimeInSeconds);
     }
 
@@ -44,11 +45,12 @@ public class GameTimer {
             public void run() {
                 if (remainingTimeInSeconds > 0) {
                     remainingTimeInSeconds--;
-                    GameController.getInstance().getPlayer().setTimeLeft(remainingTimeInSeconds);
                 } else {
                     System.out.println("Ran out of time");
-                    wordleController.clearAllPanels();
                     GameController.getInstance().getPlayer().decrementLives();
+
+                    System.out.println("Clearing panels");
+                    wordleController.clearAllPanels();
                     resetGameTimer();
                 }
             }
@@ -59,6 +61,7 @@ public class GameTimer {
      * @return remainingTimeInSeconds for the game timer
      */
     public int getTime() {
+
         return remainingTimeInSeconds;
     }
 
@@ -66,7 +69,7 @@ public class GameTimer {
      * method to cancel the game timer when it moves from game state to another state
      */
     public void stopGameTimer() {
-        timer.purge();
+
     }
 
 }

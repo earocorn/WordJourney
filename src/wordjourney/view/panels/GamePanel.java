@@ -9,21 +9,15 @@ import wordjourney.model.GameTimer;
 import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
-import wordjourney.view.components.InputComponent;
 import wordjourney.view.components.WordleView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.io.File;
 
 /**
  * A class used to represent a graphical panel for displaying the main game Panel
  */
 public class GamePanel extends JPanel {
-
     public JLabel background;
     JLabel monsterLabel;
     ImageIcon  backgroundImage;
@@ -47,9 +41,11 @@ public class GamePanel extends JPanel {
         background = new JLabel();
 
         // TODO: DONT DO ANYTHING HERE. If you think wordle initialization should go in a different class such as GameController (previously known as GameManager) or have a better idea please let me know. Also let me know if it makes sense that it just goes here.
-        wordleView = new WordleView();
-        wordleModel = new WordleModel();
-        wordleController = new WordleController(wordleModel, wordleView, player);
+        wordleController = WordleController.getInstance();
+        wordleView = wordleController.getWordleView();
+        wordleModel = wordleController.getCurrentWordle();
+//        wordleController = new WordleController(wordleModel, wordleView, player);
+
 
         gameTimer = new GameTimer();
 
@@ -58,8 +54,9 @@ public class GamePanel extends JPanel {
         timer = new Timer(10, new PlayerAnimationListener(player, this));
         jumpTimer = new Timer(20, new PlayerJumpListener(player, jumpTimer));
 
-        background.setLayout(new GridBagLayout());
+
         background.setVisible(true);
+
         // get players current level for background
         backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
         background.setIcon(backgroundImage);
@@ -154,10 +151,10 @@ public class GamePanel extends JPanel {
 
             // Check if the new level exists in the array of levels
             if (player.getCurrentLevel() >= GameUtility.getLevels().length) {
-                // should we start the levels over or should we do a completion of the game
+                // TODO: should we start the levels over or should we do a completion of the game
                 // im just going to reset the score and levels for now
                 // so if score reaches 22 restarts points etc
-                player.setScore(0);
+                //player.setScore(0); //TODO: check if this messes up past 22 points
                 player.setCurrentLevel(0);
             }
             backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();

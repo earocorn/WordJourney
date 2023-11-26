@@ -42,7 +42,6 @@ public class MenuPanel extends JPanel implements ActionListener {
         background = new JLabel(bgIcon);
         buttonContainer  =  new ButtonContainer();
 
-
         //set and add components
         background.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
 
@@ -79,6 +78,14 @@ public class MenuPanel extends JPanel implements ActionListener {
         super.paint(g);
         // TODO: Also print the player's high score on the game over screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
+
+
+
+        if(GameController.getInstance().getGameState() == GameState.GAME_OVER){
+            g.setFont(GameUtility.getFont());
+            g.drawString("Score: "+ GameController.getInstance().getPlayer().getScore(), 700, 45);
+
+        }
     }
 
 

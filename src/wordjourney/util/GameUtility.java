@@ -129,21 +129,11 @@ public final class GameUtility {
      * @return gameAudioClip
      */
     private static AudioInputStream getGameAudioInput(GameState gameState) throws UnsupportedAudioFileException, IOException {
-        String song;
-        switch (gameState) {
-            case IN_GAME:
-                song = "gameMusic.wav";
-                break;
-            case MENU:
-                song = "menuMusic.wav";
-                break;
-            case GAME_OVER:
-                // change to game over music
-                song = "menuMusic.wav";
-                break;
-            default:
-                throw new IOException();
-        }
+        String song = switch (gameState) {
+            case IN_GAME -> "gameMusic.wav";
+            case MENU, LEADERBOARD, GAME_OVER -> "menuMusic.wav";
+            default -> throw new IOException();
+        };
         String audioRootPath = "src/assets/audio/" + song;
         File file = new File(audioRootPath);
         return AudioSystem.getAudioInputStream(file);

@@ -1,6 +1,7 @@
 package wordjourney;
 
 import wordjourney.controller.GameController;
+import wordjourney.controller.WordleController;
 import wordjourney.model.Player;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
@@ -10,6 +11,7 @@ import javax.swing.*;
 public class Core {
     public static GameUtility utility;
     public static GameController manager;
+//    public static WordleController wordManager;
 
 
     public static void main(String[] args) {

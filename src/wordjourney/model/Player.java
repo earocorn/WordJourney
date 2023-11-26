@@ -2,7 +2,9 @@ package wordjourney.model;
 
 import wordjourney.util.GameUtility;
 import wordjourney.controller.GameController;
-import wordjourney.view.GameFrame;
+import wordjourney.controller.LeaderBoard;
+import wordjourney.view.components.LeaderBoardView;
+
 import javax.swing.*;
 
 /**
@@ -18,7 +20,6 @@ public class Player {
     private int[] heartY;
     private int initialHeartY;
     private int[] heartYLimits;
-
     private int[] heartJumpDistances;
     private boolean[] heartAscending;
     private int score;
@@ -28,11 +29,15 @@ public class Player {
     private String name;
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
+    LeaderBoardView leaderBoardView;
+
 
     /**
      * @constructor 
      */
     public Player() {
+        //leaderBoardView = LeaderBoard.getInstance().getLeaderBoardPanel.getLeaderBoardView();
+
         // player data
         this.score = GameUtility.STARTING_SCORE;
         this.lives = GameUtility.STARTING_LIVES;
@@ -75,7 +80,7 @@ public class Player {
         score++;
     }
     /**
-     * @param score
+     *
      */
     public void setScore(int score) {
         // I think this is the best place to call difficulty logic / animation logic for changing backgrounds
@@ -246,6 +251,13 @@ public class Player {
         } else {
             lives--;
             GameController.getInstance().setGameState(GameState.GAME_OVER);
+            LeaderBoard.getInstance().setPlayer(GameController.getInstance().getPlayer().getName(), GameController.getInstance().getPlayer().getScore());
+            //LeaderBoard.getInstance().loadScores(GameController.getInstance().getPlayer().getScore());
+            LeaderBoard.getInstance().saveScores();
+            if (leaderBoardView != null){
+                leaderBoardView.updateLeaderBoard();
+            }
+
             System.out.println("Switched to GameState.GAME_OVER");
         }
     }
