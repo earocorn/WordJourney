@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -73,5 +74,12 @@ public class DataManager {
     
     public void writeScores() {
         jo.put("scores", this.scores);
+        try (FileWriter file = new FileWriter("src/assets/playerdata/highscores.json")) {
+            file.write(jo.toJSONString());
+            file.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
