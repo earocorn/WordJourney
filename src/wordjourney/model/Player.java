@@ -38,8 +38,8 @@ public class Player {
         this.score = GameUtility.STARTING_SCORE;
         this.lives = GameUtility.STARTING_LIVES;
         this.name = "PLAYER";
-        this.timeLeft = -1;
-        this.currentLevel = 4;
+        this.timeLeft = GameUtility.STARTING_TIME;
+        this.currentLevel = 0;
 
         // guy graphics
         this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
@@ -67,13 +67,7 @@ public class Player {
     public int getScore() {
         return score;
     }
-    
-    /**
-     * @increment score
-     */
-    public void addScore() {
-        score++;
-    }
+
     /**
      * @param score
      */
@@ -246,13 +240,17 @@ public class Player {
             lives--; // Decrement lives by 1
         } else if (lives <= 1) {
             lives--;
-            GameUtility.getInstance().scoreData.updateScore(this.score);
             GameController.getInstance().setGameState(GameState.GAME_OVER);
             System.out.println("Switched to GameState.GAME_OVER");
         }
     }
 
     public void incrementScore() {
+        if(score % 2 == 0 && score != 0) {
+            currentLevel++;
+            GameController.getInstance().getGameView().getGamePanel().resetMonster();
+            System.out.println("Current level = " + currentLevel);
+        }
         score++;
     }
 }

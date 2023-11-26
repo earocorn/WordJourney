@@ -32,15 +32,12 @@ public class WordleController implements ActionListener, KeyListener {
     WordleView wordleView;
     
     Player player;
-    
-    GameState gameState;
     private Timer gameTimer = new Timer();
-    private int remainingTimeInSeconds = 180; // 3 minutes in seconds
 
-    public WordleController(WordleModel wordleModel, WordleView wordleView, Player player){
+    public WordleController(WordleModel wordleModel, WordleView wordleView){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
-        this.player = player;
+        player = GameController.getInstance().getPlayer();
         wordleModel.setCurrentWordle(getWordleString());
         startGameTimer();
         System.out.println("WordleController constructor");
@@ -54,7 +51,7 @@ public class WordleController implements ActionListener, KeyListener {
      */
     public String getWordleString(){
         Path path = Paths.get("src/assets/words/Words.txt");
-        List<String> wordList = new ArrayList<>();
+        List<String> wordList;
         try {
             wordList = Files.readAllLines(path);
         } catch (IOException e) {
@@ -154,7 +151,6 @@ public class WordleController implements ActionListener, KeyListener {
             enterButtonEvent();
             System.out.println("jump key");
         }
-
     }
 
     @Override
@@ -162,18 +158,17 @@ public class WordleController implements ActionListener, KeyListener {
     
     
     private void resetGameTimer() {
-        remainingTimeInSeconds = 180; // Reset to 3 minutes
+        player.setTimeLeft(GameUtility.STARTING_TIME); // Reset to 3 minutes
     }
 
     private void startGameTimer() {
         gameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (remainingTimeInSeconds > 0) {
+                if (player.getTimeLeft() > 0) {
                     // Update your game timer UI or perform other game-related tasks here
-                    System.out.println("Time remaining: " + remainingTimeInSeconds + " seconds");
-                    remainingTimeInSeconds--;
-                    player.setTimeLeft(remainingTimeInSeconds);
+                    System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
+                    player.setTimeLeft(player.getTimeLeft() - 1);
                 } else {
                     // The game is over, handle it here
                     gameTimer.cancel();
@@ -183,10 +178,6 @@ public class WordleController implements ActionListener, KeyListener {
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
-    }
-    
-    public int getTime() {
-        return remainingTimeInSeconds;
     }
 
     private void stopGameTimer() {

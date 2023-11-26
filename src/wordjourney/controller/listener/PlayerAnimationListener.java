@@ -24,7 +24,7 @@ public class PlayerAnimationListener implements ActionListener {
         }
         player.move(player.getXVelocity(), 0);
 
-        if(player.getLives() <= 0) {
+        if(player.getScore() % 2 == 0 && player.getScore() != 0) {
             container.explodeMonster();
         }
 

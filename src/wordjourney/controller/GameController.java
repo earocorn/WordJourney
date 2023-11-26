@@ -5,6 +5,8 @@ import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
+import wordjourney.view.components.WordleView;
+import wordjourney.view.panels.GamePanel;
 
 
 import java.util.Timer;
@@ -13,7 +15,9 @@ import java.util.TimerTask;
 public class GameController {
     private static GameController instance = null;
     private GameState gameState = GameState.MENU;
-    private WordleModel currentWordle = new WordleModel();
+    private WordleModel currentWordleModel = null;
+    private WordleController currentWordleController = null;
+    private WordleView currentWordleView = null;
     private Player player = null;
     private GameFrame gameFrame = null;
     
@@ -28,6 +32,10 @@ public class GameController {
             instance = new GameController();
         }
         return instance;
+    }
+
+    public GameFrame getGameView() {
+        return gameFrame;
     }
 
     public void setGameView(GameFrame gameFrame) {
@@ -50,6 +58,12 @@ public class GameController {
             switch (gameState) {
                 case IN_GAME -> {
                     // TODO: do setup for timer here so that we dont call it on window open
+                    if(player.getLives() != GameUtility.STARTING_LIVES) {
+                        player.setLives(GameUtility.STARTING_LIVES);
+                        player.setTimeLeft(GameUtility.STARTING_TIME);
+                        player.setCurrentLevel(GameUtility.STARTING_LEVEL);
+                        player.setScore(GameUtility.STARTING_SCORE);
+                    }
                     break;
                 }
                 case MENU -> {
@@ -57,7 +71,9 @@ public class GameController {
                     break;
                 }
                 case GAME_OVER -> {
-
+                    System.out.println("current player score is " + player.getScore());
+                    GameUtility.getInstance().getLeaderboardData().pushEntry(player.getName(), player.getScore());
+                    GameUtility.getInstance().getLeaderboardData().writeScores();
                     break;
                 }
                 case LEADERBOARD -> {
@@ -82,16 +98,29 @@ public class GameController {
         }
     }
 
-    public WordleModel getCurrentWordle() {
-        return currentWordle;
+    public WordleModel getCurrentWordleModel() {
+        return currentWordleModel;
     }
 
-    public void setCurrentWordle(WordleModel currentWordle) {
-        this.currentWordle = currentWordle;
-
+    public void setCurrentWordleModel(WordleModel currentWordleModel) {
+        this.currentWordleModel = currentWordleModel;
     }
-    
-    
+
+    public WordleController getCurrentWordleController() {
+        return currentWordleController;
+    }
+
+    public void setCurrentWordleController(WordleController currentWordleController) {
+        this.currentWordleController = currentWordleController;
+    }
+
+    public WordleView getCurrentWordleView() {
+        return currentWordleView;
+    }
+
+    public void setCurrentWordleView(WordleView currentWordleView) {
+        this.currentWordleView = currentWordleView;
+    }
 }
 
 

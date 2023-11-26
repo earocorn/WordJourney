@@ -5,6 +5,7 @@ import wordjourney.model.Level;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -24,8 +25,10 @@ public final class GameUtility {
     private static Clip gameAudioClip;
 
     //character settings
-    public static final int STARTING_LIVES = 3;
+    public static final int STARTING_LIVES = 2;
     public static final int STARTING_SCORE = 0;
+    public static final int STARTING_TIME = 180;
+    public static final int STARTING_LEVEL = 0;
     public static final int numLevels = 11;
     private static final Level[] levels = new Level[numLevels];
 
@@ -33,9 +36,8 @@ public final class GameUtility {
     public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220);
     public static final Color GRAY_TRANSPARENT = new Color(100, 100, 100, 220);
     public static final Color TRANSPARENT = new Color(0, 0, 0, 70);
-    
-    public final DataManager scoreData = new DataManager();
-    public ArrayList<String> scores = new ArrayList<>();
+    private Icon monsterIcon;
+    private DataManager scoreData = null;
     
     /**
      * Custom starting heights of where to start the player's y value for each background image
@@ -85,6 +87,7 @@ public final class GameUtility {
             System.out.println(levelBackgroundPath + " loaded");
             levels[i] = new Level(new ImageIcon(levelBackgroundPath), levelsStartingHeight[i]);
         }
+        monsterIcon = new ImageIcon("src/assets/ui/sprites/monster7.gif");
     }
 
     /**
@@ -99,7 +102,7 @@ public final class GameUtility {
         loadFont();
         loadMusic();
         loadLevels();
-        scores = scoreData.getScores();
+        loadLeaderboard();
     }
 
     /**
@@ -154,8 +157,23 @@ public final class GameUtility {
         return AudioSystem.getAudioInputStream(file);
     }
 
+    public void loadLeaderboard() {
+        System.out.println("Loading leaderboard...");
+        if (scoreData == null) {
+            scoreData = new DataManager();
+        }
+    }
 
+    public DataManager getLeaderboardData() {
+        if(scoreData == null) {
+            System.out.println("Leaderboard data not loaded, loading now...");
+            loadLeaderboard();
+        }
+        return scoreData;
+    }
 
-
+    public Icon getMonsterIcon() {
+        return monsterIcon;
+    }
 
 }
