@@ -34,33 +34,19 @@ public class LeaderBoardView extends JPanel {
             add(lbColumns[i]);
         }
     }
+    
+    public void updateLeaderBoard() {
+        LeaderBoard.getInstance().readPlayerStats();
+        for (int i =0; i< Math.min(5, players.size()); i++){
+            setLBText(players.get(i), Integer.parseInt(scores.get(i)),i);
+        }
+    }
 
     public void setLBText(String name, int score, int position){
         System.out.println("Setting label text: " + name + " - " + score);
         this.lbColumns[position].setFont(GameUtility.getFont());
         this.lbColumns[position].setText(name+ "-"+ score);
         this.lbColumns[position].setBackground(Color.PINK);
-    }
-    public void updateLeaderBoard() {
-        readPlayerStats();
-        for (int i =0; i< Math.min(5, players.size()); i++){
-            setLBText(players.get(i), Integer.parseInt(scores.get(i)),i);
-        }
-    }
-    public void readPlayerStats(){
-        try(BufferedReader reader = new BufferedReader(new FileReader("src/wordjourney/util/currentPlayerStats.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] stats = line.split("-");
-                if(stats.length ==2){
-                    players.add(stats[0].trim());
-                    scores.add(stats[1].trim());
-                    //playerStats.add(new PlayerStats(players, scores));
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

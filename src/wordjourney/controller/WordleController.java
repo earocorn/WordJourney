@@ -39,14 +39,12 @@ public class WordleController implements ActionListener, KeyListener {
         this.wordleView = wordleView;
         this.player = GameController.getInstance().getPlayer();
 
-
         currentWordle.setCurrentWordle(getWordleString());
         System.out.println("WordleController constructor");
 
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
         wordleView.getInput().getEnterButton().addActionListener(this);
-
 
     }
     public static WordleController getInstance(){

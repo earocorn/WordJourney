@@ -1,7 +1,9 @@
 package wordjourney.controller;
 
+import wordjourney.util.GameUtility;
 import wordjourney.view.components.LeaderBoardView;
 
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -53,4 +55,20 @@ public class LeaderBoard {
         }
 
     }
+    public void readPlayerStats(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("src/wordjourney/util/currentPlayerStats.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] stats = line.split("-");
+                if(stats.length ==2){
+                    players.add(stats[0].trim());
+                    scores.add(stats[1].trim());
+                    //playerStats.add(new PlayerStats(players, scores));
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
