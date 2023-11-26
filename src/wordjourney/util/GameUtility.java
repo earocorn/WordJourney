@@ -101,7 +101,6 @@ public final class GameUtility {
         loadMusic();
         loadLevels();
         scores = scoreData.getScores();
-        scoreData.print();
     }
 
     /**

@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
  */
 public class DataManager {
    
-   private ArrayList<String> scores = new ArrayList<>();
+   public ArrayList<String> scores = new ArrayList<>();
    private JSONParser parser = new JSONParser();
    JSONObject jo;
     
@@ -50,10 +50,6 @@ public class DataManager {
      */
     public ArrayList getScores() {
        return scores;
-    }
-    
-    public void print() {
-        System.out.println("Highscores = " + scores);
     }
     
     public void updateScore(int finalScore){

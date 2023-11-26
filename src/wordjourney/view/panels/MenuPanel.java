@@ -84,7 +84,17 @@ public class MenuPanel extends JPanel implements ActionListener {
         super.paint(g);
         // TODO: Also print the player's high score on the gameover screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
-        // g.drawString("1: " +  scores.get(0) + "\n" + "2: " +  scores.get(1) + "\n" + "3: " + scores.get(2), 15, 15);
+        
+        g.setColor(Color.BLACK);
+        g.setFont(GameUtility.getFont());
+        g.drawString("Leaderboard: ", 80, 355);
+        
+        for(int i = 0; i < 3; i++) {
+            // assuming name and score are 0 and 1 index
+            // getWidth() and getHeight() get width and height of parent container but you can use GameUtility to get width and height
+            // basing where they are placed by a constant c (20) + the iterator i will evenly space them out
+            g.drawString(Integer.toString(i + 1) + " - " + GameUtility.getInstance().scoreData.scores.get(i), 105, 385 + (30*i));
+        }
     }
 
 
