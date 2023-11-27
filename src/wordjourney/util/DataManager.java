@@ -9,6 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,28 +23,31 @@ import org.json.simple.parser.ParseException;
  * @author bhump
  */
 public class DataManager {
-   
-   public ArrayList<String> scores = new ArrayList<>();
-   private JSONParser parser = new JSONParser();
-   JSONObject jo;
+
+   public Map<String, Long> leaderboardMap = new HashMap<>();
+   JSONArray players = null;
+   TreeMap<String, Long> sortedLeaderboard = null;
     
     /**
      *
      */
     public DataManager() {
         try {
+            JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("src/assets/playerdata/highscores.json"));
-            jo = (JSONObject) obj;
-            scores = (ArrayList<String>) jo.get("scores");
-            
+            players = (JSONArray) obj;
+            for (Object playerObject : players) {
+                JSONObject player = (JSONObject) playerObject;
+                leaderboardMap.put((String) player.get("name"), (Long) player.get("score"));
+            }
+
+            System.out.println("Leaderboard loaded");
+            // adding data to tree automatically sorts it??
+            sortedLeaderboard = new TreeMap<>(leaderboardMap);
+            sortedLeaderboard.putAll(leaderboardMap);
+            System.out.println(sortedLeaderboard);
         } 
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } 
-        catch (IOException e) {
-            e.printStackTrace();
-        } 
-        catch (ParseException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -48,30 +56,44 @@ public class DataManager {
      *
      * @return scores
      */
-    public ArrayList getScores() {
-       return scores;
+    public TreeMap<String, Long> getLeaderboard() {
+       return sortedLeaderboard;
     }
-    
-    public void updateScore(int finalScore){
-        if (finalScore > Integer.parseInt(scores.get(0), 10)) {
-            scores.set(2, scores.get(1));
-            scores.set(1, scores.get(0));
-            scores.set(0, Integer.toString(finalScore));
-        }
-        else if (finalScore > Integer.parseInt(scores.get(1), 10)) {
-            scores.set(2, scores.get(1));
-            scores.set(1, Integer.toString(finalScore));
-        }
-        else if (finalScore > Integer.parseInt(scores.get(2), 10)) {
-            scores.set(2, Integer.toString(finalScore));
-        }
-        this.writeScores();
+
+    public void pushEntry(String name, int score) {
+        sortedLeaderboard.put(name, (long) score);
+        System.out.println(sortedLeaderboard + "\nAdded " + name + " with score of " + score);
     }
+
+//    public void updateScore(int finalScore){
+//        if (finalScore > Integer.parseInt(scores.get(0), 10)) {
+//            scores.set(2, scores.get(1));
+//            scores.set(1, scores.get(0));
+//            scores.set(0, Integer.toString(finalScore));
+//        }
+//        else if (finalScore > Integer.parseInt(scores.get(1), 10)) {
+//            scores.set(2, scores.get(1));
+//            scores.set(1, Integer.toString(finalScore));
+//        }
+//        else if (finalScore > Integer.parseInt(scores.get(2), 10)) {
+//            scores.set(2, Integer.toString(finalScore));
+//        }
+//        this.writeScores();
+//    }
     
     public void writeScores() {
-        jo.put("scores", this.scores);
+        for(Map.Entry<String, Long> entry : sortedLeaderboard.entrySet()) {
+            String name = entry.getKey();
+            Long value = entry.getValue();
+            System.out.println(name + " => " + value);
+            JSONObject newEntry = new JSONObject();
+            newEntry.put("name", name);
+            newEntry.put("score", value);
+            players.add(newEntry);
+        }
+
         try (FileWriter file = new FileWriter("src/assets/playerdata/highscores.json")) {
-            file.write(jo.toJSONString());
+            file.write(players.toJSONString());
             file.flush();
         }
         catch (IOException e) {

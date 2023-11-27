@@ -29,6 +29,8 @@ public class Player {
     private String name;
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
+    private boolean isRunningToNextLevel;
+
 
     /**
      * @constructor 
@@ -38,13 +40,13 @@ public class Player {
         this.score = GameUtility.STARTING_SCORE;
         this.lives = GameUtility.STARTING_LIVES;
         this.name = "PLAYER";
-        this.timeLeft = -1;
-        this.currentLevel = 4;
+        this.timeLeft = GameUtility.STARTING_TIME;
+        this.currentLevel = 0;
 
         // guy graphics
         this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
         this.heartIcon = new ImageIcon("src/assets/ui/sprites/hearts.png");
-        this.xVelocity = 2;
+        this.xVelocity = GameUtility.STARTING_PLAYER_X_VELOCITY;
         this.x = 0;
         this.y = 0;
         this.yMoveLimit = 100;
@@ -58,6 +60,7 @@ public class Player {
             heartJumpDistances[i] = 15;
         }
         this.heartAscending = new boolean[lives];
+        this.isRunningToNextLevel = false;
     }
     
     /**
@@ -66,13 +69,7 @@ public class Player {
     public int getScore() {
         return score;
     }
-    
-    /**
-     * @increment score
-     */
-    public void addScore() {
-        score++;
-    }
+
     /**
      * @param score
      */
@@ -245,14 +242,24 @@ public class Player {
             lives--; // Decrement lives by 1
         } else if (lives <= 1) {
             lives--;
-            GameUtility.getInstance().scoreData.updateScore(this.score);
             GameController.getInstance().setGameState(GameState.GAME_OVER);
             System.out.println("Switched to GameState.GAME_OVER");
         }
     }
 
+    public boolean isRunningToNextLevel() {
+        return isRunningToNextLevel;
+    }
+
+    public void setRunningToNextLevel(boolean runningToNextLevel) {
+        this.isRunningToNextLevel = runningToNextLevel;
+    }
     public void incrementScore() {
         score++;
+        if(score % 2 == 0 && score != 0) {
+            GameController.getInstance().getGameView().getGamePanel().explodeMonster();
+            System.out.println("Current level = " + currentLevel);
+        }
     }
     
     public void resetPlayer() {

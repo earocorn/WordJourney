@@ -56,7 +56,14 @@ public class GameFrame extends JFrame {
      */
     public void setPanel(GameState gameState){
         GameState cardState = gameState == GameState.GAME_OVER ? GameState.MENU : gameState;
+        if(cardState == GameState.MENU) {
+            menuPanel.getTimer().restart();
+        }
         cardLayout.show(mainPanel, cardState.getTitle());
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 
 }

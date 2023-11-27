@@ -1,5 +1,6 @@
 package wordjourney.controller.listener;
 
+import wordjourney.controller.GameController;
 import wordjourney.model.Player;
 import wordjourney.util.GameUtility;
 import wordjourney.view.panels.GamePanel;
@@ -19,14 +20,24 @@ public class PlayerAnimationListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO: Currently this method is to move the player back and forth but we want to have one fluid movement from one level to the next when the player's score reaches the threshold to change levels
-        if(player.getX() > GameUtility.WORDLEVIEW_EDGE-player.getPlayerIcon().getImage().getWidth(null) || player.getX()<0) {
-            player.setXVelocity(player.getXVelocity()*-1);
+        if(!player.isRunningToNextLevel()) {
+            if(player.getX() > GameUtility.WORDLEVIEW_EDGE-player.getPlayerIcon().getImage().getWidth(null) || player.getX()<0) {
+                player.setXVelocity(player.getXVelocity()*-1);
+            }
+        } else {
+            if(player.getX() < GameUtility.WINDOW_WIDTH || player.getX()<1) {
+                player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY + 5);
+            } else {
+                if (player.getX() > GameUtility.WINDOW_WIDTH - player.getPlayerIcon().getImage().getWidth(null)) {
+                    player.setRunningToNextLevel(false);
+                    player.setX(0);
+                    player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY);
+                    player.setCurrentLevel(player.getCurrentLevel()+1);
+                    container.resetMonster();
+                }
+            }
         }
         player.move(player.getXVelocity(), 0);
-
-        if(player.getLives() <= 0) {
-            container.explodeMonster();
-        }
 
         for (int i = 0; i < player.getLives(); i++) {
             if (player.getHeartAscending()[i]) {

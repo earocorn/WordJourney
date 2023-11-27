@@ -24,6 +24,7 @@ public class GamePanel extends JPanel {
     WordleModel wordleModel;
     WordleController wordleController;
     ImageIcon playerIcon;
+    Icon monsterIcon;
     Player player;
     Timer jumpTimer;
     Timer timer;
@@ -39,9 +40,9 @@ public class GamePanel extends JPanel {
         background = new JLabel();
 
         // TODO: DONT DO ANYTHING HERE. If you think wordle initialization should go in a different class such as GameController (previously known as GameManager) or have a better idea please let me know. Also let me know if it makes sense that it just goes here.
-        wordleView = new WordleView();
-        wordleModel = new WordleModel();
-        wordleController = new WordleController(wordleModel, wordleView, player);
+        wordleView = GameController.getInstance().getCurrentWordleView();
+        wordleModel = GameController.getInstance().getCurrentWordleModel();
+        wordleController = GameController.getInstance().getCurrentWordleController();
 
         playerIcon = player.getPlayerIcon();
 
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel {
 
         background.add(wordleView);
 
-        Icon monsterIcon = new ImageIcon("src/assets/ui/sprites/monster7.gif");
+        monsterIcon = GameUtility.getInstance().getMonsterIcon();
 
         monsterLabel = new JLabel(monsterIcon);
         monsterLabel.setLayout(new GridBagLayout());
@@ -108,10 +109,13 @@ public class GamePanel extends JPanel {
         
         //draw score on the screen
         g.drawString("Score: " + player.getScore(), 700, 45);
-        g.drawString("Time: " + wordleController.getTime(), 350, 45);
+        g.drawString("Time: " + player.getTimeLeft(), 350, 45);
     }
 
     public void explodeMonster() {
+        System.out.println("Exploding monster ... ");
+        player.setXVelocity(0);
+        wordleView.getInput().setEnabled(false);
         JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));
         monsterLabel.add(explosion);
         monsterLabel.validate();
@@ -120,11 +124,24 @@ public class GamePanel extends JPanel {
                     @Override
                     public void run() {
                         monsterLabel.setIcon(null);
+                        player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY);
+                        player.setRunningToNextLevel(true);
                     }
                 },
                 3000
         );
+    }
 
+    public void resetMonster() {
+        monsterLabel.removeAll();
+        monsterLabel.setIcon(GameUtility.getInstance().getMonsterIcon());
+        background.add(monsterLabel);
+        backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
+        background.setIcon(backgroundImage);
+        // animate player moving across screen to next level
+        background.repaint();
+        background.revalidate();
+        super.repaint();
     }
 
 
