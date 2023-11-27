@@ -112,10 +112,19 @@ public class GamePanel extends JPanel {
         g.drawString("Time: " + player.getTimeLeft(), 350, 45);
     }
 
+    public WordleView getWordleView() {
+        return wordleView;
+    }
+
+    public WordleController getWordleController() {
+        return wordleController;
+    }
+
     public void explodeMonster() {
         System.out.println("Exploding monster ... ");
+        wordleController.stopGameTimer();
         player.setXVelocity(0);
-        wordleView.getInput().setEnabled(false);
+        wordleView.getInput().getUserInput().setEnabled(false);
         JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));
         monsterLabel.add(explosion);
         monsterLabel.validate();
@@ -124,6 +133,7 @@ public class GamePanel extends JPanel {
                     @Override
                     public void run() {
                         monsterLabel.setIcon(null);
+                        wordleView.setVisible(false);
                         player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY);
                         player.setRunningToNextLevel(true);
                     }

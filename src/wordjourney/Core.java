@@ -14,9 +14,11 @@ public class Core {
     public static GameUtility utility;
     public static GameController manager;
 
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            // prompt username
+            String playerName = (String)JOptionPane.showInputDialog("Enter your name to keep track of your progress");
+
             // load assets and important data
             utility = GameUtility.getInstance();
 
@@ -25,6 +27,9 @@ public class Core {
 
             // base model
             Player player = new Player();
+            if(playerName.length() < 10 && !playerName.isEmpty()) {
+                player.setName(playerName);
+            }
             manager.setPlayer(player);
 
             // wordle mvc init
@@ -38,18 +43,6 @@ public class Core {
             // Base view
             GameFrame gameFrame = new GameFrame();
             manager.setGameView(gameFrame);
-
-            // TODO: Perhaps we should initialize the Wordle-MVC in here like how the whole game is set up instead of having it rely on the game panel. However it does make sense that we would only initialize the Wordle-MVC on first change of GameState from MENU to IN_GAME so its possible that the Wordle-MVC should actually be initialized on first instance of the GameState change when the player hits the start button
-            /*
-            Wordle-MVC as in
-
-            wordleView = new WordleView();
-            wordleModel = new WordleModel();
-            wordleController = new WordleController(wordleModel, wordleView);
-
-            which is found in the GamePanel class constructor
-
-             */
         });
     }
 

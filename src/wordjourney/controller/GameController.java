@@ -58,6 +58,7 @@ public class GameController {
             switch (gameState) {
                 case IN_GAME -> {
                     // TODO: do setup for timer here so that we dont call it on window open
+                    currentWordleController.startGameTimer();
                     if(player.getLives() != GameUtility.STARTING_LIVES) {
                         player.setTimeLeft(GameUtility.STARTING_TIME);
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);
