@@ -26,6 +26,7 @@ public class Player {
     private int lives;
     private int currentLevel;
     private int timeLeft;
+    private int startTime;
     private String name;
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
@@ -40,7 +41,8 @@ public class Player {
         this.score = GameUtility.STARTING_SCORE;
         this.lives = GameUtility.STARTING_LIVES;
         this.name = "PLAYER";
-        this.timeLeft = GameUtility.STARTING_TIME;
+        this.startTime = GameUtility.STARTING_TIME;
+        this.timeLeft = startTime;
         this.currentLevel = 0;
 
         // guy graphics
@@ -257,9 +259,23 @@ public class Player {
     }
     public void incrementScore() {
         score++;
-        if(score % 2 == 0 && score != 0) {
+
+        if (score % 2 == 0 && score != 0) {
             GameController.getInstance().getGameView().getGamePanel().explodeMonster();
+            if (score <= 4) {
+                // decrease the timer at an exponential rate
+                startTime = (int) (GameUtility.STARTING_TIME / Math.pow(GameUtility.TIMER_EXPONENT_BASE, score)) + 30;
+            } else {
+                // after a few rounds, switch to a constant rate
+                startTime = GameUtility.STARTING_TIME - ((score - 8) * GameUtility.TIMER_DECREMENT);
+            }
             System.out.println("Current level = " + currentLevel);
         }
+    }
+    public int getStartTime() {
+        return startTime;
+    }
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
     }
 }

@@ -28,6 +28,8 @@ public final class GameUtility {
     public static final int STARTING_LIVES = 2;
     public static final int STARTING_SCORE = 0;
     public static final int STARTING_TIME = 180;
+    public static final int TIMER_DECREMENT = 5;
+    public static final double TIMER_EXPONENT_BASE = 1.5;
     public static final int STARTING_LEVEL = 0;
     public static final int STARTING_PLAYER_X_VELOCITY = 3;
     public static final int numLevels = 11;

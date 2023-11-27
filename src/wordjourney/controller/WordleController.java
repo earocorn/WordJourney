@@ -6,7 +6,6 @@ import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -105,10 +104,9 @@ public class WordleController implements ActionListener, KeyListener {
         if (isCorrect) {
             player.incrementScore();
             clearAllPanels();
-            resetGameTimer();
+            resetTime();
             return;
-        } 
-            
+        }
         
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
@@ -118,7 +116,7 @@ public class WordleController implements ActionListener, KeyListener {
                 // TODO: move this to Player class
                 //GameController.getInstance().setGameState(GameState.GAME_OVER);
             }
-            resetGameTimer();
+            resetTime();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
@@ -154,13 +152,13 @@ public class WordleController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {}
-    
-    
-    private void resetGameTimer() {
-        player.setTimeLeft(GameUtility.STARTING_TIME); // Reset to 3 minutes
+
+
+    public void resetTime() {
+        player.setTimeLeft(player.getStartTime()); // Reset to 3 minutes
     }
 
-    private void startGameTimer() {
+    public void startGameTimer() {
         gameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -172,6 +170,7 @@ public class WordleController implements ActionListener, KeyListener {
                     // The game is over, handle it here
                     gameTimer.cancel();
                     gameTimer.purge();
+                    GameController.getInstance().setGameState(GameState.GAME_OVER);
                     System.out.println("Game Over");
                     // You can perform game over actions here
                 }
@@ -179,9 +178,14 @@ public class WordleController implements ActionListener, KeyListener {
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
     }
 
-    private void stopGameTimer() {
+    public void stopGameTimer()  {
         gameTimer.cancel();
         gameTimer.purge();
+    }
+
+    public void restartGameTimer() {
+        gameTimer = new Timer();
+        startGameTimer();
     }
 
 }
