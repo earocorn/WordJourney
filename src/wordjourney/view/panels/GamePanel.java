@@ -5,10 +5,7 @@ import wordjourney.controller.GameController;
 import wordjourney.controller.WordleController;
 import wordjourney.controller.listener.PlayerAnimationListener;
 import wordjourney.controller.listener.PlayerJumpListener;
-import wordjourney.model.GameTimer;
-import wordjourney.model.Player;
-import wordjourney.model.SoundEffect;
-import wordjourney.model.WordleModel;
+import wordjourney.model.*;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordleView;
 
@@ -151,6 +148,9 @@ public class GamePanel extends JPanel {
     }
 
     public void resetMonster() {
+        if(player.getScore() > GameUtility.numLevels * 2) {
+            return;
+        }
         monsterLabel.removeAll();
         monsterLabel.setIcon(GameUtility.getInstance().getMonsterIcon());
         background.add(monsterLabel);

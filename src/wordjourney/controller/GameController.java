@@ -63,14 +63,8 @@ public class GameController {
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);
                         player.setScore(GameUtility.STARTING_SCORE);
                         player.setLives(GameUtility.STARTING_LIVES);
-                        GameController.getInstance().getGameTimer().restartGameTimer();
-                    } else {
-                        GameController.getInstance().getGameTimer().startGameTimer();
                     }
-                    if (gameTimer == null) {
-                        gameTimer = new GameTimer();
-                    }
-                    gameTimer.startGameTimer();
+                    GameController.getInstance().getGameTimer().restartGameTimer();
                     break;
                 }
                 case MENU -> {

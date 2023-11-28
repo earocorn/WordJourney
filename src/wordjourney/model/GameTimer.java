@@ -41,7 +41,9 @@ public class GameTimer {
             public void run() {
                 if (player.getTimeLeft() > 0) {
                     // Update your game timer UI or perform other game-related tasks here
-                    System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
+                    if(player.getTimeLeft() % 5 == 0) {
+                        System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
+                    }
                     player.setTimeLeft(player.getTimeLeft() - 1);
                 } else {
                     // The game is over, handle it here

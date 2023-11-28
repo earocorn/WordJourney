@@ -31,7 +31,7 @@ public class PlayerAnimationListener implements ActionListener {
                     player.setRunningToNextLevel(false);
                     player.setX(0);
                     player.setXVelocity(GameUtility.STARTING_PLAYER_X_VELOCITY);
-                    player.setCurrentLevel(player.getCurrentLevel()+1);
+                    player.setCurrentLevel(Math.min(player.getCurrentLevel()+1, GameUtility.numLevels-1));
                     container.getWordleView().setVisible(true);
                     container.getWordleView().getInput().getUserInput().setEnabled(true);
                     container.getWordleView().getInput().getUserInput().grabFocus();
