@@ -10,6 +10,7 @@ import wordjourney.view.GameFrame;
 import wordjourney.view.components.WordleView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Core {
     public static GameUtility utility;
@@ -17,9 +18,10 @@ public class Core {
 //    public static WordleController wordManager;
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> {
             // prompt username
-            String playerName = (String)JOptionPane.showInputDialog("Enter your name to keep track of your progress");
+            String playerName = (String)JOptionPane.showInputDialog(null,"Enter your name to keep track of your progress", "Enter Name", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/assets/ui/titlebar/wordJourneyIcon.png"), null, "");
 
             // load assets and important data
             utility = GameUtility.getInstance();

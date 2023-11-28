@@ -19,6 +19,7 @@ public class GameFrame extends JFrame {
     MenuPanel menuPanel; //extends JPanel
     LeaderBoardPanel leaderBoardPanel; //extends JPanel
 
+
     /**
      * Constructor GameFrame and initializes properties
      */
@@ -26,10 +27,17 @@ public class GameFrame extends JFrame {
 
         //set up the gameFrame
         setSize(GameUtility.windowDimension);
+//        setIconImage(Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Word Journey");
+
+        // setting task bar icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
+        final Taskbar taskbar = Taskbar.getTaskbar();
+        taskbar.setIconImage(icon);
+        setIconImage(icon);
 
         //add main panel to game frame
         mainPanel = new JPanel();
