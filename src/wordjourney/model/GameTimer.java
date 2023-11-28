@@ -21,10 +21,9 @@ public class GameTimer {
      */
     public GameTimer(){
         player = GameController.getInstance().getPlayer();
-        wordleView = WordleController.getInstance().getWordleView();
-        wordleModel = WordleController.getInstance().getCurrentWordle();
-//        wordleController = new WordleController(wordleModel,wordleView, player);
-        wordleController = WordleController.getInstance();
+        wordleView = GameController.getInstance().getCurrentWordleView();
+        wordleModel = GameController.getInstance().getCurrentWordleModel();
+        wordleController = GameController.getInstance().getCurrentWordleController();
     }
 
     /**

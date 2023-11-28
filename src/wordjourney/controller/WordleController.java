@@ -4,6 +4,7 @@ package wordjourney.controller;
 import wordjourney.model.Player;
 import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
+import wordjourney.model.GameState;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
@@ -16,10 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -27,7 +25,7 @@ import java.util.Random;
 public class WordleController implements ActionListener, KeyListener {
     private static WordleController instance = null;
 
-    WordleModel currentWordle;
+    WordleModel wordleModel;
     WordleView wordleView;
     
     Player player;
@@ -45,13 +43,6 @@ public class WordleController implements ActionListener, KeyListener {
         wordleView.getInput().getEnterButton().addActionListener(this);
 
     }
-    public static WordleController getInstance(){
-        if (instance == null) {
-            instance = new WordleController(new WordleModel(), new WordleView(), GameController.getInstance().getPlayer());
-        }
-        return instance;
-    }
-
     /**
      * @return wordList
      */
@@ -69,7 +60,7 @@ public class WordleController implements ActionListener, KeyListener {
     }
 
     private boolean isWordleEqualTo(String userWord){
-        List<String> wordleWordsList = Arrays.asList(currentWordle.getCurrentWordle().split(""));
+        List<String> wordleWordsList = Arrays.asList(wordleModel.getCurrentWordle().split(""));
         String[] userWordsArray = userWord.split("");
         List<Boolean> wordMatchesList = new ArrayList<>();
 
@@ -91,7 +82,7 @@ public class WordleController implements ActionListener, KeyListener {
     }
 
     private WordComponent getActivePanel() {
-        return wordleView.getWordPanelArray()[currentWordle.getCurrentLine()];
+        return wordleView.getWordPanelArray()[wordleModel.getCurrentLine()];
     }
 
 
@@ -117,7 +108,7 @@ public class WordleController implements ActionListener, KeyListener {
         }
         
         //checks if users current line is over guess limit, if so removes life and clears panel
-        if (currentWordle.getCurrentLine() >= 5) {
+        if (wordleModel.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
             GameUtility.getInstance().playSoundEffect(SoundEffect.ERROR);
@@ -129,17 +120,17 @@ public class WordleController implements ActionListener, KeyListener {
             GameController.getInstance().gameTimer.resetGameTimer();
             return;
         }
-        currentWordle.setCurrentLine(currentWordle.getCurrentLine()+1);
+        wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
 
     }
 
     public void clearAllPanels() {
-        for (int i = 0; i <= currentWordle.getCurrentLine(); i++) {
+        for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();
         }
-        currentWordle.setCurrentWordle(getWordleString());
-        System.out.println("Word for the day : " + currentWordle.getCurrentWordle());
-        currentWordle.setCurrentLine(0);
+        wordleModel.setCurrentWordle(getWordleString());
+        System.out.println("Word for the day : " + wordleModel.getCurrentWordle());
+        wordleModel.setCurrentLine(0);
     }
 
     @Override
