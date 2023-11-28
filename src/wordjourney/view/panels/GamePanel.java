@@ -5,22 +5,14 @@ import wordjourney.controller.GameController;
 import wordjourney.controller.WordleController;
 import wordjourney.controller.listener.PlayerAnimationListener;
 import wordjourney.controller.listener.PlayerJumpListener;
-import wordjourney.model.GameTimer;
 import wordjourney.model.Player;
 import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordleView;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * A class used to represent a graphical panel for displaying the main game Panel
@@ -39,16 +31,15 @@ public class GamePanel extends JPanel {
     Timer timer;
 
     /**
-     * Constructor for  game panel and initializes properties
+     * Constructor for game panel and initializes properties for this panel: player, game timer, monster, wordle,
      */
     public GamePanel(){
 
-        // TODO: Ideally GameController should be able to get any current event/model being acted upon which is why it might make sense to initialize the wordle in GameController and get the instance of the wordle. SEE TODO COMMENT IN wordjourney.Core
         player = GameController.getInstance().getPlayer();
 
         background = new JLabel();
 
-        // TODO: DONT DO ANYTHING HERE. If you think wordle initialization should go in a different class such as GameController (previously known as GameManager) or have a better idea please let me know. Also let me know if it makes sense that it just goes here.
+        //get current instances
         wordleView = GameController.getInstance().getCurrentWordleView();
         wordleModel = GameController.getInstance().getCurrentWordleModel();
         wordleController = GameController.getInstance().getCurrentWordleController();
@@ -76,16 +67,11 @@ public class GamePanel extends JPanel {
 
         background.add(monsterLabel);
 
-
         add(background);
 
         player.setInitialHeartY(GameUtility.WINDOW_HEIGHT- player.getPlayerIcon().getImage().getHeight(null) - (GameUtility.WINDOW_HEIGHT - GameUtility.getLevels()[player.getCurrentLevel()].getStartingHeight()) - player.getY() -20);
-        for (int i = 0; i < player.getLives(); i++) {
-            player.getHeartY()[i] = player.getInitialHeartY();
-            player.getHeartYLimits()[i] = player.getHeartY()[i] - player.getHeartJumpDistances()[i];
-            player.getHeartY()[i] -= 7*(i+2);
-            player.getHeartAscending()[i] = true;
-        }
+
+        animateHearts(); //method for hearts above little guys head to animate
 
         timer.start();
     }
@@ -119,14 +105,25 @@ public class GamePanel extends JPanel {
         g.drawString("Time: " + player.getTimeLeft(), 350, 45);
     }
 
+    /**
+     * method to return current instance of wordleView
+     * @return wordleView
+     */
     public WordleView getWordleView() {
         return wordleView;
     }
 
+    /**
+     * method to return current instance of wordleController
+     * @return wordleController
+     */
     public WordleController getWordleController() {
         return wordleController;
     }
 
+    /**
+     *  method to call explosion of monster when the player moves to a new level
+     */
     public void explodeMonster() {
         System.out.println("Exploding monster ... ");
         GameUtility.getInstance().playSoundEffect(SoundEffect.BOOM);
@@ -150,6 +147,9 @@ public class GamePanel extends JPanel {
         );
     }
 
+    /**
+     * method to redraw the monster that is displayed on the game panel
+     */
     public void resetMonster() {
         monsterLabel.removeAll();
         monsterLabel.setIcon(GameUtility.getInstance().getMonsterIcon());
@@ -185,6 +185,18 @@ public class GamePanel extends JPanel {
 
             // Repaint the panel to reflect the background changes
             repaint();
+        }
+    }
+
+    /**
+     * method to animate the hearts that represent the players lives
+     */
+    public void animateHearts(){
+        for (int i = 0; i < player.getLives(); i++) {
+            player.getHeartY()[i] = player.getInitialHeartY();
+            player.getHeartYLimits()[i] = player.getHeartY()[i] - player.getHeartJumpDistances()[i];
+            player.getHeartY()[i] -= 7*(i+2);
+            player.getHeartAscending()[i] = true;
         }
     }
 

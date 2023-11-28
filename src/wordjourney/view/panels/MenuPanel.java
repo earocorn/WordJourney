@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Class used to represent a graphical panel displaying a menu
+ * Class used to represent a graphical panel displaying the main menu and the gamer panel
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
@@ -34,7 +34,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 
     /**
-     * Constructor to initialize MenuPanel and  its properties
+     * Constructor to initialize MenuPanel and its properties
      */
     public MenuPanel(){
         this.setSize(GameUtility.windowDimension);
@@ -62,7 +62,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * method to get the title depending on the game state
+     * method to get the title depending on the game state, will return the game Over title icon or the game  title icon
      * @return title
      */
     public ImageIcon getTitle(){
@@ -84,6 +84,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 //        return null;
     }
 
+    /**
+     * method to pain the highscore on the panel if the game state is game over it also paints the title on the panel
+     *
+     * @param g the <code>Graphics</code> context in which to paint
+     */
     @Override
     public void paint(Graphics g){
         super.paint(g);
@@ -96,6 +101,11 @@ public class MenuPanel extends JPanel implements ActionListener {
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
     }
 
+    /**
+     * method that animates the title to give it the shaking effect, calls the buttoncontainer method , and the repaint function
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(GameController.getInstance().getGameState() != GameState.MENU && GameController.getInstance().getGameState() != GameState.GAME_OVER || GameController.getInstance().getGameState() != GameState.GAME_OVER && GameController.getInstance().getGameState() != GameState.MENU) {
@@ -115,25 +125,29 @@ public class MenuPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    /**
+     * method to get the current panel timer
+     * @return timer
+     */
     public Timer getTimer() {
 
         return timer;
     }
 
+    /**
+     * method to add the button container based on the game state,  since the gameover panel and the menu panel have separate buttons to display
+     * @return newButtonContainer
+     */
     public JPanel setButtonContainer(){
-        background.remove(newButtonContainer);
+        background.remove(newButtonContainer); //removes the current button container
         if(GameController.getInstance().getGameState().equals(GameState.MENU)){
-            newButtonContainer = startButtonContainer;
-//            System.out.println("Setting button container for MENU");
+            newButtonContainer = startButtonContainer; //sets the new button container if game state is menu
         }
-        else if(GameController.getInstance().getGameState().equals(GameState.GAME_OVER)){
-            newButtonContainer = gameOverButtonContainer;
-//            System.out.println("Setting button container for GAME_OVER");
+        else if(GameController.getInstance().getGameState().equals(GameState.GAME_OVER)) {
+            newButtonContainer = gameOverButtonContainer; // sets the new button container if game state is game over
         }
-
-        background.add(newButtonContainer);
+        background.add(newButtonContainer); //adds button container
         revalidate();
-
         return newButtonContainer;
     }
 

@@ -27,28 +27,16 @@ public class GameFrame extends JFrame {
 
         //set up the gameFrame
         setSize(GameUtility.windowDimension);
-//        setIconImage(Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Word Journey");
 
-        // setting task bar icon
-//        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
-//        final Taskbar taskbar = Taskbar.getTaskbar();
-//        taskbar.setIconImage(icon);
-
-        //setIconImage(icon);
-
         //add main panel to game frame
         mainPanel = new JPanel();
-
         menuPanel = new MenuPanel();
-
         gamePanel = new GamePanel();
-
         leaderBoardPanel = new LeaderBoardPanel();
-
         cardLayout = new CardLayout();
 
         mainPanel.setLayout(cardLayout);
@@ -66,7 +54,6 @@ public class GameFrame extends JFrame {
 
     /**
      * method to show the panel depending on game state
-     * @param gameState
      */
     public void setPanel(GameState gameState){
         GameState cardState = gameState == GameState.GAME_OVER ? GameState.MENU : gameState;
@@ -76,10 +63,18 @@ public class GameFrame extends JFrame {
         cardLayout.show(mainPanel, cardState.getTitle());
     }
 
+    /**
+     * method to get the current game panel
+     * @return gamePanel
+     */
     public GamePanel getGamePanel() {
         return gamePanel;
     }
 
+    /**
+     * method to get the current leaderboard
+     * @return leaderBoardPanel
+     */
     public LeaderBoardPanel getLeaderBoardPanel() {
         return leaderBoardPanel;
     }

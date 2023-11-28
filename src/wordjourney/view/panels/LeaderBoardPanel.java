@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 
 
+/**
+ * A class used to represent a graphical panel for displaying the leaderboard panel
+ */
 public class LeaderBoardPanel extends JPanel{
 
     ImageIcon bgIcon;
@@ -17,6 +20,9 @@ public class LeaderBoardPanel extends JPanel{
     LeaderBoardView leaderBoard;
     LBbuttonsContainer lBbuttonsContainer;
 
+    /**
+     * Constructor for the leaderboard that initializes panels properties
+     */
     public LeaderBoardPanel(){
         setSize(GameUtility.windowDimension);
 
@@ -30,13 +36,18 @@ public class LeaderBoardPanel extends JPanel{
         //add panels to background
         leaderBoard = new LeaderBoardView();
         lBbuttonsContainer = new LBbuttonsContainer();
-
         background.add(leaderBoard);
         background.add(lBbuttonsContainer);
 
         add(background);
 
     }
+
+    /**
+     * method to paint the leaderboard text at the top of the panel
+     *
+     * @param g the <code>Graphics</code> context in which to paint
+     */
     @Override
     public void paint(Graphics g){
         super.paint(g);
@@ -45,6 +56,10 @@ public class LeaderBoardPanel extends JPanel{
         g.drawString("LeaderBoard", 320,50);
     }
 
+    /**
+     * method to get the current leaderboard
+     * @return leaderBoard
+     */
     public LeaderBoardView getLeaderBoardView(){
         return leaderBoard;
     }

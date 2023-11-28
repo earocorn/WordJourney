@@ -6,42 +6,39 @@ import wordjourney.model.SoundEffect;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Utility class that contains various game-related functionality, such as loading fonts, music, levels, and managing the leaderboard.
  */
 public final class GameUtility {
-    private static GameUtility instance = null;
+    private static GameUtility instance = null;  //
     public static final int WINDOW_WIDTH = 900; // width of the game
     public static final int WINDOW_HEIGHT = 600; // height of the game
-    // this is static, we should be retrieving wordleview edge somehow from the ACTUAL wordleview component
     public static final int WORDLEVIEW_EDGE = 250;
-    public static final Dimension windowDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
-    private static Font gameFont;
-    private static Clip gameAudioClip;
-    private static Clip soundEffectClip;
+    public static final Dimension windowDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT); // game frame  dimensions
+    private static Font gameFont; // font for the game
+    private static Clip gameAudioClip; //game audio clip
+    private static Clip soundEffectClip;  //sound effect audio clip
 
     //character settings
-    public static final int STARTING_LIVES = 3;
-    public static final int STARTING_SCORE = 0;
-    public static final int STARTING_TIME = 180;
-    public static final int TIMER_DECREMENT = 7;
-    public static final double TIMER_EXPONENT_BASE = 1.2;
-    public static final int STARTING_LEVEL = 0;
-    public static final int STARTING_PLAYER_X_VELOCITY = 3;
-    public static final int numLevels = 11;
-    private static final Level[] levels = new Level[numLevels];
-    public static final Color GREEN_TRANSPARENT = new Color(0, 255, 0, 220);
-    public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220);
-    public static final Color GRAY_TRANSPARENT = new Color(100, 100, 100, 220);
+    public static final int STARTING_LIVES = 3; //players starting live
+    public static final int STARTING_SCORE = 0; // players initial score when starting game
+    public static final int STARTING_TIME = 180; // 3 minute initial start of game time
+    public static final int TIMER_DECREMENT = 7; // number the timer decrements by when you reach new level
+    public static final double TIMER_EXPONENT_BASE = 1.2; // number the timer uses when reaching a new level to modify inital start time
+    public static final int STARTING_LEVEL = 0; //inital starting level
+    public static final int STARTING_PLAYER_X_VELOCITY = 3; //players initial x velocity when moving left and right on the screen
+    public static final int numLevels = 11; // total number of levels in the game
+    private static final Level[] levels = new Level[numLevels]; // array to store levels, and the level the player is on
+    public static final Color GREEN_TRANSPARENT = new Color(0, 255, 0, 220); //variable that stores color code for the correct letter in correct position
+    public static final Color YELLOW_TRANSPARENT = new Color(255, 255, 0, 220); // variable that stores color code for the correct letter in wrong position
+    public static final Color GRAY_TRANSPARENT = new Color(100, 100, 100, 220); // variable that stores color code for incorrect color in incorrect position
     public static final Color TRANSPARENT = new Color(0, 0, 0, 70);
-    private Icon monsterIcon;
-    private DataManager scoreData = null;
+    private Icon monsterIcon; // variable for monster image icon
+    private DataManager scoreData = null; // object of data manager class that stores score and player name
     
     /**
      * Custom starting heights of where to start the player's y value for each background image
@@ -141,7 +138,7 @@ public final class GameUtility {
     }
 
     /**
-     * plays specified music based on the game state
+     * method to play music when in a game state
      * @param gameState current game state
      */
     public void playMusic(GameState gameState) {
@@ -161,21 +158,12 @@ public final class GameUtility {
      * @param soundEffect
      */
     public void playSoundEffect(SoundEffect soundEffect) {
-        String sound = "";
-        switch (soundEffect) {
-            case BOOM:
-                sound = "boom.wav";
-                break;
-            case DING:
-                sound = "ding.wav";
-                break;
-            case ERROR:
-                sound = "error.wav";
-                break;
-            default:
-                sound = "";
-                break;
-        }
+        String sound = switch (soundEffect) {
+            case BOOM -> "boom.wav";
+            case DING -> "ding.wav";
+            case ERROR -> "error.wav";
+            default -> "";
+        };
         File file = new File("src/assets/audio/" + sound);
         System.out.println("File: " + file.getAbsolutePath());
         AudioInputStream ais = null;
@@ -193,38 +181,26 @@ public final class GameUtility {
 
 
     /**
+     * method to switch between audio depending on the current game state: menu, in game, leaderboard and game over
      * @param gameState
      * @return gameAudioClip
      */
     private static AudioInputStream getGameAudioInput(GameState gameState) throws UnsupportedAudioFileException, IOException {
-        String song;
-        switch (gameState) {
-            case IN_GAME:
-                song = "gameMusic.wav";
-                break;
-            case MENU:
-                song = "menuMusic.wav";
-                break;
-            case GAME_OVER:
-                // change to gameover music
-                song = "gameOverMusic.wav";
-                break;
-            case LEADERBOARD:
-                song = "menuMusic.wav";
-                break;
-            default:
-                throw new IOException();
-        }
+        String song = switch (gameState) {
+            case IN_GAME -> "gameMusic.wav";
+            case MENU, LEADERBOARD -> "menuMusic.wav";
+            case GAME_OVER -> "gameOverMusic.wav";
+            default -> throw new IOException();
+        };
         String audioRootPath = "src/assets/audio/" + song;
         File file = new File(audioRootPath);
         return AudioSystem.getAudioInputStream(file);
     }
 
     /**
-     * loads the leaderboard
+     * loads the leaderboard and creates new instance of DataManager class if one was not created
      */
     public void loadLeaderboard() {
-        System.out.println("Loading leaderboard...");
         if (scoreData == null) {
             scoreData = new DataManager();
         }
@@ -236,7 +212,6 @@ public final class GameUtility {
      */
     public DataManager getLeaderboardData() {
         if(scoreData == null) {
-            System.out.println("Leaderboard data not loaded, loading now...");
             loadLeaderboard();
         }
         return scoreData;
