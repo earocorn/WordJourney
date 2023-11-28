@@ -29,7 +29,7 @@ public final class GameUtility {
     //character settings
     public static final int STARTING_LIVES = 3;
     public static final int STARTING_SCORE = 0;
-    public static final int STARTING_TIME = 10;
+    public static final int STARTING_TIME = 180;
     public static final int TIMER_DECREMENT = 7;
     public static final double TIMER_EXPONENT_BASE = 1.2;
     public static final int STARTING_LEVEL = 0;
