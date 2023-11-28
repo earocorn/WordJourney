@@ -47,8 +47,9 @@ public class Player {
         this.currentLevel = 0;
 
         // guy graphics
-        this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
+//        this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
         this.heartIcon = new ImageIcon("src/assets/ui/sprites/hearts.png");
+        this.playerIcon = new ImageIcon("src/assets/ui/sprites/littleGuy.png");
         this.xVelocity = GameUtility.STARTING_PLAYER_X_VELOCITY;
         this.x = 0;
         this.y = 0;
