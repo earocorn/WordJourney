@@ -33,7 +33,7 @@ public class Player {
 
 
     /**
-     * @constructor 
+     * @constructor for the player class
      */
     public Player() {
         //leaderBoardView = LeaderBoard.getInstance().getLeaderBoardPanel.getLeaderBoardView();
@@ -60,6 +60,7 @@ public class Player {
         //this.initialHeartY;
         this.heartYLimits = new int[lives];
         this.heartJumpDistances = new int[lives];
+
         for(int i = 0; i < lives; i++) {
             heartJumpDistances[i] = 15;
         }
@@ -69,6 +70,7 @@ public class Player {
 
 
     /**
+     * returns the players current score
      * @return score
      */
     public int getScore() {
@@ -76,7 +78,8 @@ public class Player {
     }
 
     /**
-     *
+     * sets the players score
+     * @param score The new score to set for the player.
      */
     public void setScore(int score) {
         // I think this is the best place to call difficulty logic / animation logic for changing backgrounds
@@ -86,6 +89,7 @@ public class Player {
     }
 
     /**
+     * returns the players name
      * @return name
      */
     public String getName() {
@@ -93,6 +97,7 @@ public class Player {
     }
 
     /**
+     * sets the players anme
      * @param name
      */
     public void setName(String name) {
@@ -100,6 +105,7 @@ public class Player {
     }
 
     /**
+     * returns the players current lives
      * @return lives
      */
     public int getLives() {
@@ -107,6 +113,7 @@ public class Player {
     }
 
     /**
+     * sets the players current lives
      * @param lives
      */
     public void setLives(int lives) {
@@ -114,6 +121,7 @@ public class Player {
     }
 
     /**
+     * returns the current time left
      * @return timeLeft
      */
     public int getTimeLeft() {
@@ -121,6 +129,7 @@ public class Player {
     }
 
     /**
+     * sets the time remaining
      * @param timeLeft
      */
     public void setTimeLeft(int timeLeft) {
@@ -129,6 +138,7 @@ public class Player {
 
 
     /**
+     * returns the player icons
      * @return playerIcon
      */
     public ImageIcon getPlayerIcon() {
@@ -136,6 +146,7 @@ public class Player {
     }
 
     /**
+     * sets the current players level
      * @return currentLevel
      */
     public int getCurrentLevel() {
@@ -143,6 +154,7 @@ public class Player {
     }
 
     /**
+     * returns the players current level
      * @param currentLevel
      */
     public void setCurrentLevel(int currentLevel) {
@@ -150,6 +162,7 @@ public class Player {
     }
 
     /**
+     * returns the players lives heart icon
      * @return heartIcon
      */
     public ImageIcon getHeartIcon() {
@@ -240,10 +253,15 @@ public class Player {
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
-     
+
+    /**
+     * method to remove lives when the player uses all the guess attempts or runs out of time
+     */
     public void decrementLives() {
         if (lives > 1) {
             lives--; // Decrement lives by 1
+            GameController.getInstance().getGameTimer().restartGameTimer();
+            GameController.getInstance().getCurrentWordleController().clearAllPanels();
         } else {
             lives--;
             GameController.getInstance().getGameTimer().stopGameTimer();
@@ -252,13 +270,27 @@ public class Player {
         }
     }
 
+
+    /**
+     * Checks if the player is currently running to the next level.
+     *
+     * @return True if the player is running to the next level, false otherwise.
+     */
     public boolean isRunningToNextLevel() {
         return isRunningToNextLevel;
     }
 
+    /**
+     * Sets whether the player is running to the next level.
+     * @param runningToNextLevel True if the player is running to the next level, false otherwise.
+     */
     public void setRunningToNextLevel(boolean runningToNextLevel) {
         this.isRunningToNextLevel = runningToNextLevel;
     }
+
+    /**
+     * Increases the player's score. Triggers additional actions such as exploding monsters and adjusting game time.
+     */
     public void incrementScore() {
         score++;
 
@@ -278,9 +310,19 @@ public class Player {
             GameController.getInstance().setGameState(GameState.GAME_OVER);
         }
     }
+
+    /**
+     * gets the inital start time for the game
+     * @return startTime
+     */
     public int getStartTime() {
         return startTime;
     }
+
+    /**
+     * sets the initial start time
+     * @param startTime
+     */
     public void setStartTime(int startTime) {
         this.startTime = startTime;
     }

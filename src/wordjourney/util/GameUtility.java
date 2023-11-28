@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class that contains
+ * Utility class that contains various game-related functionality, such as loading fonts, music, levels, and managing the leaderboard.
  */
 public final class GameUtility {
     private static GameUtility instance = null;
-    public static final int WINDOW_WIDTH = 900;
-    public static final int WINDOW_HEIGHT = 600;
+    public static final int WINDOW_WIDTH = 900; // width of the game
+    public static final int WINDOW_HEIGHT = 600; // height of the game
     // this is static, we should be retrieving wordleview edge somehow from the ACTUAL wordleview component
     public static final int WORDLEVIEW_EDGE = 250;
     public static final Dimension windowDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -29,7 +29,7 @@ public final class GameUtility {
     //character settings
     public static final int STARTING_LIVES = 3;
     public static final int STARTING_SCORE = 0;
-    public static final int STARTING_TIME = 180;
+    public static final int STARTING_TIME = 10;
     public static final int TIMER_DECREMENT = 7;
     public static final double TIMER_EXPONENT_BASE = 1.2;
     public static final int STARTING_LEVEL = 0;
@@ -55,6 +55,10 @@ public final class GameUtility {
         load();
     }
 
+    /**
+     * Singleton instance of the GameUtility class.
+     * @return instance
+     */
     public static GameUtility getInstance() {
         if(instance == null) {
             instance = new GameUtility();
@@ -77,6 +81,12 @@ public final class GameUtility {
     }
 
 
+    /**
+     * Returns an array of Level objects representing different game levels.
+     *
+     * @return Array of Level objects.
+     *
+     */
     public static Level[] getLevels() {
         return levels;
     }
@@ -95,12 +105,16 @@ public final class GameUtility {
     }
 
     /**
+     * gets the game font used in the game
      * @return gameFont
      */
     public static Font getFont() {
         return gameFont;
     }
 
+    /**
+     * method to call all the loading functions for the game, font, music,levels leaderboard
+     */
     public void load() {
         System.out.println("Loading game utilities...");
         loadFont();
@@ -111,6 +125,7 @@ public final class GameUtility {
 
     /**
      * loads the music for the game
+     *
      */
     private void loadMusic() {
         System.out.println("Loading music...");
@@ -125,6 +140,10 @@ public final class GameUtility {
         }
     }
 
+    /**
+     * plays specified music based on the game state
+     * @param gameState current game state
+     */
     public void playMusic(GameState gameState) {
         try {
             gameAudioClip.stop();
@@ -137,6 +156,10 @@ public final class GameUtility {
         }
     }
 
+    /**
+     * plays sound effect based on the actions of the game
+     * @param soundEffect
+     */
     public void playSoundEffect(SoundEffect soundEffect) {
         String sound = "";
         switch (soundEffect) {
@@ -197,6 +220,9 @@ public final class GameUtility {
         return AudioSystem.getAudioInputStream(file);
     }
 
+    /**
+     * loads the leaderboard
+     */
     public void loadLeaderboard() {
         System.out.println("Loading leaderboard...");
         if (scoreData == null) {
@@ -204,6 +230,10 @@ public final class GameUtility {
         }
     }
 
+    /**
+     * returns the datamanager for the leaderboard
+     * @return scoreData
+     */
     public DataManager getLeaderboardData() {
         if(scoreData == null) {
             System.out.println("Leaderboard data not loaded, loading now...");
@@ -212,6 +242,10 @@ public final class GameUtility {
         return scoreData;
     }
 
+    /**
+     * returns the icon that is the monster
+     * @return monsterIcon
+     */
     public Icon getMonsterIcon() {
         return monsterIcon;
     }

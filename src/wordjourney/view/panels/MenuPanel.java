@@ -71,7 +71,7 @@ public class MenuPanel extends JPanel implements ActionListener {
                 title =  new ImageIcon("src/assets/ui/titles/title.png");
                // return new ImageIcon("src/assets/ui/titles/title.png");
             }
-            else if (GameController.getInstance().getGameState() == GameState.GAME_OVER){
+            else if (GameController.getInstance().getGameState() ==  GameState.GAME_OVER){
                 title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
                // return new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
             }
