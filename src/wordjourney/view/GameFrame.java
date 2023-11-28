@@ -71,4 +71,8 @@ public class GameFrame extends JFrame {
         return gamePanel;
     }
 
+    public LeaderBoardPanel getLeaderBoardPanel() {
+        return leaderBoardPanel;
+    }
+
 }

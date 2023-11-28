@@ -37,7 +37,6 @@ public class GamePanel extends JPanel {
     Player player;
     Timer jumpTimer;
     Timer timer;
-    GameTimer gameTimer;
 
     /**
      * Constructor for  game panel and initializes properties
@@ -53,7 +52,6 @@ public class GamePanel extends JPanel {
         wordleView = GameController.getInstance().getCurrentWordleView();
         wordleModel = GameController.getInstance().getCurrentWordleModel();
         wordleController = GameController.getInstance().getCurrentWordleController();
-        gameTimer = new GameTimer();
         playerIcon = player.getPlayerIcon();
 
         timer = new Timer(10, new PlayerAnimationListener(player, this));
@@ -132,7 +130,7 @@ public class GamePanel extends JPanel {
     public void explodeMonster() {
         System.out.println("Exploding monster ... ");
         GameUtility.getInstance().playSoundEffect(SoundEffect.BOOM);
-        wordleController.stopGameTimer();
+        GameController.getInstance().getGameTimer().stopGameTimer();
         player.setXVelocity(0);
         wordleView.getInput().getUserInput().setEnabled(false);
         JLabel explosion = new JLabel(new ImageIcon("src/assets/ui/sprites/explosion3.gif"));

@@ -2,7 +2,6 @@ package wordjourney.model;
 
 import wordjourney.util.GameUtility;
 import wordjourney.controller.GameController;
-import wordjourney.controller.LeaderBoard;
 import wordjourney.view.components.LeaderBoardView;
 
 import javax.swing.*;
@@ -31,8 +30,6 @@ public class Player {
     private final ImageIcon playerIcon;
     private final ImageIcon heartIcon;
     private boolean isRunningToNextLevel;
-
-    LeaderBoardView leaderBoardView;
 
 
     /**
@@ -248,16 +245,8 @@ public class Player {
             lives--; // Decrement lives by 1
         } else {
             lives--;
-            GameController.getInstance().getGameView().getGamePanel().getWordleController().stopGameTimer();
+            GameController.getInstance().getGameTimer().stopGameTimer();
             GameController.getInstance().setGameState(GameState.GAME_OVER);
-            LeaderBoard.getInstance().setPlayer(GameController.getInstance().getPlayer().getName(), GameController.getInstance().getPlayer().getScore());
-            //LeaderBoard.getInstance().loadScores(GameController.getInstance().getPlayer().getScore());
-            LeaderBoard.getInstance().saveScores();
-            LeaderBoard.getInstance().updateLeaderBoard();
-//            if (leaderBoardView != null){
-//                leaderBoardVie.updateLeaderBoard();
-//            }
-
             System.out.println("Switched to GameState.GAME_OVER");
         }
     }
@@ -282,6 +271,10 @@ public class Player {
                 startTime -= GameUtility.TIMER_DECREMENT;
             }
             System.out.println("Current level = " + currentLevel);
+        }
+
+        if(score >= GameUtility.numLevels * 2) {
+            GameController.getInstance().setGameState(GameState.GAME_OVER);
         }
     }
     public int getStartTime() {

@@ -24,8 +24,7 @@ import org.json.simple.parser.ParseException;
  */
 public class DataManager {
 
-   public Map<String, Long> leaderboardMap = new HashMap<>();
-   JSONArray players = null;
+    JSONArray players = null;
    TreeMap<String, Long> sortedLeaderboard = null;
     
     /**
@@ -36,6 +35,7 @@ public class DataManager {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("src/assets/playerdata/highscores.json"));
             players = (JSONArray) obj;
+            Map<String, Long> leaderboardMap = new HashMap<>();
             for (Object playerObject : players) {
                 JSONObject player = (JSONObject) playerObject;
                 leaderboardMap.put((String) player.get("name"), (Long) player.get("score"));

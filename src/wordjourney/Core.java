@@ -2,6 +2,7 @@ package wordjourney;
 
 import wordjourney.controller.GameController;
 import wordjourney.controller.WordleController;
+import wordjourney.model.GameTimer;
 import wordjourney.model.Player;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
@@ -28,10 +29,14 @@ public class Core {
 
             // base model
             Player player = new Player();
-            if(playerName.length() < 10 && !playerName.isEmpty()) {
+            if(playerName != null && playerName.length() < 10 && !playerName.isEmpty()) {
                 player.setName(playerName);
             }
             manager.setPlayer(player);
+
+            // game timer
+            GameTimer gameTimer = new GameTimer();
+            manager.setGameTimer(gameTimer);
 
             // wordle mvc init
             WordleModel wordleModel = new WordleModel();

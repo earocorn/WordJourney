@@ -1,10 +1,7 @@
 package wordjourney.controller;
 
 
-import wordjourney.model.Player;
-import wordjourney.model.SoundEffect;
-import wordjourney.model.WordleModel;
-import wordjourney.model.GameState;
+import wordjourney.model.*;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
 import wordjourney.view.components.WordleView;
@@ -29,7 +26,6 @@ public class WordleController implements ActionListener, KeyListener {
     WordleView wordleView;
     
     Player player;
-    private Timer gameTimer = new Timer();
 
     public WordleController(WordleModel wordleModel, WordleView wordleView){
         this.wordleModel = wordleModel;
@@ -102,8 +98,7 @@ public class WordleController implements ActionListener, KeyListener {
         if (isCorrect) {
             player.incrementScore();
             clearAllPanels();
-            resetTime();
-            GameController.getInstance().gameTimer.resetGameTimer();
+            GameController.getInstance().getGameTimer().resetTime();
             return;
         }
         
@@ -116,8 +111,7 @@ public class WordleController implements ActionListener, KeyListener {
                 // TODO: move this to Player class
                 //GameController.getInstance().setGameState(GameState.GAME_OVER);
             }
-            resetTime();
-            GameController.getInstance().gameTimer.resetGameTimer();
+            GameController.getInstance().getGameTimer().resetTime();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
@@ -149,40 +143,5 @@ public class WordleController implements ActionListener, KeyListener {
     }
     @Override
     public void keyReleased(KeyEvent e) {}
-
-
-    public void resetTime() {
-        player.setTimeLeft(player.getStartTime()); // Reset to 3 minutes
-    }
-
-    public void startGameTimer() {
-        gameTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (player.getTimeLeft() > 0) {
-                    // Update your game timer UI or perform other game-related tasks here
-                    System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
-                    player.setTimeLeft(player.getTimeLeft() - 1);
-                } else {
-                    // The game is over, handle it here
-                    gameTimer.cancel();
-                    gameTimer.purge();
-                    GameController.getInstance().setGameState(GameState.GAME_OVER);
-                    System.out.println("Game Over");
-                    // You can perform game over actions here
-                }
-            }
-        }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
-    }
-
-    public void stopGameTimer()  {
-        gameTimer.cancel();
-        gameTimer.purge();
-    }
-
-    public void restartGameTimer() {
-        gameTimer = new Timer();
-        startGameTimer();
-    }
 
 }

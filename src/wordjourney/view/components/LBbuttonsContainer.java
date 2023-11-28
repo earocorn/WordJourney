@@ -1,7 +1,6 @@
 package wordjourney.view.components;
 
 import wordjourney.controller.GameController;
-import wordjourney.controller.LeaderBoard;
 import wordjourney.model.GameState;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ public class LBbuttonsContainer extends JPanel {
     JButton quitButton;
     ImageIcon returnButtonIcon;
     ImageIcon quitButtonIcon;
-    LeaderBoard leaderBoard;
 
     public LBbuttonsContainer(){
         //create new instances of buttons

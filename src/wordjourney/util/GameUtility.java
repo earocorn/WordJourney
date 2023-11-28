@@ -27,10 +27,10 @@ public final class GameUtility {
     private static Clip soundEffectClip;
 
     //character settings
-    public static final int STARTING_LIVES = 2;
+    public static final int STARTING_LIVES = 3;
     public static final int STARTING_SCORE = 0;
     public static final int STARTING_TIME = 180;
-    public static final int TIMER_DECREMENT = 6;
+    public static final int TIMER_DECREMENT = 7;
     public static final double TIMER_EXPONENT_BASE = 1.2;
     public static final int STARTING_LEVEL = 0;
     public static final int STARTING_PLAYER_X_VELOCITY = 3;

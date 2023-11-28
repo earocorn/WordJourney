@@ -1,5 +1,6 @@
 package wordjourney.controller.listener;
 
+import wordjourney.controller.GameController;
 import wordjourney.model.Player;
 import wordjourney.util.GameUtility;
 import wordjourney.view.panels.GamePanel;
@@ -33,8 +34,9 @@ public class PlayerAnimationListener implements ActionListener {
                     player.setCurrentLevel(player.getCurrentLevel()+1);
                     container.getWordleView().setVisible(true);
                     container.getWordleView().getInput().getUserInput().setEnabled(true);
-                    container.getWordleController().resetTime();
-                    container.getWordleController().restartGameTimer();
+                    container.getWordleView().getInput().getUserInput().grabFocus();
+                    GameController.getInstance().getGameTimer().resetTime();
+                    GameController.getInstance().getGameTimer().restartGameTimer();
                     container.resetMonster();
                 }
             }

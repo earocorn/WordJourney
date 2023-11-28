@@ -8,9 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameTimer {
-    private Timer timer = new Timer();
-    private int remainingTimeInSeconds =20;// 3 minutes in seconds
-
+    Timer timer;
     Player player;
     WordleModel wordleModel;
     WordleView wordleView;
@@ -20,6 +18,7 @@ public class GameTimer {
      *
      */
     public GameTimer(){
+        timer = new Timer();
         player = GameController.getInstance().getPlayer();
         wordleView = GameController.getInstance().getCurrentWordleView();
         wordleModel = GameController.getInstance().getCurrentWordleModel();
@@ -29,10 +28,8 @@ public class GameTimer {
     /**
      *
      */
-    public void resetGameTimer() {
-        System.out.println("Timer reset");
-        remainingTimeInSeconds = 20; // Reset to 3 minute
-        GameController.getInstance().getPlayer().setTimeLeft(remainingTimeInSeconds);
+    public void resetTime() {
+        player.setTimeLeft(player.getStartTime());
     }
 
     /**
@@ -42,33 +39,33 @@ public class GameTimer {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (remainingTimeInSeconds > 0) {
-                    remainingTimeInSeconds--;
+                if (player.getTimeLeft() > 0) {
+                    // Update your game timer UI or perform other game-related tasks here
+                    System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
+                    player.setTimeLeft(player.getTimeLeft() - 1);
                 } else {
-                    System.out.println("Ran out of time");
-                    GameController.getInstance().getPlayer().decrementLives();
-
-                    System.out.println("Clearing panels");
-                    wordleController.clearAllPanels();
-                    resetGameTimer();
+                    // The game is over, handle it here
+                    timer.cancel();
+                    timer.purge();
+                    GameController.getInstance().setGameState(GameState.GAME_OVER);
+                    System.out.println("Game Over");
+                    // You can perform game over actions here
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
     }
 
     /**
-     * @return remainingTimeInSeconds for the game timer
-     */
-    public int getTime() {
-
-        return remainingTimeInSeconds;
-    }
-
-    /**
      * method to cancel the game timer when it moves from game state to another state
      */
     public void stopGameTimer() {
+        timer.cancel();
+        timer.purge();
+    }
 
+    public void restartGameTimer() {
+        timer = new Timer();
+        startGameTimer();
     }
 
 }
