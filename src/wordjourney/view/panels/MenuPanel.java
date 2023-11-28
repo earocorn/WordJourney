@@ -3,8 +3,8 @@ package wordjourney.view.panels;
 import wordjourney.controller.GameController;
 import wordjourney.model.GameState;
 import wordjourney.util.GameUtility;
-import wordjourney.util.DataManager;
 import wordjourney.view.components.ButtonContainer;
+import wordjourney.view.components.LBbuttonsContainer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,9 @@ public class MenuPanel extends JPanel implements ActionListener {
     JLabel background;
     ImageIcon title;
     Timer timer;
-    ButtonContainer buttonContainer;
+    ButtonContainer startButtonContainer; // panel buttons
+    LBbuttonsContainer gameOverButtonContainer; //game over panel buttons
+    JPanel newButtonContainer;
     int titleXLimitRight = 60;
     int titleXLimitLeft = 15;
     int titleYLimitTop = 50;
@@ -30,6 +32,7 @@ public class MenuPanel extends JPanel implements ActionListener {
     int titleXVelocity = 2;
     int titleYVelocity = 2;
 
+
     /**
      * Constructor to initialize MenuPanel and  its properties
      */
@@ -37,20 +40,22 @@ public class MenuPanel extends JPanel implements ActionListener {
         this.setSize(GameUtility.windowDimension);
 
         timer = new Timer(10, this);
-        
-        //pull json data for leaderboard
-        
+
         //create an instance of the panel
         bgIcon = new ImageIcon("src/assets/ui/menubackgrounds/pinkBG.png");
+        title = getTitle();
         background = new JLabel(bgIcon);
-        buttonContainer  =  new ButtonContainer();
+
+
+        startButtonContainer  =  new ButtonContainer();
+        gameOverButtonContainer = new LBbuttonsContainer();
+        newButtonContainer = new JPanel();
 
         //set and add components
         background.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
 
         add(background);
-
-        background.add(buttonContainer);
+        background.add(setButtonContainer());
 
         timer.start();
         System.out.println("MenuPanel created!");
@@ -63,17 +68,20 @@ public class MenuPanel extends JPanel implements ActionListener {
     public ImageIcon getTitle(){
         try{
             if(GameController.getInstance().getGameState() == GameState.MENU){
-                title =  new ImageIcon("src/assets/ui/titles/title.png");
+                //title =  new ImageIcon("src/assets/ui/titles/title.png");
+                return new ImageIcon("src/assets/ui/titles/title.png");
             }
             else if (GameController.getInstance().getGameState() == GameState.GAME_OVER){
-                title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
+//                title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
+                return new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
             }
 
         } catch(Exception e){
             e.printStackTrace();
         }
 
-        return title;
+//        return title;
+        return null;
     }
 
     @Override
@@ -92,7 +100,6 @@ public class MenuPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(GameController.getInstance().getGameState() != GameState.MENU && GameController.getInstance().getGameState() != GameState.GAME_OVER || GameController.getInstance().getGameState() != GameState.GAME_OVER && GameController.getInstance().getGameState() != GameState.MENU) {
-            // TODO: figure out how to stop and start menu timer gracefully when GameState changes
             timer.stop();
         }
 
@@ -105,11 +112,30 @@ public class MenuPanel extends JPanel implements ActionListener {
         titleX += titleXVelocity;
         titleY += titleYVelocity;
 
+        setButtonContainer();
         repaint();
     }
 
     public Timer getTimer() {
+
         return timer;
+    }
+
+    public JPanel setButtonContainer(){
+        background.remove(newButtonContainer);
+        if(GameController.getInstance().getGameState().equals(GameState.MENU)){
+            newButtonContainer = startButtonContainer;
+//            System.out.println("Setting button container for MENU");
+        }
+        else if(GameController.getInstance().getGameState().equals(GameState.GAME_OVER)){
+            newButtonContainer = gameOverButtonContainer;
+//            System.out.println("Setting button container for GAME_OVER");
+        }
+
+        background.add(newButtonContainer);
+        revalidate();
+
+        return newButtonContainer;
     }
 
 }
