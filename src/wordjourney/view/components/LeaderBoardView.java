@@ -5,9 +5,7 @@ import wordjourney.util.GameUtility;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class LeaderBoardView extends JPanel {
     static JLabel[] lbColumns = new JLabel[5];
@@ -27,29 +25,34 @@ public class LeaderBoardView extends JPanel {
             add(lbColumns[i]);
         }
     }
-    public static void setLBText(String name, int score, int position){
-        System.out.println("Setting label text: " + name + " - " + score);
-        lbColumns[position].setFont(GameUtility.getFont());
-        lbColumns[position].setText(name+ "-"+ score);
-        lbColumns[position].setBackground(Color.PINK);
-    }
 
     public void updateLeaderboardText() {
         if(lbColumns != null && lbColumns.length >= 5) {
+
+            String[][] leaderboardArray = new String[5][2];
+
             int i = 0;
             for (Map.Entry<String, Long> entry : GameUtility.getInstance().getLeaderboardData().getLeaderboard().entrySet()) {
-                if (i < 5) {
-                    lbColumns[i].setFont(GameUtility.getFont());
-                    String text = entry.getKey() + "-" + entry.getValue();
-                    lbColumns[i].setText(text);
-                    lbColumns[i].setBackground(Color.PINK);
-                    i++;
-                } else {
-                    break;
-                }
+                leaderboardArray[i][0] = entry.getKey();
+                leaderboardArray[i][1] = String.valueOf(entry.getValue());
+                System.out.println(leaderboardArray[i][0] + " : " + leaderboardArray[i][1]);
+                i++;
             }
-            for (int j = i; j < 5; j++) {
-                lbColumns[j].setText("");
+
+            while (i < 5) {
+                leaderboardArray[i][0] = "";
+                leaderboardArray[i][1] = "";
+                System.out.println(leaderboardArray[i][0] + " : " + leaderboardArray[i][1]);
+                i++;
+            }
+
+            Arrays.sort(leaderboardArray, Comparator.comparing(row -> !row[1].isEmpty() ? Long.parseLong((String) row[1]) : 0, Comparator.reverseOrder()));
+
+            for (int j = 0; j < 5; j++) {
+                lbColumns[j].setFont(GameUtility.getFont());
+                String text = leaderboardArray[j][0] + "-" + leaderboardArray[j][1];
+                lbColumns[j].setText(text);
+                lbColumns[j].setBackground(Color.PINK);
             }
         }
     }
