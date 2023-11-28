@@ -1,6 +1,7 @@
 package wordjourney.controller;
 
 
+import wordjourney.model.Player;
 import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
@@ -19,16 +20,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import wordjourney.model.Player;
-import wordjourney.model.GameState;
 
 /**
  *
  */
 public class WordleController implements ActionListener, KeyListener {
-    WordleModel wordleModel;
+    private static WordleController instance = null;
+
+    WordleModel currentWordle;
     WordleView wordleView;
     
     Player player;
@@ -40,9 +39,17 @@ public class WordleController implements ActionListener, KeyListener {
         player = GameController.getInstance().getPlayer();
         wordleModel.setCurrentWordle(getWordleString());
         System.out.println("WordleController constructor");
+
         // add input listeners
         wordleView.getInput().getUserInput().addKeyListener(this);
         wordleView.getInput().getEnterButton().addActionListener(this);
+
+    }
+    public static WordleController getInstance(){
+        if (instance == null) {
+            instance = new WordleController(new WordleModel(), new WordleView(), GameController.getInstance().getPlayer());
+        }
+        return instance;
     }
 
     /**
@@ -59,11 +66,10 @@ public class WordleController implements ActionListener, KeyListener {
         Random random = new Random();
         int position = random.nextInt(wordList.size());
         return wordList.get(position).trim().toUpperCase();
-        
     }
 
     private boolean isWordleEqualTo(String userWord){
-        List<String> wordleWordsList = Arrays.asList(wordleModel.getCurrentWordle().split(""));
+        List<String> wordleWordsList = Arrays.asList(currentWordle.getCurrentWordle().split(""));
         String[] userWordsArray = userWord.split("");
         List<Boolean> wordMatchesList = new ArrayList<>();
 
@@ -85,7 +91,7 @@ public class WordleController implements ActionListener, KeyListener {
     }
 
     private WordComponent getActivePanel() {
-        return wordleView.getWordPanelArray()[wordleModel.getCurrentLine()];
+        return wordleView.getWordPanelArray()[currentWordle.getCurrentLine()];
     }
 
 
@@ -106,11 +112,12 @@ public class WordleController implements ActionListener, KeyListener {
             player.incrementScore();
             clearAllPanels();
             resetTime();
+            GameController.getInstance().gameTimer.resetGameTimer();
             return;
         }
         
         //checks if users current line is over guess limit, if so removes life and clears panel
-        if (wordleModel.getCurrentLine() >= 5) {
+        if (currentWordle.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
             GameUtility.getInstance().playSoundEffect(SoundEffect.ERROR);
@@ -119,19 +126,20 @@ public class WordleController implements ActionListener, KeyListener {
                 //GameController.getInstance().setGameState(GameState.GAME_OVER);
             }
             resetTime();
+            GameController.getInstance().gameTimer.resetGameTimer();
             return;
         }
-        wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
+        currentWordle.setCurrentLine(currentWordle.getCurrentLine()+1);
 
     }
 
-    private void clearAllPanels() {
-        for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
+    public void clearAllPanels() {
+        for (int i = 0; i <= currentWordle.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();
         }
-        wordleModel.setCurrentWordle(getWordleString());
-        System.out.println("Word for the day : " + wordleModel.getCurrentWordle());
-        wordleModel.setCurrentLine(0);
+        currentWordle.setCurrentWordle(getWordleString());
+        System.out.println("Word for the day : " + currentWordle.getCurrentWordle());
+        currentWordle.setCurrentLine(0);
     }
 
     @Override
@@ -141,17 +149,13 @@ public class WordleController implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             enterButtonEvent();
-            System.out.println("jump key");
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {}
 

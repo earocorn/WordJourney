@@ -1,26 +1,25 @@
 package wordjourney.controller;
 
-import wordjourney.model.GameState;
-import wordjourney.model.Player;
-import wordjourney.model.WordleModel;
+import wordjourney.model.*;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
 import wordjourney.view.components.WordleView;
 import wordjourney.view.panels.GamePanel;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class GameController {
     private static GameController instance = null;
+
+    LeaderBoard leaderBoard;
+//    public static WordleController wordManager;
     private GameState gameState = GameState.MENU;
     private WordleModel currentWordleModel = null;
     private WordleController currentWordleController = null;
     private WordleView currentWordleView = null;
     private Player player = null;
     private GameFrame gameFrame = null;
-    
+    public GameTimer gameTimer = null;
+
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
@@ -46,6 +45,7 @@ public class GameController {
     }
 
     public GameState getGameState() {
+
         return gameState;
     }
 
@@ -67,21 +67,25 @@ public class GameController {
                     } else {
                         currentWordleController.startGameTimer();
                     }
+                    if (gameTimer == null){
+                        gameTimer = new GameTimer();
+                    }
+                    gameTimer.startGameTimer();
                     break;
                 }
                 case MENU -> {
-
                     break;
                 }
                 case GAME_OVER -> {
+                    gameTimer.stopGameTimer();
                     System.out.println("current player score is " + player.getScore());
                     GameUtility.getInstance().getLeaderboardData().pushEntry(player.getName(), player.getScore());
                     GameUtility.getInstance().getLeaderboardData().writeScores();
                     break;
                 }
                 case LEADERBOARD -> {
+                    leaderBoard = LeaderBoard.getInstance();
 
-                    break;
                 }
                 default -> {
 
@@ -92,6 +96,7 @@ public class GameController {
     }
 
     public Player getPlayer() {
+
         return player;
     }
 

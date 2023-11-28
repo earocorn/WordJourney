@@ -5,11 +5,11 @@ import wordjourney.controller.GameController;
 import wordjourney.controller.WordleController;
 import wordjourney.controller.listener.PlayerAnimationListener;
 import wordjourney.controller.listener.PlayerJumpListener;
+import wordjourney.model.GameTimer;
 import wordjourney.model.Player;
 import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
-import wordjourney.view.components.InputComponent;
 import wordjourney.view.components.WordleView;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -26,7 +26,6 @@ import java.io.IOException;
  * A class used to represent a graphical panel for displaying the main game Panel
  */
 public class GamePanel extends JPanel {
-
     public JLabel background;
     JLabel monsterLabel;
     ImageIcon  backgroundImage;
@@ -38,12 +37,13 @@ public class GamePanel extends JPanel {
     Player player;
     Timer jumpTimer;
     Timer timer;
-    //hearts
+    GameTimer gameTimer;
 
     /**
      * Constructor for  game panel and initializes properties
      */
     public GamePanel(){
+
         // TODO: Ideally GameController should be able to get any current event/model being acted upon which is why it might make sense to initialize the wordle in GameController and get the instance of the wordle. SEE TODO COMMENT IN wordjourney.Core
         player = GameController.getInstance().getPlayer();
 
@@ -53,14 +53,15 @@ public class GamePanel extends JPanel {
         wordleView = GameController.getInstance().getCurrentWordleView();
         wordleModel = GameController.getInstance().getCurrentWordleModel();
         wordleController = GameController.getInstance().getCurrentWordleController();
-
+        gameTimer = new GameTimer();
         playerIcon = player.getPlayerIcon();
 
         timer = new Timer(10, new PlayerAnimationListener(player, this));
         jumpTimer = new Timer(20, new PlayerJumpListener(player, jumpTimer));
 
-        background.setLayout(new GridBagLayout());
+
         background.setVisible(true);
+
         // get players current level for background
         backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
         background.setIcon(backgroundImage);
@@ -99,8 +100,6 @@ public class GamePanel extends JPanel {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2D = (Graphics2D) g;
-
-        // TODO: NEED WORDLE MONSTER GUY: In this paint() method somehow we need to paint a wordle monster but I don't think we have decided on a wordle monster. This can be just painted behind the wordle box and we can animate it and change opacity of the panels to make it look better.
 
         // draw Little Guy
         g2D.drawImage(playerIcon.getImage(), player.getLives() > 0 ? player.getX() : 0, GameUtility.WINDOW_HEIGHT-playerIcon.getIconHeight() - (GameUtility.WINDOW_HEIGHT- GameUtility.getLevels()[0].getStartingHeight()) - player.getY(), null);
@@ -165,5 +164,30 @@ public class GamePanel extends JPanel {
         super.repaint();
     }
 
+    /**
+     * method to change background based on the players current score
+     */
+    public void updateBackground() {
+        int targetScore = (player.getCurrentLevel() + 1) * 2; // target score increment of 2 points per level
+
+        // Check if the player's score is greater than or equal to the target score
+        if (player.getScore() >= targetScore) {
+            player.setCurrentLevel(player.getCurrentLevel() + 1);
+
+            // Check if the new level exists in the array of levels
+            if (player.getCurrentLevel() >= GameUtility.getLevels().length) {
+                // TODO: should we start the levels over or should we do a completion of the game
+                // im just going to reset the score and levels for now
+                // so if score reaches 22 restarts points etc
+                //player.setScore(0); //TODO: check if this messes up past 22 points
+                player.setCurrentLevel(0);
+            }
+            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
+            background.setIcon(backgroundImage);
+
+            // Repaint the panel to reflect the background changes
+            repaint();
+        }
+    }
 
 }

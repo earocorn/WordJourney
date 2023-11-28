@@ -16,12 +16,10 @@ import java.awt.event.ActionListener;
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
-
     ImageIcon bgIcon;
     JLabel background;
     ImageIcon title;
     Timer timer;
-
     ButtonContainer buttonContainer;
     int titleXLimitRight = 60;
     int titleXLimitLeft = 15;
@@ -46,7 +44,6 @@ public class MenuPanel extends JPanel implements ActionListener {
         bgIcon = new ImageIcon("src/assets/ui/menubackgrounds/pinkBG.png");
         background = new JLabel(bgIcon);
         buttonContainer  =  new ButtonContainer();
-
 
         //set and add components
         background.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
@@ -90,7 +87,6 @@ public class MenuPanel extends JPanel implements ActionListener {
             g.drawString("High Score: " + GameController.getInstance().getPlayer().getScore(), 650, 50);
         }
         g.drawImage(getTitle().getImage(), titleX, titleY, null);
-        // other title menu stuff
     }
 
     @Override

@@ -2,6 +2,7 @@ package wordjourney.view;
 
 import wordjourney.model.GameState;
 import wordjourney.util.GameUtility;
+import wordjourney.view.panels.LeaderBoardPanel;
 import wordjourney.view.panels.GamePanel;
 import wordjourney.view.panels.MenuPanel;
 
@@ -16,7 +17,7 @@ public class GameFrame extends JFrame {
     CardLayout cardLayout;
     GamePanel gamePanel; //extends JPanel
     MenuPanel menuPanel; //extends JPanel
-    MenuPanel gameOverPanel; //extends JPanel
+    LeaderBoardPanel leaderBoardPanel; //extends JPanel
 
     /**
      * Constructor GameFrame and initializes properties
@@ -37,12 +38,15 @@ public class GameFrame extends JFrame {
 
         gamePanel = new GamePanel();
 
+        leaderBoardPanel = new LeaderBoardPanel();
+
         cardLayout = new CardLayout();
 
         mainPanel.setLayout(cardLayout);
 
         mainPanel.add(menuPanel, GameState.MENU.getTitle());
         mainPanel.add(gamePanel, GameState.IN_GAME.getTitle());
+        mainPanel.add(leaderBoardPanel, GameState.LEADERBOARD.getTitle());
 
         add(mainPanel);
 
