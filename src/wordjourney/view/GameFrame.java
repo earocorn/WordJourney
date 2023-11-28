@@ -34,9 +34,10 @@ public class GameFrame extends JFrame {
         setTitle("Word Journey");
 
         // setting task bar icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
-        final Taskbar taskbar = Taskbar.getTaskbar();
-        taskbar.setIconImage(icon);
+//        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
+//        final Taskbar taskbar = Taskbar.getTaskbar();
+//        taskbar.setIconImage(icon);
+
         //setIconImage(icon);
 
         //add main panel to game frame

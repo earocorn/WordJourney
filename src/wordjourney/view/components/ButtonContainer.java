@@ -28,7 +28,7 @@ public class ButtonContainer extends JPanel{
         quitButton = new JButton();
         leaderBoardButton = new JButton();
 
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(1, 3));
 
         //creates new instances of image icons
         startButtonIcon = new ImageIcon("src/assets/ui/buttons/startButton.png");
@@ -59,7 +59,7 @@ public class ButtonContainer extends JPanel{
         //adding the buttons start and quit to the button container
         setOpaque(false);
         add(startButton);
-        add(quitButton);
         add(leaderBoardButton);
+        add(quitButton);
     }
 }

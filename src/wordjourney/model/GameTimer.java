@@ -40,16 +40,21 @@ public class GameTimer {
             @Override
             public void run() {
                 if (player.getTimeLeft() > 0) {
-                    // Update your game timer UI or perform other game-related tasks here
+
                     System.out.println("Time remaining: " + player.getTimeLeft() + " seconds");
                     player.setTimeLeft(player.getTimeLeft() - 1);
                 } else {
                     // The game is over, handle it here
-                    timer.cancel();
-                    timer.purge();
-                    GameController.getInstance().setGameState(GameState.GAME_OVER);
-                    System.out.println("Game Over");
-                    // You can perform game over actions here
+                    //timer.cancel();
+                    //timer.purge();
+//                    GameController.getInstance().setGameState(GameState.GAME_OVER);
+                    GameController.getInstance().getPlayer().decrementLives();
+                    System.out.println("Ran out of Time: Lost a life");
+                    GameController.getInstance().getCurrentWordleController().clearAllPanels();
+                    //restartGameTimer();
+                    //startGameTimer();
+
+
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second

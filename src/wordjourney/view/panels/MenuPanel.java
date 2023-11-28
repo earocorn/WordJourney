@@ -68,29 +68,28 @@ public class MenuPanel extends JPanel implements ActionListener {
     public ImageIcon getTitle(){
         try{
             if(GameController.getInstance().getGameState() == GameState.MENU){
-                //title =  new ImageIcon("src/assets/ui/titles/title.png");
-                return new ImageIcon("src/assets/ui/titles/title.png");
+                title =  new ImageIcon("src/assets/ui/titles/title.png");
+               // return new ImageIcon("src/assets/ui/titles/title.png");
             }
             else if (GameController.getInstance().getGameState() == GameState.GAME_OVER){
-//                title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
-                return new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
+                title = new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
+               // return new ImageIcon("src/assets/ui/titles/gameOverTitle.png");
             }
 
         } catch(Exception e){
             e.printStackTrace();
         }
 
-//        return title;
-        return null;
+        return title;
+//        return null;
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        // TODO: Also print the player's high score on the gameover screen after they die. Print giant bubble image on the menu when in the main menu gamestate. Just make main menu and game over menu look clean basically
         if(GameController.getInstance().getGameState() == GameState.GAME_OVER) {
             //set font and font color for paint component
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
             g.setFont(GameUtility.getFont());
             g.drawString("High Score: " + GameController.getInstance().getPlayer().getScore(), 650, 50);
         }

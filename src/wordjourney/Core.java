@@ -26,8 +26,8 @@ public class Core {
         SwingUtilities.invokeLater(() -> {
 
             // prompt username
-            String playerName = (String)JOptionPane.showInputDialog(null,"Enter your name to keep track of your progress", "Enter Name", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/assets/ui/titlebar/wordJourneyIcon.png"), null, "");
-            
+            String playerName = (String)JOptionPane.showInputDialog(null,"Enter your name to keep track of your progress", "Word Journey", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/assets/ui/titlebar/wordJourneyIcon.png"), null, "");
+
             // load assets and important data
             utility = GameUtility.getInstance();
 

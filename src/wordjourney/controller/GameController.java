@@ -70,7 +70,7 @@ public class GameController {
                     if (gameTimer == null) {
                         gameTimer = new GameTimer();
                     }
-                    gameTimer.startGameTimer();
+                    //GameController.getInstance().getGameTimer().startGameTimer();
                     break;
                 }
                 case MENU -> {

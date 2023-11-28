@@ -33,10 +33,16 @@ public class LeaderBoardView extends JPanel {
 
             int i = 0;
             for (Map.Entry<String, Long> entry : GameUtility.getInstance().getLeaderboardData().getLeaderboard().entrySet()) {
-                leaderboardArray[i][0] = entry.getKey();
-                leaderboardArray[i][1] = String.valueOf(entry.getValue());
-                System.out.println(leaderboardArray[i][0] + " : " + leaderboardArray[i][1]);
-                i++;
+                if(i<5){
+                    leaderboardArray[i][0] = entry.getKey();
+                    leaderboardArray[i][1] = String.valueOf(entry.getValue());
+                    System.out.println(leaderboardArray[i][0] + " : " + leaderboardArray[i][1]);
+                    i++;
+                }
+                else{
+                    break;
+                }
+
             }
 
             while (i < 5) {
