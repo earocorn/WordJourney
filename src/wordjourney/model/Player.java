@@ -263,12 +263,12 @@ public class Player {
 
         if (score % 2 == 0 && score != 0) {
             GameController.getInstance().getGameView().getGamePanel().explodeMonster();
-            if (score <= 4) {
+            if (score <= 10) {
                 // decrease the timer at an exponential rate
                 startTime = (int) (GameUtility.STARTING_TIME / Math.pow(GameUtility.TIMER_EXPONENT_BASE, score)) + 30;
             } else {
                 // after a few rounds, switch to a constant rate
-                startTime = GameUtility.STARTING_TIME - ((score - 8) * GameUtility.TIMER_DECREMENT);
+                startTime -= GameUtility.TIMER_DECREMENT;
             }
             System.out.println("Current level = " + currentLevel);
         }

@@ -2,6 +2,7 @@ package wordjourney.util;
 
 import wordjourney.model.GameState;
 import wordjourney.model.Level;
+import wordjourney.model.SoundEffect;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -23,13 +24,14 @@ public final class GameUtility {
     public static final Dimension windowDimension = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
     private static Font gameFont;
     private static Clip gameAudioClip;
+    private static Clip soundEffectClip;
 
     //character settings
     public static final int STARTING_LIVES = 2;
     public static final int STARTING_SCORE = 0;
     public static final int STARTING_TIME = 180;
-    public static final int TIMER_DECREMENT = 5;
-    public static final double TIMER_EXPONENT_BASE = 1.5;
+    public static final int TIMER_DECREMENT = 6;
+    public static final double TIMER_EXPONENT_BASE = 1.2;
     public static final int STARTING_LEVEL = 0;
     public static final int STARTING_PLAYER_X_VELOCITY = 3;
     public static final int numLevels = 11;
@@ -115,6 +117,7 @@ public final class GameUtility {
         System.out.println("Loading music...");
         try {
             AudioInputStream gameAudioInput = getGameAudioInput(GameState.MENU);
+            soundEffectClip = AudioSystem.getClip();
             gameAudioClip = AudioSystem.getClip();
             gameAudioClip.open(gameAudioInput);
             gameAudioClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -134,6 +137,38 @@ public final class GameUtility {
             e.printStackTrace();
         }
     }
+
+    public void playSoundEffect(SoundEffect soundEffect) {
+        String sound = "";
+        switch (soundEffect) {
+            case BOOM:
+                sound = "boom.wav";
+                break;
+            case DING:
+                sound = "ding.wav";
+                break;
+            case ERROR:
+                sound = "error.wav";
+                break;
+            default:
+                sound = "";
+                break;
+        }
+        File file = new File("src/assets/audio/" + sound);
+        System.out.println("File: " + file.getAbsolutePath());
+        AudioInputStream ais = null;
+        try {
+            ais = AudioSystem.getAudioInputStream(file);
+            soundEffectClip.stop();
+            soundEffectClip.close();
+            soundEffectClip.flush();
+            soundEffectClip.open(ais);
+            soundEffectClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * @param gameState

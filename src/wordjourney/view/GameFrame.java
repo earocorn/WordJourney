@@ -28,6 +28,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
+        setTitle("Word Journey");
 
         //add main panel to game frame
         mainPanel = new JPanel();

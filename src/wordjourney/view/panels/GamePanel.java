@@ -6,17 +6,21 @@ import wordjourney.controller.WordleController;
 import wordjourney.controller.listener.PlayerAnimationListener;
 import wordjourney.controller.listener.PlayerJumpListener;
 import wordjourney.model.Player;
+import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.InputComponent;
 import wordjourney.view.components.WordleView;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * A class used to represent a graphical panel for displaying the main game Panel
@@ -128,6 +132,7 @@ public class GamePanel extends JPanel {
 
     public void explodeMonster() {
         System.out.println("Exploding monster ... ");
+        GameUtility.getInstance().playSoundEffect(SoundEffect.BOOM);
         wordleController.stopGameTimer();
         player.setXVelocity(0);
         wordleView.getInput().getUserInput().setEnabled(false);

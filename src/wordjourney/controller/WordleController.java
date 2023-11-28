@@ -1,6 +1,7 @@
 package wordjourney.controller;
 
 
+import wordjourney.model.SoundEffect;
 import wordjourney.model.WordleModel;
 import wordjourney.util.GameUtility;
 import wordjourney.view.components.WordComponent;
@@ -112,6 +113,7 @@ public class WordleController implements ActionListener, KeyListener {
         if (wordleModel.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
+            GameUtility.getInstance().playSoundEffect(SoundEffect.ERROR);
             if(player.getLives() <= 0) {
                 // TODO: move this to Player class
                 //GameController.getInstance().setGameState(GameState.GAME_OVER);
