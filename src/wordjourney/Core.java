@@ -18,19 +18,16 @@ public class Core {
 //    public static WordleController wordManager;
 
     public static void main(String[] args) {
-        //// setting task bar icon
+        // setting task bar icon
         Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
         final Taskbar taskbar = Taskbar.getTaskbar();
         taskbar.setIconImage(icon);
 
         SwingUtilities.invokeLater(() -> {
 
-
             // prompt username
             String playerName = (String)JOptionPane.showInputDialog(null,"Enter your name to keep track of your progress", "Enter Name", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/assets/ui/titlebar/wordJourneyIcon.png"), null, "");
-
-
-
+            
             // load assets and important data
             utility = GameUtility.getInstance();
 
