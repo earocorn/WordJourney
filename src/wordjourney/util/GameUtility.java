@@ -29,7 +29,7 @@ public final class GameUtility {
     public static final int STARTING_TIME = 180; // 3 minute initial start of game time
     public static final int TIMER_DECREMENT = 7; // number the timer decrements by when you reach new level
     public static final double TIMER_EXPONENT_BASE = 1.2; // number the timer uses when reaching a new level to modify inital start time
-    public static final int STARTING_LEVEL = 0; //inital starting level
+    public static final int STARTING_LEVEL = 0; //initial starting level
     public static final int STARTING_PLAYER_X_VELOCITY = 3; //players initial x velocity when moving left and right on the screen
     public static final int numLevels = 11; // total number of levels in the game
     private static final Level[] levels = new Level[numLevels]; // array to store levels, and the level the player is on

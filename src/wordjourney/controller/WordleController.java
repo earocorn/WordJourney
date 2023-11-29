@@ -105,10 +105,9 @@ public class WordleController implements ActionListener, KeyListener {
         }
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
-            clearAllPanels();
             player.decrementLives();
             GameUtility.getInstance().playSoundEffect(SoundEffect.ERROR);
-//            GameController.getInstance().getGameTimer().resetTime();
+            GameController.getInstance().getGameTimer().resetTime();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);

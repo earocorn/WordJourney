@@ -321,20 +321,19 @@ public class Player {
     public void decrementLives() {
         if (lives > 1) {
             lives--; // Decrement lives by 1
-            GameController.getInstance().getGameTimer().restartGameTimer();
-            GameController.getInstance().getCurrentWordleController().clearAllPanels();
         } else {
             lives--;
             GameController.getInstance().getGameTimer().stopGameTimer();
             GameController.getInstance().setGameState(GameState.GAME_OVER);
             System.out.println("Switched to GameState.GAME_OVER");
+            return;
         }
+        GameController.getInstance().getGameTimer().resetTime();
+        GameController.getInstance().getCurrentWordleController().clearAllPanels();
     }
-
 
     /**
      * Checks if the player is currently running to the next level.
-     *
      * @return True if the player is running to the next level, false otherwise.
      */
     public boolean isRunningToNextLevel() {
@@ -377,6 +376,7 @@ public class Player {
      * @return startTime
      */
     public int getStartTime() {
+
         return startTime;
     }
 

@@ -20,7 +20,6 @@ public class GameController {
 
     private GameController() {
         System.out.println("GameController singleton has been created!");
-        // TODO: Put other initialization here. When GameController is constructed, we are in the main menu screen so we don't need to initialize Wordle-MVC here but might need to initialize other stuff such as getting locally stored data or something, idk.
     }
 
     public static GameController getInstance() {
@@ -48,35 +47,30 @@ public class GameController {
 
     public void setGameState(GameState gameState) {
         if (this.gameState != gameState) {
-            // TODO: Somehow check if Wordle-MVC is initialized so that we only have to initialize everything once. This could be done using methods like if getWordleView/Model/Controller() returns null.
-            // ALSO, we could put a switch-case statement here to check which GameState is being set, so we can do other stuff such as
             gameFrame.setPanel(gameState);
-//            if(gameState != GameState.LEADERBOARD && gameState != GameState.MENU && this.gameState != GameState.LEADERBOARD) {
             GameUtility.getInstance().playMusic(gameState);
-//            }
-
             switch (gameState) {
                 case IN_GAME -> {
                     if (gameTimer == null) {
                         gameTimer = new GameTimer();
                     }
-
-                    if (player.getLives() < GameUtility.STARTING_LIVES) {
+                    // checks if player has lost a life
+                    if (player.getLives()!= GameUtility.STARTING_LIVES) {
                         player.setTimeLeft(GameUtility.STARTING_TIME);
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);
                         player.setScore(GameUtility.STARTING_SCORE);
                         player.setLives(GameUtility.STARTING_LIVES);
-                        gameTimer.restartGameTimer();
-                       // GameController.getInstance().getGameTimer().restartGameTimer();
-//                        GameController.getInstance().getGameTimer().resetTime();
-                    }
-//                    else {
-////                        GameController.getInstance().getGameTimer().resetTime();
-////                        GameController.getInstance().getGameTimer().restartGameTimer();
-//                    }
 
-                    gameTimer.startGameTimer();
-//                    GameController.getInstance().getGameTimer().startGameTimer();
+                        //gameTimer.resetGameTimer();
+                        //restart the game timer has a resetGameTimerin it
+                        gameTimer.restartGameTimer();
+                    }
+                    //player got the word correctly we still need to restart the timer!!
+                    else {
+                        gameTimer.resetTime();
+                        gameTimer.startGameTimer();
+                    }
+
                     break;
                 }
                 case MENU -> {
@@ -134,7 +128,6 @@ public class GameController {
     public void setCurrentWordleView(WordleView currentWordleView) {
         this.currentWordleView = currentWordleView;
     }
-
     public GameTimer getGameTimer() {
         return gameTimer;
     }

@@ -25,7 +25,8 @@ import java.util.TreeMap;
 public class DataManager {
     JSONArray players = null; // JSONArray to store player data
    TreeMap<String, Long> sortedLeaderboard = null; // TreeMap to store and automatically sort the leaderboard
-    
+    private Map<String, Long> leaderboardMap = new HashMap<>(); // Map to store players scores
+
     /**
      * Constructs a new DataManager object. It loads player data from a JSON file and
      * initializes the leaderboard.
@@ -36,8 +37,8 @@ public class DataManager {
             Object obj = parser.parse(new FileReader("src/assets/playerdata/highscores.json"));
             players = (JSONArray) obj;
 
-            //map to store players scores
-            Map<String, Long> leaderboardMap = new HashMap<>();
+//            //map to store players scores
+//            Map<String, Long> leaderboardMap = new HashMap<>();
 
             // populated the leaderboard with  data from players array
             for (Object playerObject : players) {
@@ -71,8 +72,10 @@ public class DataManager {
      * @param score points achieved by player during their game
      */
     public void pushEntry(String name, int score) {
-        sortedLeaderboard.put(name, (long) score);
-//        System.out.println(sortedLeaderboard + "\nAdded " + name + " with score of " + score);
+        sortedLeaderboard.put(name, (long)score);
+        sortedLeaderboard = new TreeMap<>(Comparator.comparingLong(leaderboardMap::get));
+        sortedLeaderboard.putAll(leaderboardMap);
+        System.out.println(sortedLeaderboard + "\nAdded " + name + " with score of " + score);
     }
 
     /**

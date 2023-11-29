@@ -5,4 +5,5 @@ To enter a guess, type any 5-letter word and press enter.
 All your guesses must be real words, according to the dictionary of 5-letter words that we have chosen.
 When you get a word correct you gain a point, and with those points you will be able to move on to another level.
 The game has 11 levels that consist of getting two words correct Wordles to move on to the next level.
+Don't forget you only have three lives before the game ends
 

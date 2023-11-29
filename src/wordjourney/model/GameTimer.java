@@ -1,9 +1,6 @@
 package wordjourney.model;
 
 import wordjourney.controller.GameController;
-import wordjourney.controller.WordleController;
-import wordjourney.view.components.WordleView;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,7 +40,7 @@ public class GameTimer {
                     player.setTimeLeft(player.getTimeLeft() - 1);  //sets the player time to  decrement by 1
                 } else {
                     stopGameTimer();
-                    resetTime(); //resets time to the starting time
+                    //resetTime(); //resets time to the starting time
                     GameController.getInstance().getPlayer().decrementLives(); //decreases 1 life if player runs out of time
                     restartGameTimer();
                 }
@@ -55,14 +52,17 @@ public class GameTimer {
      * Stops the game timer when transitioning from the in-game state to the game over or menu state.
      */
     public void stopGameTimer() {
-        timer.cancel();
-        timer.purge();
+        if (timer != null){
+            timer.cancel();
+            timer.purge();
+        }
     }
 
     /**
      * Method to create a new instance of timer when necessary in the game: time runs out, starts new game, moves to another wordle
      */
     public void restartGameTimer() {
+        resetTime();
         timer = new Timer();
         startGameTimer();
     }
