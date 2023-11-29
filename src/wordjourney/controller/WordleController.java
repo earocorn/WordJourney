@@ -32,6 +32,7 @@ public class WordleController implements ActionListener, KeyListener {
         this.wordleView = wordleView;
         player = GameController.getInstance().getPlayer();
         wordleModel.setCurrentWordle(getWordleString());
+        System.out.println("Word for the day : " + wordleModel.getCurrentWordle());
         System.out.println("WordleController constructor");
 
         // add input listeners
@@ -95,29 +96,23 @@ public class WordleController implements ActionListener, KeyListener {
         }
          boolean isCorrect = isWordleEqualTo(userWord);
 
+        //adds 1 point to score, clears panels and resets the game time
         if (isCorrect) {
             player.incrementScore();
             clearAllPanels();
             GameController.getInstance().getGameTimer().resetTime();
             return;
         }
-        
         //checks if users current line is over guess limit, if so removes life and clears panel
         if (wordleModel.getCurrentLine() >= 5) {
             clearAllPanels();
             player.decrementLives();
             GameUtility.getInstance().playSoundEffect(SoundEffect.ERROR);
-            if(player.getLives() <= 0) {
-                // TODO: move this to Player class
-                //GameController.getInstance().setGameState(GameState.GAME_OVER);
-            }
-            GameController.getInstance().getGameTimer().resetTime();
+//            GameController.getInstance().getGameTimer().resetTime();
             return;
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
-
     }
-
     public void clearAllPanels() {
         for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();

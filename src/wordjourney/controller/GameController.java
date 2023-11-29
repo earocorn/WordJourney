@@ -57,20 +57,26 @@ public class GameController {
 
             switch (gameState) {
                 case IN_GAME -> {
-                    // TODO: do setup for timer here so that we dont call it on window open
-                    if (player.getLives() != GameUtility.STARTING_LIVES) {
+                    if (gameTimer == null) {
+                        gameTimer = new GameTimer();
+                    }
+
+                    if (player.getLives() < GameUtility.STARTING_LIVES) {
                         player.setTimeLeft(GameUtility.STARTING_TIME);
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);
                         player.setScore(GameUtility.STARTING_SCORE);
                         player.setLives(GameUtility.STARTING_LIVES);
-                        GameController.getInstance().getGameTimer().restartGameTimer();
-                    } else {
-                        GameController.getInstance().getGameTimer().startGameTimer();
+                        gameTimer.restartGameTimer();
+                       // GameController.getInstance().getGameTimer().restartGameTimer();
+//                        GameController.getInstance().getGameTimer().resetTime();
                     }
-                    if (gameTimer == null) {
-                        gameTimer = new GameTimer();
-                    }
-                    //GameController.getInstance().getGameTimer().startGameTimer();
+//                    else {
+////                        GameController.getInstance().getGameTimer().resetTime();
+////                        GameController.getInstance().getGameTimer().restartGameTimer();
+//                    }
+
+                    gameTimer.startGameTimer();
+//                    GameController.getInstance().getGameTimer().startGameTimer();
                     break;
                 }
                 case MENU -> {

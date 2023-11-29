@@ -36,7 +36,7 @@ public class PlayerAnimationListener implements ActionListener {
                     container.getWordleView().getInput().getUserInput().setEnabled(true);
                     container.getWordleView().getInput().getUserInput().grabFocus();
                     GameController.getInstance().getGameTimer().resetTime();
-                    GameController.getInstance().getGameTimer().restartGameTimer();
+//                    GameController.getInstance().getGameTimer().restartGameTimer();
                     container.resetMonster();
                 }
             }

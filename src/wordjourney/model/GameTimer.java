@@ -27,6 +27,7 @@ public class GameTimer {
      * method to reset the game time to the starting time
      */
     public void resetTime() {
+        System.out.println("Reset Game Timer");
         player.setTimeLeft(player.getStartTime());
     }
 
@@ -34,16 +35,17 @@ public class GameTimer {
      * method to start the game timer and handles updating time left and decrements players lives
      */
     public void startGameTimer() {
+        System.out.println("New Game Timer Started");
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (player.getTimeLeft() > 0) {
                     player.setTimeLeft(player.getTimeLeft() - 1);  //sets the player time to  decrement by 1
                 } else {
-                    timer.cancel(); //cancels timer when time runs out
-                    timer.purge();
+                    stopGameTimer();
                     resetTime(); //resets time to the starting time
                     GameController.getInstance().getPlayer().decrementLives(); //decreases 1 life if player runs out of time
+                    restartGameTimer();
                 }
             }
         }, 0, 1000); // Start the timer with a 1-second delay and repeat every 1 second
