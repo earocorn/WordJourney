@@ -1,26 +1,27 @@
 package wordjourney.model;
 
 /**
- *
+ * GameState enum represents the different states of the game
  */
 public enum GameState {
     MENU("MAIN MENU"),
     GAME_OVER("GAME-OVER"),
-    IN_GAME("WORD JOURNEY") {
-        // TODO: NOT CONCRETE: We could either use the GameController.setState(gameState) and a switch-case statement that goes through whichever gameState, OR I believe we could put functions in the constructor of the enum yet I have not tested this. Please let me know opinions and any questions.
-        // GameController.doSomething()
-    },
+    IN_GAME("WORD JOURNEY") ,
     LEADERBOARD("LEADERBOARD");
 
     private String title;
 
+    /**
+     * Constructs a new game state enum constant with specified title
+     * @param s title of the game state
+     */
     GameState(String s) {
         title = s;
     }
 
     /**
-     * method to return the game state title
-     * @return title
+     * method to retrieve the game state title
+     * @return the title of the game state
      */
     public String getTitle() {
         return title;
