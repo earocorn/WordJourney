@@ -3,23 +3,21 @@ package wordjourney.view.components;
 import wordjourney.util.GameUtility;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Random;
+
+/**
+ *Represents the view component for the Wordle game, responsible for displaying
+ *the word panels and input component for player interaction.
+ */
 
 public class WordleView extends JPanel {
 
     private final InputComponent input;
     private final WordComponent[] wordPanelArray = new WordComponent[6];
 
+    /**
+     *Constructs a new WordleView, initializing the UI components.
+     */
     public WordleView(){
         JPanel wordleContainer = new JPanel(new GridLayout(8, 1));
         wordleContainer.setBackground(GameUtility.TRANSPARENT);
@@ -40,10 +38,18 @@ public class WordleView extends JPanel {
         add(wordleContainer);
     }
 
+    /**
+     * Gets the input component associated with this WordleView.
+     * @return The InputComponent instance.
+     */
     public InputComponent getInput() {
         return input;
     }
 
+    /**
+     * Gets an array of word panels used in the Wordle game.
+     * @return An array of WordComponent instances.
+     */
     public WordComponent[] getWordPanelArray() {
         return wordPanelArray;
     }

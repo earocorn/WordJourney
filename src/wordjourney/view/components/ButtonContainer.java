@@ -11,12 +11,12 @@ import java.awt.*;
  */
 public class ButtonContainer extends JPanel{
 
-    JButton startButton;
-    JButton quitButton;
-    ImageIcon startButtonIcon;
-    ImageIcon quitButtonIcon;
-    JButton leaderBoardButton;
-    ImageIcon leaderBoardButtonIcon;
+    JButton startButton; // start button to move player to in game state
+    JButton quitButton;   // quit button to exit the game
+    ImageIcon startButtonIcon; // start button icon
+    ImageIcon quitButtonIcon; // quit button icon image
+    JButton leaderBoardButton; // leaderboard button to move player into leaderbaord state
+    ImageIcon leaderBoardButtonIcon; // leaderboard button icon image
 
 
 

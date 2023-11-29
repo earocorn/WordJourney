@@ -11,34 +11,34 @@ import javax.swing.*;
  */
 public class Player {
 
-    private int xVelocity;
-    private int x;
-    private int y;
-    private int yMoveLimit;
-    private boolean ascending;
-    private int[] heartY;
-    private int initialHeartY;
-    private int[] heartYLimits;
-    private int[] heartJumpDistances;
-    private boolean[] heartAscending;
-    private int score;
-    private int lives;
-    private int currentLevel;
-    private int timeLeft;
-    private int startTime;
-    private String name;
-    private final ImageIcon playerIcon;
-    private final ImageIcon heartIcon;
-    private boolean isRunningToNextLevel;
+
+    private int xVelocity;  // Velocity of the player in the horizontal direction
+    private int x; // Current x-coordinate of the player
+    private int y;   // Current y-coordinate of the player
+    private int yMoveLimit;    // Limit for vertical movement of the player
+    private boolean ascending;     // Flag indicating whether the player is ascending in the vertical direction
+    private int[] heartY;    // Array storing y-coordinates of hearts representing player lives
+    private int initialHeartY; // Initial y-coordinate of hearts representing player lives
+    private int[] heartYLimits;     // Array storing limits for vertical movement of each heart
+    private int[] heartJumpDistances;     // Array storing jump distances for each heart
+    private boolean[] heartAscending;  // Array indicating whether each heart is ascending in the vertical direction
+    private int score;     // Player's current score
+    private int lives;  // Player's remaining lives
+    private int currentLevel;     // Player's current leve
+    private int timeLeft; // time remaining
+    private int startTime;  // Initial time set for the player
+    private String name;     // Player's name
+    private final ImageIcon playerIcon;   // Icon representing the player
+    private final ImageIcon heartIcon;     // Icon representing player lives
+    private boolean isRunningToNextLevel;  // Flag indicating whether the player is currently running to the next level
 
 
     /**
      * @constructor for the player class
      */
     public Player() {
-        //leaderBoardView = LeaderBoard.getInstance().getLeaderBoardPanel.getLeaderBoardView();
 
-        // player data
+        // initialize player data
         this.score = GameUtility.STARTING_SCORE;
         this.lives = GameUtility.STARTING_LIVES;
         this.name = "PLAYER";
@@ -46,7 +46,7 @@ public class Player {
         this.timeLeft = startTime;
         this.currentLevel = 0;
 
-        // guy graphics
+        // initialize player graphics
 //        this.playerIcon = new ImageIcon("src/assets/ui/sprites/sprite.png");
         this.heartIcon = new ImageIcon("src/assets/ui/sprites/hearts.png");
         this.playerIcon = new ImageIcon("src/assets/ui/sprites/littleGuy.png");
@@ -55,9 +55,8 @@ public class Player {
         this.y = 0;
         this.yMoveLimit = 100;
         this.ascending = false;
-        // hearts graphics
+        //initialize  hearts graphics
         this.heartY = new int[lives];
-        //this.initialHeartY;
         this.heartYLimits = new int[lives];
         this.heartJumpDistances = new int[lives];
 
@@ -82,10 +81,7 @@ public class Player {
      * @param score The new score to set for the player.
      */
     public void setScore(int score) {
-        // I think this is the best place to call difficulty logic / animation logic for changing backgrounds
-        // Either change this setScore() method to addPoint() and losePoint() in order to not allow score of more/less than +/- 1
-        // TODO: Implement logic to let the game view know that the background should be updated and to change the number of level that the player is on and difficulty logic and shit like that.
-        this.score = score;
+      this.score = score;
     }
 
     /**
@@ -169,87 +165,152 @@ public class Player {
         return heartIcon;
     }
 
+    /**
+     * @return x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * @return
+     */
     public boolean isAscending() {
         return ascending;
     }
 
+    /**
+     * @param ascending
+     */
     public void setAscending(boolean ascending) {
         this.ascending = ascending;
     }
 
+    /**
+     * @return
+     */
     public int[] getHeartY() {
         return heartY;
     }
 
+    /**
+     * @param heartY
+     */
     public void setHeartY(int[] heartY) {
         this.heartY = heartY;
     }
 
+    /**
+     * @return
+     */
     public int[] getHeartYLimits() {
         return heartYLimits;
     }
 
+    /**
+     * @param heartYLimits
+     */
     public void setHeartYLimits(int[] heartYLimits) {
         this.heartYLimits = heartYLimits;
     }
 
+    /**
+     * @return
+     */
     public int[] getHeartJumpDistances() {
         return heartJumpDistances;
     }
 
+    /**
+     * @param heartJumpDistances
+     */
     public void setHeartJumpDistances(int[] heartJumpDistances) {
         this.heartJumpDistances = heartJumpDistances;
     }
 
+    /**
+     * @return
+     */
     public boolean[] getHeartAscending() {
         return heartAscending;
     }
 
+    /**
+     * @param heartAscending
+     */
     public void setHeartAscending(boolean[] heartAscending) {
         this.heartAscending = heartAscending;
     }
 
+    /**
+     * @param deltaX
+     * @param deltaY
+     */
     public void move(int deltaX, int deltaY) {
         this.x += deltaX;
         this.y += deltaY;
     }
 
+    /**
+     * @return
+     */
     public int getYMoveLimit() {
         return yMoveLimit;
     }
 
+    /**
+     * @param yMoveLimit
+     */
     public void setYMoveLimit(int yMoveLimit) {
         this.yMoveLimit = yMoveLimit;
     }
 
+    /**
+     *
+     * @return y
+     */
     public int getInitialHeartY() {
         return initialHeartY;
     }
 
+    /**
+     * @param initialHeartY
+     */
     public void setInitialHeartY(int initialHeartY) {
         this.initialHeartY = initialHeartY;
     }
 
+    /**
+     * @return
+     */
     public int getXVelocity() {
         return xVelocity;
     }
 
+    /**
+     * @param xVelocity
+     */
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }

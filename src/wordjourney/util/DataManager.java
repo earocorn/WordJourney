@@ -23,12 +23,8 @@ import java.util.TreeMap;
  * @author
  */
 public class DataManager {
-
-    // JSONArray to store player data
-    JSONArray players = null;
-
-    // TreeMap to store and automatically sort the leaderboard
-   TreeMap<String, Long> sortedLeaderboard = null;
+    JSONArray players = null; // JSONArray to store player data
+   TreeMap<String, Long> sortedLeaderboard = null; // TreeMap to store and automatically sort the leaderboard
     
     /**
      * Constructs a new DataManager object. It loads player data from a JSON file and
@@ -80,7 +76,7 @@ public class DataManager {
     }
 
     /**
-     * method to write the players scores to a JSOn file
+     * method to write the players scores to a JSON file
      */
     public void writeScores() {
         for(Map.Entry<String, Long> entry : sortedLeaderboard.entrySet()) {

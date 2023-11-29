@@ -6,12 +6,18 @@ import wordjourney.model.GameState;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *  Class for the button container that holds a return and quit button
+ */
 public class LBbuttonsContainer extends JPanel {
-    JButton returnButton;
-    JButton quitButton;
-    ImageIcon returnButtonIcon;
-    ImageIcon quitButtonIcon;
+    JButton returnButton; // return button to return to main menu
+    JButton quitButton; // quit button to exit the game
+    ImageIcon returnButtonIcon; // return button image
+    ImageIcon quitButtonIcon;  // quit button image
 
+    /**
+     * Constructor for the buttons container  that sets and initializes the panel with the return and quit buttons
+     */
     public LBbuttonsContainer(){
         //create new instances of buttons
         returnButton = new JButton();

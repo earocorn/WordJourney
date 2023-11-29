@@ -12,9 +12,11 @@ import java.awt.*;
  */
 public class WordComponent extends JPanel {
 
-    /** an array to represent the columns**/
-    JLabel[] wordColumns = new JLabel[5];
-    /**Constructor WordComponent and initializes components**/
+    JLabel[] wordColumns = new JLabel[5];  // an array to represent the columns
+
+    /**
+     * Constructor WordComponent and initializes components
+     **/
     public WordComponent() {
         this.setLayout(new GridLayout(1, 5));
         Border blackBorder = BorderFactory.createLineBorder(new Color(160, 160, 160, 99));

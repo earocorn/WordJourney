@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class InputComponent extends JPanel{
 
-    private final JTextField userInput;
-    private final JButton enterButton;
+    private final JTextField userInput; //text field area  where the user inputs their guesses
+    private final JButton enterButton; // enter button on the input panel
 
     /**
      * Constructor to initialize UserPanel and its properties
@@ -32,6 +32,7 @@ public class InputComponent extends JPanel{
     }
 
     /**
+     * method to retrieve the input from the user
      * @return userInput
      */
     public JTextField getUserInput() {
@@ -40,6 +41,7 @@ public class InputComponent extends JPanel{
 
 
     /**
+     * method to retrieve the enter button
      * @return enterButton
      */
     public JButton getEnterButton() {
@@ -47,7 +49,7 @@ public class InputComponent extends JPanel{
     }
 
     /**
-     * method to clear the user input to empty text
+     * method to clear the user input to empty text from the jtextfield area
      */
     public void clearUserInput(){
         userInput.setText("");
