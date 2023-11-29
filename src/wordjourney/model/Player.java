@@ -1,8 +1,7 @@
 package wordjourney.model;
 
-import wordjourney.util.GameUtility;
 import wordjourney.controller.GameController;
-import wordjourney.view.components.LeaderBoardView;
+import wordjourney.util.GameUtility;
 
 import javax.swing.*;
 
@@ -34,7 +33,7 @@ public class Player {
 
 
     /**
-     * @constructor for the player class
+     * constructor for the player class
      */
     public Player() {
 
@@ -94,7 +93,7 @@ public class Player {
 
     /**
      * sets the players anme
-     * @param name
+     * @param name of the player
      */
     public void setName(String name) {
         this.name = name;
@@ -110,7 +109,7 @@ public class Player {
 
     /**
      * sets the players current lives
-     * @param lives
+     * @param lives the player has
      */
     public void setLives(int lives) {
         this.lives = lives;
@@ -126,7 +125,7 @@ public class Player {
 
     /**
      * sets the time remaining
-     * @param timeLeft
+     * @param timeLeft remaining during the game
      */
     public void setTimeLeft(int timeLeft) {
         this.timeLeft = timeLeft;
@@ -151,7 +150,7 @@ public class Player {
 
     /**
      * returns the players current level
-     * @param currentLevel
+     * @param currentLevel that the player is on
      */
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
@@ -173,99 +172,99 @@ public class Player {
     }
 
     /**
-     * @param x
+     * @param x value
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * @return
+     * @return y
      */
     public int getY() {
         return y;
     }
 
     /**
-     * @param y
+     * @param y value
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     * @return
+     * @return ascending
      */
     public boolean isAscending() {
         return ascending;
     }
 
     /**
-     * @param ascending
+     * @param ascending value
      */
     public void setAscending(boolean ascending) {
         this.ascending = ascending;
     }
 
     /**
-     * @return
+     * @return heartY
      */
     public int[] getHeartY() {
         return heartY;
     }
 
     /**
-     * @param heartY
+     * @param heartY setter
      */
     public void setHeartY(int[] heartY) {
         this.heartY = heartY;
     }
 
     /**
-     * @return
+     * @return heartYLimits
      */
     public int[] getHeartYLimits() {
         return heartYLimits;
     }
 
     /**
-     * @param heartYLimits
+     * @param heartYLimits bounds for y axis
      */
     public void setHeartYLimits(int[] heartYLimits) {
         this.heartYLimits = heartYLimits;
     }
 
     /**
-     * @return
+     * @return heartJumpDistances
      */
     public int[] getHeartJumpDistances() {
         return heartJumpDistances;
     }
 
     /**
-     * @param heartJumpDistances
+     * @param heartJumpDistances setter
      */
     public void setHeartJumpDistances(int[] heartJumpDistances) {
         this.heartJumpDistances = heartJumpDistances;
     }
 
     /**
-     * @return
+     * @return heartAscending
      */
     public boolean[] getHeartAscending() {
         return heartAscending;
     }
 
     /**
-     * @param heartAscending
+     * @param heartAscending value setter
      */
     public void setHeartAscending(boolean[] heartAscending) {
         this.heartAscending = heartAscending;
     }
 
     /**
-     * @param deltaX
-     * @param deltaY
+     * @param deltaX change in x for player movement
+     * @param deltaY change in y for player moves
      */
     public void move(int deltaX, int deltaY) {
         this.x += deltaX;
@@ -372,7 +371,7 @@ public class Player {
     }
 
     /**
-     * gets the inital start time for the game
+     * gets the initial start time for the game
      * @return startTime
      */
     public int getStartTime() {
@@ -382,7 +381,7 @@ public class Player {
 
     /**
      * sets the initial start time
-     * @param startTime
+     * @param startTime of each initial game
      */
     public void setStartTime(int startTime) {
         this.startTime = startTime;

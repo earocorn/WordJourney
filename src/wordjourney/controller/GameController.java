@@ -4,8 +4,6 @@ import wordjourney.model.*;
 import wordjourney.util.GameUtility;
 import wordjourney.view.GameFrame;
 import wordjourney.view.components.WordleView;
-import wordjourney.view.panels.GamePanel;
-
 
 public class GameController {
     private static GameController instance = null;
@@ -85,7 +83,7 @@ public class GameController {
                     break;
                 }
                 case LEADERBOARD -> {
-                    getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
+                    //getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
                 }
                 default -> {
 
