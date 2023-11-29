@@ -80,6 +80,13 @@ public class GameController {
                     GameUtility.getInstance().getLeaderboardData().pushEntry(player.getName(), player.getScore());
                     GameUtility.getInstance().getLeaderboardData().writeScores();
                     getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
+
+                    //reset everything
+//                    getCurrentWordleController().clearAllPanels();
+//                    getPlayer().setTimeLeft(GameUtility.STARTING_TIME);
+//                    gameTimer.resetTime();
+//                    getPlayer().setScore(GameUtility.STARTING_SCORE);
+//                    getPlayer().setCurrentLevel(GameUtility.STARTING_LEVEL);
                     break;
                 }
                 case LEADERBOARD -> {
