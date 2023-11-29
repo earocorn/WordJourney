@@ -72,7 +72,7 @@ public class DataManager {
      * @param score points achieved by player during their game
      */
     public void pushEntry(String name, int score) {
-        sortedLeaderboard.put(name, (long)score);
+        leaderboardMap.put(name, (long) score);
         sortedLeaderboard = new TreeMap<>(Comparator.comparingLong(leaderboardMap::get));
         sortedLeaderboard.putAll(leaderboardMap);
         System.out.println(sortedLeaderboard + "\nAdded " + name + " with score of " + score);
