@@ -363,10 +363,14 @@ public class Player {
                 startTime -= GameUtility.TIMER_DECREMENT;
             }
             System.out.println("Current level = " + currentLevel);
+            GameController.getInstance().getGameTimer().restartGameTimer();
         }
 
+
         if(score >= GameUtility.numLevels * 2) {
+            //there are only 11 levels
             GameController.getInstance().setGameState(GameState.GAME_OVER);
+
         }
     }
 
