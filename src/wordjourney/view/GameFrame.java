@@ -10,18 +10,22 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A class used to represent a graphical frame to display two panels; gamePanel and menuPanel
+ * A class used to represent a graphical frame to display three panels: gamePanel, leaderboard and menuPanel
+ * uses card layout to switch between the panels
  */
 public class GameFrame extends JFrame {
     JPanel mainPanel;
     CardLayout cardLayout;
-    GamePanel gamePanel; //extends JPanel
-    MenuPanel menuPanel; //extends JPanel
-    LeaderBoardPanel leaderBoardPanel; //extends JPanel
+    GamePanel gamePanel;
+    MenuPanel menuPanel;
+    LeaderBoardPanel leaderBoardPanel;
 
 
     /**
      * Constructor GameFrame and initializes properties
+     * Sets up the frame window with specified dimensions, default close operation, and title.
+     * Adds mainPanel to the game frame, which contains menuPanel, gamePanel, and leaderBoardPanel.
+     * Uses CardLayout to manage the switching of panels.
      */
     public GameFrame(){
 
@@ -53,8 +57,10 @@ public class GameFrame extends JFrame {
     }
 
     /**
-     * method to show the panel depending on game state
-     */
+     * Sets the current panel based on the provided game state.
+     *If the game state is GAME_OVER, it switches to the MENU panel, and the menuPanel's timer is restarted.
+     *@param gameState The current game state.
+     **/
     public void setPanel(GameState gameState){
         GameState cardState = gameState == GameState.GAME_OVER ? GameState.MENU : gameState;
         if(cardState == GameState.MENU) {
