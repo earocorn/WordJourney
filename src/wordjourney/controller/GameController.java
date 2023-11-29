@@ -107,11 +107,14 @@ public class GameController {
      */
     public void setGameState(GameState gameState) {
         if (this.gameState != gameState) {
+            // Switch window panel
             gameFrame.setPanel(gameState);
+            // Switch currently playing music
             GameUtility.getInstance().playMusic(gameState);
 
             switch (gameState) {
                 case IN_GAME -> {
+                    // Reset player attributes upon game restart
                     if (player.getLives() != GameUtility.STARTING_LIVES) {
                         player.setTimeLeft(GameUtility.STARTING_TIME);
                         player.setCurrentLevel(GameUtility.STARTING_LEVEL);

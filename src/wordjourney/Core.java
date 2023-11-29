@@ -15,7 +15,6 @@ import java.awt.*;
 public class Core {
     public static GameUtility utility;
     public static GameController manager;
-//    public static WordleController wordManager;
 
     public static void main(String[] args) {
         // setting task bar icon

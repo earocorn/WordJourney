@@ -4,14 +4,11 @@
  */
 package wordjourney.util;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +20,6 @@ import org.json.simple.parser.ParseException;
  * @author bhump
  */
 public class DataManager {
-
     JSONArray players = null;
    TreeMap<String, Long> sortedLeaderboard = null;
     
@@ -35,15 +31,15 @@ public class DataManager {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("src/assets/playerdata/highscores.json"));
             players = (JSONArray) obj;
-            Map<String, Long> leaderboardMap = new HashMap<>();
+            Map<String, Long> leaderboardMap = new TreeMap<>();
             for (Object playerObject : players) {
                 JSONObject player = (JSONObject) playerObject;
                 leaderboardMap.put((String) player.get("name"), (Long) player.get("score"));
             }
 
-            System.out.println("Leaderboard loaded");
+            System.out.println("Leaderboard loaded : " + leaderboardMap);
             // adding data to tree automatically sorts it??
-            sortedLeaderboard = new TreeMap<>(leaderboardMap);
+            sortedLeaderboard = new TreeMap<>();
             sortedLeaderboard.putAll(leaderboardMap);
             System.out.println(sortedLeaderboard);
         } 

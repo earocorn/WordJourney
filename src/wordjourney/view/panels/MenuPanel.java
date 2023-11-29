@@ -52,7 +52,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         newButtonContainer = new JPanel();
 
         //set and add components
-        background.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2));
+        background.setLayout(new FlowLayout(FlowLayout.CENTER, 100, GameUtility.WINDOW_HEIGHT/2 + 50));
 
         add(background);
         background.add(setButtonContainer());
