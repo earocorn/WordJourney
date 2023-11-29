@@ -14,6 +14,10 @@ import java.io.IOException;
  * Utility class that contains various game-related functionality, such as loading fonts, music, levels, and managing the leaderboard.
  */
 public final class GameUtility {
+    public ClassLoader getCl() {
+        return cl;
+    }
+    private final ClassLoader cl = this.getClass().getClassLoader();
     private static GameUtility instance = null;  //
     public static final int WINDOW_WIDTH = 900; // width of the game
     public static final int WINDOW_HEIGHT = 600; // height of the game

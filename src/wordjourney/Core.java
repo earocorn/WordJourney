@@ -19,9 +19,9 @@ public class Core {
 
     public static void main(String[] args) {
         // setting task bar icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
-        final Taskbar taskbar = Taskbar.getTaskbar();
-        taskbar.setIconImage(icon);
+//        Image icon = Toolkit.getDefaultToolkit().getImage("src/assets/ui/titlebar/wordJourneyIcon.png");
+//        final Taskbar taskbar = Taskbar.getTaskbar();
+//        taskbar.setIconImage(icon);
 
         SwingUtilities.invokeLater(() -> {
 
