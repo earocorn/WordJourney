@@ -113,13 +113,6 @@ public class GamePanel extends JPanel {
         return wordleView;
     }
 
-    /**
-     * method to return current instance of wordleController
-     * @return wordleController
-     */
-    public WordleController getWordleController() {
-        return wordleController;
-    }
 
     /**
      *  method to call explosion of monster when the player moves to a new level
@@ -162,31 +155,7 @@ public class GamePanel extends JPanel {
         super.repaint();
     }
 
-    /**
-     * method to change background based on the players current score
-     */
-    public void updateBackground() {
-        int targetScore = (player.getCurrentLevel() + 1) * 2; // target score increment of 2 points per level
 
-        // Check if the player's score is greater than or equal to the target score
-        if (player.getScore() >= targetScore) {
-            player.setCurrentLevel(player.getCurrentLevel() + 1);
-
-            // Check if the new level exists in the array of levels
-            if (player.getCurrentLevel() >= GameUtility.getLevels().length) {
-                // TODO: should we start the levels over or should we do a completion of the game
-                // im just going to reset the score and levels for now
-                // so if score reaches 22 restarts points etc
-                //player.setScore(0); //TODO: check if this messes up past 22 points
-                player.setCurrentLevel(0);
-            }
-            backgroundImage = GameUtility.getLevels()[player.getCurrentLevel()].getLevelBackground();
-            background.setIcon(backgroundImage);
-
-            // Repaint the panel to reflect the background changes
-            repaint();
-        }
-    }
 
     /**
      * method to animate the hearts that represent the players lives

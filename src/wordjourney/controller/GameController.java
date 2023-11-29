@@ -81,16 +81,12 @@ public class GameController {
                     GameUtility.getInstance().getLeaderboardData().writeScores();
                     getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
 
-                    //reset everything
-//                    getCurrentWordleController().clearAllPanels();
-//                    getPlayer().setTimeLeft(GameUtility.STARTING_TIME);
-//                    gameTimer.resetTime();
-//                    getPlayer().setScore(GameUtility.STARTING_SCORE);
-//                    getPlayer().setCurrentLevel(GameUtility.STARTING_LEVEL);
+                    //reset wordle panel
+                    getCurrentWordleController().clearAllPanels();
                     break;
                 }
                 case LEADERBOARD -> {
-                    //getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
+                    getGameView().getLeaderBoardPanel().getLeaderBoardView().updateLeaderboardText();
                 }
                 default -> {
 

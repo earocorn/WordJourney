@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -17,15 +18,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- *The DataManager class manages the data for the word journey game, including loading and
- * sorting player scores in a leaderboard, pushing new entries, and writing scores to a file.
- *
- * @author
- */
+*The DataManager class manages the data for the word journey game, including loading and
+* sorting player scores in a leaderboard, pushing new entries, and writing scores to a file.
+*
+* @author
+**/
 public class DataManager {
-    JSONArray players = null; // JSONArray to store player data
-   TreeMap<String, Long> sortedLeaderboard = null; // TreeMap to store and automatically sort the leaderboard
-    private Map<String, Long> leaderboardMap = new HashMap<>(); // Map to store players scores
+
+    JSONArray players = null;
+    TreeMap<String, Long> sortedLeaderboard = null;
 
     /**
      * Constructs a new DataManager object. It loads player data from a JSON file and
@@ -36,9 +37,7 @@ public class DataManager {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("src/assets/playerdata/highscores.json"));
             players = (JSONArray) obj;
-
-//            //map to store players scores
-//            Map<String, Long> leaderboardMap = new HashMap<>();
+            Map<String, Long> leaderboardMap = new HashMap<>();
 
             // populated the leaderboard with  data from players array
             for (Object playerObject : players) {
@@ -47,23 +46,23 @@ public class DataManager {
             }
 
             System.out.println("Leaderboard loaded");
-
-            //tree map automatically sorts data bassed on players score
+            // adding data to tree automatically sorts it??
             sortedLeaderboard = new TreeMap<>(Comparator.comparingLong(leaderboardMap::get));
+//            sortedLeaderboard = new TreeMap<>(leaderboardMap);
             sortedLeaderboard.putAll(leaderboardMap);
             System.out.println(sortedLeaderboard);
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * retrieves the sorted leaderbaord
      @return A TreeMap representing the leaderboard with player names and scores
      */
     public TreeMap<String, Long> getLeaderboard() {
-       return sortedLeaderboard;
+        return sortedLeaderboard;
     }
 
     /**
@@ -72,9 +71,7 @@ public class DataManager {
      * @param score points achieved by player during their game
      */
     public void pushEntry(String name, int score) {
-        leaderboardMap.put(name, (long) score);
-        sortedLeaderboard = new TreeMap<>(Comparator.comparingLong(leaderboardMap::get));
-        sortedLeaderboard.putAll(leaderboardMap);
+        sortedLeaderboard.put(name, (long) score);
         System.out.println(sortedLeaderboard + "\nAdded " + name + " with score of " + score);
     }
 
