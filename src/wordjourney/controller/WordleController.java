@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- *
+ * Class that controls most aspects of the wordle section.
  */
 public class WordleController implements ActionListener, KeyListener {
     private static WordleController instance = null;
@@ -27,6 +27,11 @@ public class WordleController implements ActionListener, KeyListener {
     
     Player player;
 
+    /**
+     * constructor for the wordle controller.
+     * @param wordleModel
+     * @param wordleView 
+     */
     public WordleController(WordleModel wordleModel, WordleView wordleView){
         this.wordleModel = wordleModel;
         this.wordleView = wordleView;
@@ -56,6 +61,11 @@ public class WordleController implements ActionListener, KeyListener {
         return wordList.get(position).trim().toUpperCase();
     }
 
+    /**
+     * method that checks if a word that a user inputs is equal to the solution word.
+     * @param userWord word that a user inputs.
+     * @return boolean flag
+     */
     private boolean isWordleEqualTo(String userWord){
         List<String> wordleWordsList = Arrays.asList(wordleModel.getCurrentWordle().split(""));
         String[] userWordsArray = userWord.split("");
@@ -78,6 +88,10 @@ public class WordleController implements ActionListener, KeyListener {
         return !wordMatchesList.contains(false);
     }
 
+    /**
+     * returns the current word panel
+     * @return wordPanelArray
+     */
     private WordComponent getActivePanel() {
         return wordleView.getWordPanelArray()[wordleModel.getCurrentLine()];
     }
@@ -112,6 +126,10 @@ public class WordleController implements ActionListener, KeyListener {
         }
         wordleModel.setCurrentLine(wordleModel.getCurrentLine()+1);
     }
+    
+    /**
+     * method that clears all of the wordle panels
+     */
     public void clearAllPanels() {
         for (int i = 0; i <= wordleModel.getCurrentLine(); i++) {
             wordleView.getWordPanelArray()[i].clearWordPanel();
@@ -121,20 +139,38 @@ public class WordleController implements ActionListener, KeyListener {
         wordleModel.setCurrentLine(0);
     }
 
+    /**
+     * method that starts a chain of other methods when a user enters an input word
+     * @param e enter button action
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         enterButtonEvent();
     }
 
+    /**
+     * method to check if a key is pressed
+     * @param e key pressed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }
+    
+    /**
+     * checks if the enter key is pressed
+     * @param e keyboard action
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             enterButtonEvent();
         }
     }
+    
+    /**
+     * method to check if a key is released
+     * @param e key released
+     */
     @Override
     public void keyReleased(KeyEvent e) {}
 

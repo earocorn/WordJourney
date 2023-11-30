@@ -3,7 +3,7 @@ package wordjourney.model;
 import javax.swing.*;
 
 /**
- *
+ * Class that loads and controls the level number and level backgrounds.
  */
 public class Level {
     private ImageIcon levelBackground; // variable for the background images

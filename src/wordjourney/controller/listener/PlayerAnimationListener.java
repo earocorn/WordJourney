@@ -8,17 +8,30 @@ import wordjourney.view.panels.GamePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * class that serves as an action listener for the player graphic's animations.
+ */
 public class PlayerAnimationListener implements ActionListener {
 
     private final Player player;
     private final GamePanel container;
+    
+    /**
+     * constructor for Player Animation Listener
+     * @param player current player
+     * @param container current game panel
+     */
     public PlayerAnimationListener(Player player, GamePanel container) {
         this.player = player;
         this.container = container;
     }
+    
+    /**
+     * method to detect if an action was performed and how to handle it
+     * @param e action performed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO: Currently this method is to move the player back and forth but we want to have one fluid movement from one level to the next when the player's score reaches the threshold to change levels
         if(!player.isRunningToNextLevel()) {
             if(player.getX() > GameUtility.WORDLEVIEW_EDGE-player.getPlayerIcon().getImage().getWidth(null) || player.getX()<0) {
                 player.setXVelocity(player.getXVelocity()*-1);
